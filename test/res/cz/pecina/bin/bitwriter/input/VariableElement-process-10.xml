@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <sum name="s" width="32"/>
+    1 2 3 4 5 6 7 8
+    <put name="s" reset="false"/>
+    <put value="1" type="stream-out"/>
+    <put name="s" reset="false"/>
+    <put value="1" type="stream-out"/>
+    <put name="s" reset="false"/>
+    <set name="t" value="{{s}}"/>
+    <put value="55" type="output-stream"/>
+    <put name="s"/>
+    <put name="t"/>
+  </stream>
+</file>

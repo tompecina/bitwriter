@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <hex>
+      <parity name="p"/>
+      00
+      <put name="p"/>
+      <parity name="p"/>
+      01
+      <put name="p"/>
+      <parity name="p"/>
+      03
+      <put name="p"/>
+      <parity name="p"/>
+      07
+      <put name="p"/>
+      <parity name="p"/>
+      cc
+      <put name="p"/>
+      <parity name="p"/>
+      ce
+      <put name="p"/>
+      <parity name="p"/>
+      ee
+      <put name="p"/>
+      <parity name="p"/>
+      ef
+      <put name="p"/>
+    </hex>
+  </stream>
+</file>

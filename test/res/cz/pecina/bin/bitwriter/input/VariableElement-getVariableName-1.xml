@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <hex>
+      <set name="{{b = 'a'; b}}" value="0b01010101"/>
+      <set name="c" value="{{a}}"/>
+      <put name="{{b}}"/>
+      <put name="c"/>
+      <set name="_d$" value="2"/>
+      <put name="_d$"/>
+      <set name="_" value="3"/>
+      <put name="_"/>
+      <set name="$" value="4"/>
+      <put name="$"/>
+    </hex>
+  </stream>
+</file>

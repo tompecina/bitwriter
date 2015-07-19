@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream width-in="16" width-aggregate-in="32" width-aggregate-out="0x80">
+    <crc name="c1" model="crc-64/xz" type="stream-in"/>
+    <crc name="c2" model="crc-64/xz" type="aggregate-stream-in"/>
+    <crc name="c3" model="crc-64/xz" type="bitstream"/>
+    <crc name="c4" model="crc-64/xz" type="aggregate-stream-out"/>
+    <crc name="c5" model="crc-64/xz" type="stream-out"/>
+    <crc name="c6" model="crc-64/xz" type="output-stream"/>
+    <hex repeat="8">
+      31
+    </hex>
+    <release name="c1"/>
+    <release name="c2"/>
+    <release name="c3"/>
+    <release name="c4"/>
+    <release name="c5"/>
+    <release name="c6"/>
+    <put name="c1" type="aggregate-stream-out"/>
+    <put name="c2" type="aggregate-stream-out"/>
+    <put name="c3" type="aggregate-stream-out"/>
+    <put name="c4" type="aggregate-stream-out"/>
+    <put name="c5" type="aggregate-stream-out"/>
+    <put name="c6" type="aggregate-stream-out"/>
+  </stream>
+</file>

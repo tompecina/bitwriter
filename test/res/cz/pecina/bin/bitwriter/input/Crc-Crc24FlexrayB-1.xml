@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-24/FLEXRAY-B"/>
+    <hex>
+      18020209880000D5B910
+    </hex>
+  </stream>
+  <stream width-in="24">
+    <put name="c"/>
+  </stream>
+  <stream repeat="3">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-24/FLEXRAY-B"/>
+    <hex>
+      600A0248C8010242EDA1
+    </hex>
+  </stream>
+  <stream width-in="24">
+    <put name="c"/>
+  </stream>
+  <stream repeat="3">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-24/FLEXRAY-B"/>
+    <hex>
+      205606C848102030405060E6D9BE
+    </hex>
+  </stream>
+  <stream width-in="24">
+    <put name="c"/>
+  </stream>
+  <stream repeat="15">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-24/FLEXRAY-B"/>
+    <hex>
+      202E06C8481020304050603753EF
+    </hex>
+  </stream>
+  <stream width-in="24">
+    <put name="c"/>
+  </stream>
+  <stream repeat="15">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-24/FLEXRAY-B"/>
+    <hex>
+      201A06C84810203040506011E8D5
+    </hex>
+  </stream>
+  <stream width-in="24">
+    <put name="c"/>
+  </stream>
+  <stream repeat="15">
+    0xee
+  </stream>
+</file>

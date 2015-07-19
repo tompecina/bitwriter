@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream width-in="1">
+    <bits>
+      01010101
+      1
+      <flush/>
+      11
+      <flush/>
+      101
+      <flush/>
+      1001
+      <flush/>
+      10001
+      <flush/>
+      100001
+      <flush/>
+      1000001
+      <flush/>
+      111011
+    </bits>
+  </stream>
+  <stream width-in="1" reflect-out="true">
+    <bits>
+      01010101
+      1
+      <flush/>
+      11
+      <flush/>
+      101
+      <flush/>
+      1001
+      <flush/>
+      10001
+      <flush/>
+      100001
+      <flush/>
+      1000001
+      <flush/>
+      111011
+    </bits>
+  </stream>
+</file>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream width-in="32" width-aggregate-in="64" width-aggregate-out="128">
+    <set name="s" value="0x123456789abcdef0022446688aacceef"/>
+    <put name="s" reset="false"/>
+  </stream>
+  <stream width-in="32" width-aggregate-in="64" width-aggregate-out="128">
+    <set name="s" value="0x123456789abcdef0022446688aacceef"/>
+    <put name="s" reset="false" type="stream-in"/>
+  </stream>
+  <stream width-in="32" width-aggregate-in="64" width-aggregate-out="128">
+    <set name="s" value="0x123456789abcdef0022446688aacceef"/>
+    <put name="s" reset="false" type="aggregate-stream-in"/>
+  </stream>
+  <stream width-in="32" width-aggregate-in="64" width-aggregate-out="128">
+    <set name="s" value="0x123456789abcdef0022446688aacceef"/>
+    <put name="s" reset="false" type="bitstream"/>
+  </stream>
+  <stream width-in="32" width-aggregate-in="64" width-aggregate-out="128">
+    <set name="s" value="0x123456789abcdef0022446688aacceef"/>
+    <put name="s" reset="false" type="aggregate-stream-out"/>
+  </stream>
+  <stream width-in="32" width-aggregate-in="64" width-aggregate-out="128">
+    <set name="s" value="0x123456789abcdef0022446688aacceef"/>
+    <put name="s" reset="false" type="stream-out"/>
+  </stream>
+  <stream>
+    <hex repeat="15">
+      ee
+    </hex>
+  </stream>
+  <stream width-in="32" width-aggregate-in="64" width-aggregate-out="128">
+    <set name="s" value="0x123456789abcdef0022446688aacceef"/>
+    <put name="s" reset="false" type="output-stream"/>
+  </stream>
+  <stream>
+    <hex repeat="15">
+      ee
+    </hex>
+  </stream>
+</file>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream width-in="49">
+    <crc name="c" model="CRC-13/BBC" type="bitstream"/>
+    <oct>
+      00000000000036365
+    </oct>
+  </stream>
+  <stream width-in="13">
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream width-in="49">
+    <crc name="c" model="CRC-13/BBC" type="bitstream"/>
+    <oct>
+      17777777777762722
+    </oct>
+  </stream>
+  <stream width-in="13">
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+</file>

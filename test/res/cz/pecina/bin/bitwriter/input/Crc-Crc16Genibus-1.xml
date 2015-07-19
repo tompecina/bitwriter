@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS" xor-in="0"/>
+    <hex>
+      FFFF
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="12">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      0000
+      E2F0
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="10">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      08001111
+      CCAE
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="8">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      10001111 2222
+      968F
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="6">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      18001111 22223333
+      78F6
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="4">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      20001111 22223333 4444
+      C241
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="2">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      28001111 22223333 44445555
+      2A91
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="16">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      30001111 22223333 44445555 6666
+      1835
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      40214142 43
+      87F5
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      10012002 0C823E00 39821500 64820900 FA
+      910A
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/GENIBUS"/>
+    <hex>
+      07200102 C302101A
+      901C
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="4">
+    0xee
+  </stream>
+  
+  <stream width-in="1">
+    <crc name="c" model="CRC-16/GENIBUS" type="bitstream"/>
+    <bits>
+      00000000 01000000 00010110 00111100 10111
+      <release name="c"/>
+    </bits>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="9">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-16/GENIBUS" type="bitstream"/>
+    <bits>
+      11000000 01010000 00000000 00000110 00101100 01101000 00001000 00010001 11110010 01111011 01000101 11000000 11000001
+      <release name="c"/>
+    </bits>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="1">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-16/GENIBUS" type="bitstream"/>
+    <bits>
+      00000001 01010000 00000000 00001100 01011000 11010000 00011000 00111000 00000101 01010101 01010110 00100110 00111
+      <release name="c"/>
+    </bits>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="1">
+    0xee
+  </stream>
+</file>

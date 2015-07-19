@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <parity name="p"/>
+    <set name="a" value="1"/>
+    <put name="p" type="output-stream" reset="false"/>
+    <put name="a" type="aggregate-stream-out" reset="false"/>
+    <put name="p" type="output-stream" reset="false"/>
+    <put name="a" type="aggregate-stream-out" reset="false"/>
+    <put name="p" type="output-stream" reset="false"/>
+    <put name="a" type="bitstream" reset="false"/>
+    <flush/>
+    <put name="p" type="output-stream" reset="false"/>
+    <put name="a" type="aggregate-stream-in" reset="false"/>
+    <put name="p" type="output-stream" reset="false"/>
+    <put name="a" type="stream-in" reset="false"/>
+    <put name="p" type="output-stream" reset="false"/>
+  </stream>
+</file>

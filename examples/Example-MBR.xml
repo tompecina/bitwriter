@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+
+  <!-- Master Boot Record -->
+
+  <!-- Bootstrap code area -->
+  <stream repeat="446">
+    0
+  </stream>
+
+  <!-- Partition 1 -->
+  <stream>
+    <hex>
+      80 <!-- status: active -->
+
+      <!-- CHS address of the first sector -->
+      20 <!-- head -->
+      21 <!-- 2 bits of cylinder + sector -->
+      00 <!-- 8 bits of cylinder -->
+      
+      83 <!-- partition type -->
+    
+      <!-- CHS address of the last sector -->
+      dd  <!-- head -->
+      1e  <!-- 2 bits of cylinder + sector -->
+      3f  <!-- 8 bits of cylinder -->
+    </hex>
+  </stream>
+  <stream width-in="32" width-aggregate-out="32" endianness-out="little">
+    2048    <!-- LBA of the first sector -->
+    1024000 <!-- number of sectors -->
+  </stream>
+
+  <!-- Partitions 2-4: inactive -->
+  <stream repeat="3">
+    0x00
+    <seq repeat="15">
+      0
+    </seq>
+  </stream>
+
+  <!-- Boot signature -->
+  <stream>
+    0x55 0xaa
+  </stream>
+
+</file>

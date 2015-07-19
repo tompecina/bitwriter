@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      116A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A00AF
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      1801AAAAAAAAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A02AC
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      0A0B0C0D0E0F0000000000000000000000000000000000000000000000000000000000000000000000000000000001F6
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      11111111111111111111000000000000000000000000000000000000000000000000000000000000000000000000016B
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF030F
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF030F
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901202ED
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      106A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A03B9
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      180100000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000000000006A6A6A6A6A6A6A6A004A
+    </hex>
+  </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+</file>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-8"/>
+    <reset name="i"/>
+  </stream>
+  <stream repeat="1999">
+    {{j = i++; j + (j * j)}}
+  </stream>
+  <stream>
+    0xe3
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="15">
+    0xee
+  </stream>
+</file>

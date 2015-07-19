@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="x1" model="CRC-32Q"/>
+    0x55
+    <set name="x2" value="{{x1}}"/>
+    <set name="x1"/>
+    0xaa
+    <put name="x1"/>
+    <put name="x2"/>
+    <crc name="x1" model="CRC-32Q"/>
+    0x55
+    <set name="x2" value="{{x1}}"/>
+    0xaa
+    <put name="x1"/>
+    <put name="x2"/>
+  </stream>
+</file>

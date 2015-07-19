@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <set name="t1" on-stream-in="{{val}}"/>
+    <set name="t2" on-aggregate-stream-in="{{val}}"/>
+    <set name="t3" on-bitstream="{{val}}"/>
+    <set name="t4" on-aggregate-stream-out="{{val}}"/>
+    <set name="t5" on-stream-out="{{val}}"/>
+    <set name="t6" on-output-stream="{{val}}"/>
+    0x55
+    <release name="t1"/>
+    <release name="t2"/>
+    <release name="t3"/>
+    <release name="t4"/>
+    <release name="t5"/>
+    <release name="t6"/>
+    <put name="t1"/>
+    <put name="t2"/>
+    <put name="t3"/>
+    <put name="t4"/>
+    <put name="t5"/>
+    <put name="t6"/>
+  </stream>
+</file>

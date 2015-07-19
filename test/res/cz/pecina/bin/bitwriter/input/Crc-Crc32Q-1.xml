@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-32Q"/>
+    <hex>
+      3438303633374EA5A7C704
+    </hex>
+  </stream>
+  <stream width-in="32">
+    <put name="c"/>
+  </stream>
+  <stream repeat="1">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-32Q"/>
+    <hex>
+      3031363334313145A1AE5741
+    </hex>
+  </stream>
+  <stream width-in="32">
+    <put name="c"/>
+  </stream>
+  <stream repeat="16">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-32Q"/>
+    <hex>
+      3438303633374E3031363334313145A1BA30EE
+    </hex>
+  </stream>
+  <stream width-in="32">
+    <put name="c"/>
+  </stream>
+  <stream repeat="9">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-32Q"/>
+    <hex>
+      3738326C297100
+    </hex>
+  </stream>
+  <stream width-in="32">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-32Q"/>
+    <hex>
+      3438303633374E30313633343131453738326A259F4E
+    </hex>
+  </stream>
+  <stream width-in="32">
+    <put name="c"/>
+  </stream>
+  <stream repeat="6">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-32Q"/>
+    <hex>
+      34362E37266D25C1
+    </hex>
+  </stream>
+  <stream width-in="32">
+    <put name="c"/>
+  </stream>
+  <stream repeat="4">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-32Q"/>
+    <hex>
+      3438303633374E303136333431314534362E372F866D6D
+    </hex>
+  </stream>
+  <stream width-in="32">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-32Q"/>
+    <hex>
+      3438303633374E303136333431314537383234362E375E5DC940
+    </hex>
+  </stream>
+  <stream width-in="32">
+    <put name="c"/>
+  </stream>
+  <stream repeat="2">
+    0xee
+  </stream>
+</file>

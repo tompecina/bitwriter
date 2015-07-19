@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream width-in="2" width-aggregate-in="8">
+    3 2 1 0
+    3
+    <flush/>
+    3 2
+    <flush/>
+    3 2 1
+  </stream>
+  <stream width-in="2" width-aggregate-in="8" endianness-in="little">
+    3 2 1 0
+    3
+    <flush/>
+    3 2
+    <flush/>
+    3 2 1
+  </stream>
+  <stream width-in="2" width-aggregate-in="8" endianness-in="little">
+    0 1 2 3
+    0
+    <flush/>
+    0 1
+    <flush/>
+    0 1 2
+  </stream>
+</file>

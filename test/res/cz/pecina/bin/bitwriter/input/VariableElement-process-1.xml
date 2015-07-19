@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <set name="a" value="5"/>
+    <put name="a" type="stream-in" reset="false"/>
+    <put name="a" type="aggregate-stream-in" reset="false"/>
+    <put name="a" type="bitstream" reset="false"/>
+    <flush/>
+    <put name="a" type="aggregate-stream-out" reset="false"/>
+    <put name="a" type="stream-out" reset="false"/>
+    <put name="a" type="output-stream" reset="false"/>
+    9
+  </stream>
+</file>

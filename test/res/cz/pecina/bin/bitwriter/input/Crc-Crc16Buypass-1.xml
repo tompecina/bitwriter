@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+  </stream>
+  <stream repeat="1999">
+      {{ j = i++; j + (j * j) }}
+  </stream>
+  <stream>
+    0x1F 0xBB
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="13">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      0384901B56
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="9">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      03848400001230314131333030323031333030311C39303062BF
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="4">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      00CCEB060CCEB0D1D4
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      00D0EB060CCEB0F1C9
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      00D4EB060CCEB011CF
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      00D8EB060CCEB0B1C0
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      00CCEB460C0EB051C6
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      00CCEB060E4EB0D1F6
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-16/BUYPASS"/>
+    <reset name="i"/>
+    <hex>
+      00C4EB062C0EB01351
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+</file>

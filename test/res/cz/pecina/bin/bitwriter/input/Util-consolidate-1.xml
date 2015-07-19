@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>1<!-- test -->2</stream>
+  <stream>1 <!-- test -->2</stream>
+  <stream>1<!-- test --> 2</stream>
+  <stream> 1<!-- test -->2</stream>
+  <stream> 1 <!-- test -->2</stream>
+  <stream> 1<!-- test --> 2</stream>
+  <stream> 1<!-- test -->2 </stream>
+  <stream> 1 <!-- test -->2 </stream>
+  <stream> 1<!-- test --> 2 </stream>
+  <stream>1<?php phpinfo(); ?>2</stream>
+  <stream>1 <?php phpinfo(); ?>2</stream>
+  <stream>1<?php phpinfo(); ?> 2</stream>
+  <stream> 1<?php phpinfo(); ?>2</stream>
+  <stream> 1 <?php phpinfo(); ?>2</stream>
+  <stream> 1<?php phpinfo(); ?> 2</stream>
+  <stream> 1<?php phpinfo(); ?>2 </stream>
+  <stream> 1 <?php phpinfo(); ?>2 </stream>
+  <stream> 1<?php phpinfo(); ?> 2 </stream>
+  <stream><reset name="n"/>1<!-- test -->2</stream>
+  <stream><reset name="n"/>1 <!-- test -->2</stream>
+  <stream><reset name="n"/>1<!-- test --> 2</stream>
+  <stream><reset name="n"/> 1<!-- test -->2</stream>
+  <stream><reset name="n"/> 1 <!-- test -->2</stream>
+  <stream><reset name="n"/> 1<!-- test --> 2</stream>
+  <stream><reset name="n"/> 1<!-- test -->2 </stream>
+  <stream><reset name="n"/> 1 <!-- test -->2 </stream>
+  <stream><reset name="n"/> 1<!-- test --> 2 </stream>
+  <stream><reset name="n"/>1<?php phpinfo(); ?>2</stream>
+  <stream><reset name="n"/>1 <?php phpinfo(); ?>2</stream>
+  <stream><reset name="n"/>1<?php phpinfo(); ?> 2</stream>
+  <stream><reset name="n"/> 1<?php phpinfo(); ?>2</stream>
+  <stream><reset name="n"/> 1 <?php phpinfo(); ?>2</stream>
+  <stream><reset name="n"/> 1<?php phpinfo(); ?> 2</stream>
+  <stream><reset name="n"/> 1<?php phpinfo(); ?>2 </stream>
+  <stream><reset name="n"/> 1 <?php phpinfo(); ?>2 </stream>
+  <stream><reset name="n"/> 1<?php phpinfo(); ?> 2 </stream>
+  <stream>1<![CDATA[2]]>3</stream>
+  <stream>1
+  <![CDATA[2]]>3</stream>
+  <stream>1<![CDATA[2]]>
+  3</stream>
+  <stream>1<!-- test -->2</stream>
+  <stream>1
+  <!-- test -->2</stream>
+  <stream>1<!-- test -->
+  2</stream>
+  <stream>
+  1<!-- test -->2</stream>
+  <stream>
+  1 <!-- test -->2</stream>
+  <stream>
+    1<!-- test -->
+  2</stream>
+  <stream>
+    1<!-- test -->2
+  </stream>
+  <stream>
+    1 <!-- test -->2
+  </stream>
+  <stream>
+    1<!-- test -->
+    2
+  </stream>
+  <stream>1<?php phpinfo(); ?>2</stream>
+  <stream>1
+  <?php phpinfo(); ?>2</stream>
+  <stream>1<?php phpinfo(); ?>
+  2</stream>
+  <stream>
+  1<?php phpinfo(); ?>2</stream>
+  <stream>
+  1 <?php phpinfo(); ?>2</stream>
+  <stream>
+    1<?php phpinfo(); ?>
+  2</stream>
+  <stream>
+    1<?php phpinfo(); ?>2
+  </stream>
+  <stream>
+    1 <?php phpinfo(); ?>2
+  </stream>
+  <stream>
+    1<?php phpinfo(); ?>
+    2
+  </stream>
+  <stream><reset name="n"/>1<!-- test -->2</stream>
+  <stream><reset name="n"/>1
+  <!-- test -->2</stream>
+  <stream><reset name="n"/>1<!-- test -->
+  2</stream>
+  <stream><reset name="n"/>
+  1<!-- test -->2</stream>
+  <stream><reset name="n"/>
+  1 <!-- test -->2</stream>
+  <stream><reset name="n"/>
+  1<!-- test -->
+  2</stream>
+  <stream><reset name="n"/>
+  1<!-- test -->2
+  </stream>
+  <stream><reset name="n"/>
+  1 <!-- test -->2
+  </stream>
+  <stream><reset name="n"/>
+  1<!-- test -->
+  2
+  </stream>
+  <stream><reset name="n"/>1<?php phpinfo(); ?>2</stream>
+  <stream><reset name="n"/>1
+  <?php phpinfo(); ?>2</stream>
+  <stream><reset name="n"/>1<?php phpinfo(); ?>
+  2</stream>
+  <stream><reset name="n"/>
+  1<?php phpinfo(); ?>2</stream>
+  <stream><reset name="n"/>
+  1
+  <?php phpinfo(); ?>2</stream>
+  <stream><reset name="n"/>
+  1<?php phpinfo(); ?>
+  2</stream>
+  <stream><reset name="n"/>
+  1<?php phpinfo(); ?>2
+  </stream>
+  <stream><reset name="n"/>
+  1
+  <?php phpinfo(); ?>2
+  </stream>
+  <stream><reset name="n"/>
+  1<?php phpinfo(); ?>
+  2
+  </stream>
+  <stream>1<![CDATA[2]]>3</stream>
+  <stream>1
+  <![CDATA[2]]>3</stream>
+  <stream>1<![CDATA[2]]>
+  3</stream>
+  <stream>{{ if (1 &lt; 2) 0x55; else 0xee; }}</stream>
+</file>

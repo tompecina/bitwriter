@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:annotation>
+    <xs:documentation>
+      XML Schema pro CRC, version 1.0
+      URL: http://www.pecina.cz/xsd/crc-1.0.xsd
+      Author: Tomáš Pecina, tomas@pecina.cz
+      License: GNU General Public License
+    </xs:documentation>
+  </xs:annotation>
+  
+  <xs:element name="crc">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+	<xs:element ref="model"/>
+      </xs:sequence>
+      <xs:attribute name="version" use="required" type="xs:NMTOKEN" fixed="1.0"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="model">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element name="name" type="xs:token" maxOccurs="unbounded"/>
+	<xs:element name="description" type="xs:token" minOccurs="0"/>
+	<xs:element name="width" type="xs:positiveInteger" minOccurs="0"/>
+	<xs:element ref="polynomial"/>
+	<xs:element name="reflect-in" type="xs:boolean"/>
+	<xs:element name="xor-in" type="hex"/>
+	<xs:element name="reflect-out" type="xs:boolean"/>
+	<xs:element name="xor-out" type="hex"/>
+	<xs:element name="check" type="hex" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:ID"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="hex">
+    <xs:simpleContent>
+      <xs:extension base="hex-base">
+	<xs:attribute name="format" use="required" type="xs:NCName" fixed="hex"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="hex-base">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:pattern value="[\da-fA-F]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="polynomial">
+    <xs:complexType>
+      <xs:simpleContent>
+	<xs:extension base="hex">
+	  <xs:attribute name="notation" use="required" type="notation"/>
+	</xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="notation">
+    <xs:restriction base="xs:NCName">
+      <xs:enumeration value="normal"/>
+      <xs:enumeration value="full"/>
+      <xs:enumeration value="reversed"/>
+      <xs:enumeration value="koopman"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

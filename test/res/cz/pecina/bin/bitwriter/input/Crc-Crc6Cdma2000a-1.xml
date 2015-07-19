@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-6/CDMA2000-A"/>
+    <hex>
+      C101002E
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-6/CDMA2000-A"/>
+    <hex>
+     0110000F 
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-6/CDMA2000-A"/>
+    <hex>
+     05100009
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+</file>

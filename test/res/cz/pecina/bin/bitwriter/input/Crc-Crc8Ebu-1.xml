@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-8/EBU"/>
+    <hex>
+      3D020000020000000000000000000000000000000000009B
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/EBU"/>
+    <hex>
+      010000000000000000000000000000000000000000000032
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+</file>

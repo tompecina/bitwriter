@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <hex>
+      <set name="c" value="0x55"/>
+      <put name=" c"/>
+    </hex>
+  </stream>
+</file>

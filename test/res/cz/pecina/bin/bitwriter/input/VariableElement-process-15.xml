@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <hex>
+      <crc name="c" model="modbus"/>
+      12 34
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream>
+    <hex>
+      <crc name="c" polynomial="0x8005" width="16"/>
+      12 34
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream>
+    <hex>
+      <crc name="c" polynomial="0x18005" notation="full" width="16"/>
+      12 34
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream>
+    <hex>
+      <crc name="c" polynomial="0x18005" notation="full"/>
+      12 34
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream>
+    <hex>
+      <crc name="c" polynomial="0xa001" notation="reversed" width="16"/>
+      12 34
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream>
+    <hex>
+      <crc name="c" polynomial="0xc002" notation="koopman" width="16"/>
+      12 34
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+  <stream>
+    <hex>
+      <crc name="c" polynomial="0xc002" notation="koopman"/>
+      12 34
+    </hex>
+  </stream>
+  <stream width-in="16">
+    <put name="c"/>
+  </stream>
+</file>

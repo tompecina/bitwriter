@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+
+  <!-- IPv4 packet header -->
+  <sum name="cs" type="aggregate-stream-out" width="32"/>
+  <stream width-aggregate-out="16">
+    0x45 <!-- Version + IHL -->
+    0    <!-- DSCP + ECN -->
+  </stream>
+  <stream width-in="16" width-aggregate-out="16">
+    0x54   <!-- Total Length -->
+    0x024f <!-- Identification -->
+    0      <!-- Flags + Fragment Offset -->
+  </stream>
+  <stream width-aggregate-out="16">
+    64     <!-- TTL -->
+    1      <!-- Protocol (ICMP) -->
+  </stream>
+  <!-- calculate checksum -->
+  <stream width-aggregate-out="16" discard="true">
+    <set name="buffer" on-stream-out="{{ buffer.shiftLeft(8).or(val) }}"/>
+    85 239 227 7   <!-- Source address -->
+    109 123 210 89 <!-- Destination address -->
+    <release name="buffer"/>
+  </stream>
+  <stream width-in="16">
+    <put value="{{ cs = (cs &amp; 0xffff) + (cs &gt;&gt; 16); ((cs &amp; 0xffff) + (cs &gt;&gt; 16)) ^ 0xffff }}"/> <!-- Header Checksum -->
+  </stream>
+  <stream width-in="64">
+    <put name="buffer"/> <!-- deferred Source & Destination address -->
+  </stream>
+    
+</file>

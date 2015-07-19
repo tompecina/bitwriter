@@ -1,0 +1,11 @@
+#! /bin/bash
+
+fi="$1"
+fo=${fi/input\//output\/}
+fo=${fo/.xml/.hex}
+if [ ! -f $fi ]; then
+    echo "File not found"
+    exit 1
+fi
+cat $fi
+java -cp 'lib/*:build/classes' cz.pecina.bin.bitwriter.BitWriter -x $fi | tee $fo

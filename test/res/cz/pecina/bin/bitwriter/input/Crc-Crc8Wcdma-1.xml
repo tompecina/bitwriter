@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      00001148
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      00012077
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      80800012
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      00001021010022000A002D000000000000460A20
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      00001021010123000A0028000000000000460A54
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      00001021010125000A0029000000000000460A4B
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="11">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      400010200B01001A000A000100000000008009001F01F393
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      400010200B01001F000A000100000000000009001F01F3F7
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      400010200B010020000A000100000000000009001F01F331
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      40001107083829B41903
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      40001107084826682180
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/WCDMA"/>
+    <hex>
+      40001107085C293417A8
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="5">
+    0xee
+  </stream>
+</file>

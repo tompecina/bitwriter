@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+
+  <loop repeat="2">
+    <stream>
+      7
+    </stream>
+    <loop repeat="4">
+      <stream>
+	8
+      </stream>
+    </loop>
+    <stream repeat="3">
+      1
+    </stream>
+  </loop>
+
+</file>

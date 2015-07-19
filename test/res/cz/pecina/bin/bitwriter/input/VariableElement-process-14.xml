@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <set name="n" value="13"/>
+  </stream>
+  <stream repeat="50">
+    <crc name="cpe" model="pe"/>
+    <parity name="pe" model="even"/>
+    <crc name="cpo" model="po"/>
+    <parity name="po" model="odd"/>
+    <dec repeat="12">
+      {{n = ((n * 1664525) + 1013904223) % 0x100000000; n}}
+    </dec>
+    <release name="cpe"/>
+    <release name="cpo"/>
+    <release name="pe"/>
+    <release name="po"/>
+    <put name="cpe"/>
+    <put name="cpo"/>
+    <put name="pe"/>
+    <put name="po"/>
+  </stream>
+</file>

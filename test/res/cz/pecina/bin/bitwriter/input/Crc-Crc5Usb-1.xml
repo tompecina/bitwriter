@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream width-in="1">
+    <crc name="c" model="CRC-5/USB" type="bitstream" xor-in="0"/>
+    <bits>
+      11111
+      <release name="c"/>
+    </bits>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="14">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-5/USB" type="bitstream"/>
+    <bits>
+      10101000 111
+      10111
+    </bits>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="13">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-5/USB" type="bitstream"/>
+    <bits>
+      01011100 101
+      11100
+    </bits>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="13">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-5/USB" type="bitstream"/>
+    <bits>
+      10101000 111
+      10111
+    </bits>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="13">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-5/USB" type="bitstream"/>
+    <bits>
+      00001110 010
+      01110
+    </bits>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="13">
+    0xee
+  </stream>
+</file>

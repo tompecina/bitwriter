@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<crc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/crc-1.0.xsd" version="1.0">
+  <model id="ParityEven">
+    <name>PARITY-EVEN</name>
+    <name>EVEN</name>
+    <name>PE</name>
+    <width>1</width>
+    <polynomial notation="normal" format="hex">1</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">1</check>
+  </model>
+  <model id="ParityOdd">
+    <name>PARITY-ODD</name>
+    <name>ODD</name>
+    <name>PO</name>
+    <width>1</width>
+    <polynomial notation="normal" format="hex">1</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">1</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">0</check>
+  </model>
+  <model id="Crc3Rohc">
+    <name>CRC-3/ROHC</name>
+    <width>3</width>
+    <polynomial notation="normal" format="hex">3</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">7</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">6</check>
+  </model>
+  <model id="Crc4Itu">
+    <name>CRC-4/ITU</name>
+    <width>4</width>
+    <polynomial notation="normal" format="hex">3</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">7</check>
+  </model>
+  <model id="Crc5Epc">
+    <name>CRC-5/EPC</name>
+    <width>5</width>
+    <polynomial notation="normal" format="hex">9</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">9</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">0</check>
+  </model>
+  <model id="Crc5Itu">
+    <name>CRC-5/ITU</name>
+    <width>5</width>
+    <polynomial notation="normal" format="hex">15</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">7</check>
+  </model>
+  <model id="Crc5Usb">
+    <name>CRC-5/USB</name>
+    <width>5</width>
+    <polynomial notation="normal" format="hex">5</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">1f</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">1f</xor-out>
+    <check format="hex">19</check>
+  </model>
+  <model id="Crc6Cdma2000a">
+    <name>CRC-6/CDMA2000-A</name>
+    <width>6</width>
+    <polynomial notation="normal" format="hex">27</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">3f</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">d</check>
+  </model>
+  <model id="Crc6Cdma2000b">
+    <name>CRC-6/CDMA2000-B</name>
+    <width>6</width>
+    <polynomial notation="normal" format="hex">7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">3f</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">3b</check>
+  </model>
+  <model id="Crc6Darc">
+    <name>CRC-6/DARC</name>
+    <width>6</width>
+    <polynomial notation="normal" format="hex">19</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">26</check>
+  </model>
+  <model id="Crc6Itu">
+    <name>CRC-6/ITU</name>
+    <width>6</width>
+    <polynomial notation="normal" format="hex">3</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">6</check>
+  </model>
+  <model id="Crc7">
+    <name>CRC-7</name>
+    <width>7</width>
+    <polynomial notation="normal" format="hex">9</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">75</check>
+  </model>
+  <model id="Crc7Rohc">
+    <name>CRC-7/ROHC</name>
+    <width>7</width>
+    <polynomial notation="normal" format="hex">4f</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">7f</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">53</check>
+  </model>
+  <model id="Crc8">
+    <name>CRC-8</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">f4</check>
+  </model>
+  <model id="Crc8Cdma2000">
+    <name>CRC-8/CDMA2000</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">9b</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">ff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">da</check>
+  </model>
+  <model id="Crc8Darc">
+    <name>CRC-8/DARC</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">39</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">15</check>
+  </model>
+  <model id="Crc8DvbS2">
+    <name>CRC-8/DVB-S2</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">d5</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">bc</check>
+  </model>
+  <model id="Crc8Ebu">
+    <name>CRC-8/EBU</name>
+    <name>CRC-8/AES</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">1d</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">97</check>
+  </model>
+  <model id="Crc8ICode">
+    <name>CRC-8/I-CODE</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">1d</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">fd</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">7e</check>
+  </model>
+  <model id="Crc8Itu">
+    <name>CRC-8/ITU</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">55</xor-out>
+    <check format="hex">a1</check>
+  </model>
+  <model id="Crc8J1850">
+    <name>CRC-8/J1850</name>
+    <name>CRC-8/SAE-J1850</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">1d</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">ff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">ff</xor-out>
+    <check format="hex">4b</check>
+  </model>
+  <model id="Crc8Maxim">
+    <name>CRC-8/MAXIM</name>
+    <name>DOW-CRC</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">31</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">a1</check>
+  </model>
+  <model id="Crc8Rohc">
+    <name>CRC-8/ROHC</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">7</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">d0</check>
+  </model>
+  <model id="Crc8Wcdma">
+    <name>CRC-8/WCDMA</name>
+    <width>8</width>
+    <polynomial notation="normal" format="hex">9b</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">25</check>
+  </model>
+  <model id="Crc10">
+    <name>CRC-10</name>
+    <width>10</width>
+    <polynomial notation="normal" format="hex">233</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">199</check>
+  </model>
+  <model id="Crc10Cdma2000">
+    <name>CRC-10/CDMA2000</name>
+    <width>10</width>
+    <polynomial notation="normal" format="hex">3d9</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">3ff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">233</check>
+  </model>
+  <model id="Crc11">
+    <name>CRC-11</name>
+    <name>CRC-11/FLEXRAY</name>
+    <width>11</width>
+    <polynomial notation="normal" format="hex">385</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">1a</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">5a3</check>
+  </model>
+  <model id="Crc12-3Gpp1">
+    <name>CRC-12/3GPP</name>
+    <width>12</width>
+    <polynomial notation="normal" format="hex">80f</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">daf</check>
+  </model>
+  <model id="Crc12Cdma2000">
+    <name>CRC-12/CDMA2000</name>
+    <width>12</width>
+    <polynomial notation="normal" format="hex">f13</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">fff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">d4d</check>
+  </model>
+  <model id="Crc12Dect">
+    <name>CRC-12/DECT</name>
+    <name>X-CRC-12</name>
+    <width>12</width>
+    <polynomial notation="normal" format="hex">80f</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">f5b</check>
+  </model>
+  <model id="Crc13Bbc">
+    <name>CRC-13/BBC</name>
+    <width>13</width>
+    <polynomial notation="normal" format="hex">1cf5</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">4fa</check>
+  </model>
+  <model id="Crc14Darc">
+    <name>CRC-14/DARC</name>
+    <width>14</width>
+    <polynomial notation="normal" format="hex">805</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">82d</check>
+  </model>
+  <model id="Crc15">
+    <name>CRC-15</name>
+    <name>CRC-15/CAN</name>
+    <name>CRC-15/CAN-FD</name>
+    <width>15</width>
+    <polynomial notation="normal" format="hex">4599</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">59e</check>
+  </model>
+  <model id="Crc15Mpt1327">
+    <name>CRC-15/MPT1327</name>
+    <width>15</width>
+    <polynomial notation="normal" format="hex">6815</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">1</xor-out>
+    <check format="hex">2566</check>
+  </model>
+  <model id="Crc16">
+    <name>CRC-16</name>
+    <name>CRC-16/ARC</name>
+    <name>ARC</name>
+    <name>CRC-16/IBM</name>
+    <name>CRC-IBM</name>
+    <name>CRC-16/LHA</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">8005</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">bb3d</check>
+  </model>
+  <model id="Crc16A">
+    <name>CRC-16/A</name>
+    <name>CRC-A</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">c6c6</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">bf05</check>
+  </model>
+  <model id="Crc16Arinc">
+    <name>CRC-16/ARINC</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">a02b</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">eba4</check>
+  </model>
+  <model id="Crc16AugCcitt">
+    <name>CRC-16/AUG-CCITT</name>
+    <name>CRC-16/SPI-FUJITSU</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">1d0f</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">e5cc</check>
+  </model>
+  <model id="Crc16Buypass">
+    <name>CRC-16/BUYPASS</name>
+    <name>CRC-16/VERIFONE</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">8005</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">fee8</check>
+  </model>
+  <model id="Crc16CcittFalse">
+    <name>CRC-16/CCITT-FALSE</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">ffff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">29b1</check>
+  </model>
+  <model id="Crc16Cdma2000">
+    <name>CRC-16/CDMA2000</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">c867</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">ffff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">4c06</check>
+  </model>
+  <model id="Crc16Chakravarty">
+    <name>CRC-16/CHAKRAVARTY</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">2f15</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">a2d1</check>
+  </model>
+  <model id="Crc16Dds110">
+    <name>CRC-16/DDS-110</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">8005</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">800d</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">9ecf</check>
+  </model>
+  <model id="Crc16Dect">
+    <name>CRC-16/DECT</name>
+    <name>CRC-16/DECT-R</name>
+    <name>R-CRC-16</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">589</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">1</xor-out>
+    <check format="hex">7e</check>
+  </model>
+  <model id="Crc16DectX">
+    <name>CRC-16/DECT-X</name>
+    <name>X-CRC-16</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">589</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">7f</check>
+  </model>
+  <model id="Crc16Dnp">
+    <name>CRC-16/DNP</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">3d65</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">ffff</xor-out>
+    <check format="hex">ea82</check>
+  </model>
+  <model id="Crc16En13757">
+    <name>CRC-16/EN-13757</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">3d65</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">ffff</xor-out>
+    <check format="hex">c2b7</check>
+  </model>
+  <model id="Crc16Genibus">
+    <name>CRC-16/GENIBUS</name>
+    <name>CRC-16/EPC</name>
+    <name>CRC-16/I-CODE</name>
+    <name>CRC-16/DARC</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">ffff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">ffff</xor-out>
+    <check format="hex">d64e</check>
+  </model>
+  <model id="Crc16Kermit">
+    <name>CRC-16/KERMIT</name>
+    <name>KERMIT</name>
+    <name>CRC-16/CCITT</name>
+    <name>CRC-16/CCITT-TRUE</name>
+    <name>CRC-CCITT</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">2189</check>
+  </model>
+  <model id="Crc16Maxim">
+    <name>CRC-16/MAXIM</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">8005</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">ffff</xor-out>
+    <check format="hex">44c2</check>
+  </model>
+  <model id="Crc16Mcrf4Xx">
+    <name>CRC-16/MCRF4XX</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">6f91</check>
+  </model>
+  <model id="Crc16Modbus">
+    <name>CRC-16/MODBUS</name>
+    <name>MODBUS</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">8005</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">4b37</check>
+  </model>
+  <model id="Crc16Riello">
+    <name>CRC-16/RIELLO</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">b2aa</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">63d0</check>
+  </model>
+  <model id="Crc16T10Dif">
+    <name>CRC-16/T10-DIF</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">8bb7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">d0db</check>
+  </model>
+  <model id="Crc16Teledisk">
+    <name>CRC-16/TELEDISK</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">a097</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">fb3</check>
+  </model>
+  <model id="Crc16Tms37157">
+    <name>CRC-16/TMS37157</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">89ec</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">26b1</check>
+  </model>
+  <model id="Crc16Usb">
+    <name>CRC-16/USB</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">8005</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">ffff</xor-out>
+    <check format="hex">b4c8</check>
+  </model>
+  <model id="Crc16X25">
+    <name>CRC-16/X-25</name>
+    <name>X-25</name>
+    <name>CRC-16/IBM-SDLC</name>
+    <name>CRC-16/ISO-HDLC</name>
+    <name>CRC-B</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">ffff</xor-out>
+    <check format="hex">906e</check>
+  </model>
+  <model id="Crc16Xmodem">
+    <name>CRC-16/XMODEM</name>
+    <name>XMODEM</name>
+    <name>ZMODEM</name>
+    <name>CRC-16/ACORN</name>
+    <width>16</width>
+    <polynomial notation="normal" format="hex">1021</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">31c3</check>
+  </model>
+  <model id="Crc17Can">
+    <name>CRC-17/CAN</name>
+    <name>CRC-17/CAN-FD</name>
+    <width>17</width>
+    <polynomial notation="normal" format="hex">1685</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">1000</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">56a6</check>
+  </model>
+  <model id="Crc21Can">
+    <name>CRC-21/CAN</name>
+    <name>CRC-21/CAN-FD</name>
+    <width>21</width>
+    <polynomial notation="normal" format="hex">102899</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">10000</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">c0571</check>
+  </model>
+  <model id="Crc24">
+    <name>CRC-24</name>
+    <name>CRC-24/OPENPGP</name>
+    <name>CRC-24/RADIX-64</name>
+    <width>24</width>
+    <polynomial notation="normal" format="hex">864cfb</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">b704ce</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">21cf02</check>
+  </model>
+  <model id="Crc24FlexrayA">
+    <name>CRC-24/FLEXRAY-A</name>
+    <width>24</width>
+    <polynomial notation="normal" format="hex">5d6dcb</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">fedcba</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">7979bd</check>
+  </model>
+  <model id="Crc24FlexrayB">
+    <name>CRC-24/FLEXRAY-B</name>
+    <width>24</width>
+    <polynomial notation="normal" format="hex">5d6dcb</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">abcdef</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">1f23b8</check>
+  </model>
+  <model id="Crc31Philips">
+    <name>CRC-31/PHILIPS</name>
+    <width>31</width>
+    <polynomial notation="normal" format="hex">4c11db7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">7fffffff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">7fffffff</xor-out>
+    <check format="hex">ce9e46c</check>
+  </model>
+  <model id="Crc32">
+    <name>CRC-32</name>
+    <name>CRC-32/ADCCP</name>
+    <name>PKZIP</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">4c11db7</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffffffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">ffffffff</xor-out>
+    <check format="hex">cbf43926</check>
+  </model>
+  <model id="Crc32Bzip2">
+    <name>CRC-32/BZIP2</name>
+    <name>CRC-32/AAL5</name>
+    <name>CRC-32/DECT-B</name>
+    <name>B-CRC-32</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">4c11db7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">ffffffff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">ffffffff</xor-out>
+    <check format="hex">fc891918</check>
+  </model>
+  <model id="Crc32C">
+    <name>CRC-32C</name>
+    <name>CRC-32/ISCSI</name>
+    <name>CRC-32/CASTAGNOLI</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">1edc6f41</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffffffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">ffffffff</xor-out>
+    <check format="hex">e3069283</check>
+  </model>
+  <model id="Crc32D">
+    <name>CRC-32D</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">a833982b</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffffffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">ffffffff</xor-out>
+    <check format="hex">87315576</check>
+  </model>
+  <model id="Crc32K">
+    <name>CRC-32K</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">741b8cd7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">85a3197</check>
+  </model>
+  <model id="Crc32Mpeg2">
+    <name>CRC-32/MPEG-2</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">4c11db7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">ffffffff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">376e6e7</check>
+  </model>
+  <model id="Crc32Q">
+    <name>CRC-32Q</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">814141ab</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">3010bf7f</check>
+  </model>
+  <model id="CrcPosix">
+    <name>CRC-32/POSIX</name>
+    <name>CKSUM</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">4c11db7</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">ffffffff</xor-out>
+    <check format="hex">765e7680</check>
+  </model>
+  <model id="Crc32JamCrc">
+    <name>CRC-32/JAMCRC</name>
+    <name>JAMCRC</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">4c11db7</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffffffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">340bc6d9</check>
+  </model>
+  <model id="Crc32Xfer">
+    <name>CRC-32/XFER</name>
+    <name>XFER</name>
+    <width>32</width>
+    <polynomial notation="normal" format="hex">af</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">bd0be338</check>
+  </model>
+  <model id="Crc40Gsm">
+    <name>CRC-40/GSM</name>
+    <width>40</width>
+    <polynomial notation="normal" format="hex">4820009</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">ffffffffff</xor-out>
+    <check format="hex">d4164fc646</check>
+  </model>
+  <model id="Crc64">
+    <name>CRC-64</name>
+    <name>CRC-64/ISO</name>
+    <width>64</width>
+    <polynomial notation="normal" format="hex">1b</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">46a5a9388a5beffe</check>
+  </model>
+  <model id="Crc64Jones">
+    <name>CRC-64/JONES</name>
+    <width>64</width>
+    <polynomial notation="normal" format="hex">ad93d23594c935a9</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffffffffffffffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">caa717168609f281</check>
+  </model>
+  <model id="Crc64We">
+    <name>CRC-64/WE</name>
+    <width>64</width>
+    <polynomial notation="normal" format="hex">42f0e1eba9ea3693</polynomial>
+    <reflect-in>false</reflect-in>
+    <xor-in format="hex">ffffffffffffffff</xor-in>
+    <reflect-out>false</reflect-out>
+    <xor-out format="hex">ffffffffffffffff</xor-out>
+    <check format="hex">62ec59e3f1a4f00a</check>
+  </model>
+  <model id="Crc64Xz">
+    <name>CRC-64/XZ</name>
+    <name>CRC-64/ECMA</name>
+    <width>64</width>
+    <polynomial notation="normal" format="hex">42f0e1eba9ea3693</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffffffffffffffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">ffffffffffffffff</xor-out>
+    <check format="hex">995dc9bbdf1939fa</check>
+  </model>
+  <model id="Crc82Darc">
+    <name>CRC-82/DARC</name>
+    <width>82</width>
+    <polynomial notation="normal" format="hex">308c0111011401440411</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">0</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">9ea83f625023801fd612</check>
+  </model>
+  <model id="Crc256">
+    <name>CRC-256</name>
+    <width>256</width>
+    <polynomial notation="normal" format="hex">82e2443e6320383a20b8a2a0a1ea91a3cca99a30c5205038349c82aaa3a8fd27</polynomial>
+    <reflect-in>true</reflect-in>
+    <xor-in format="hex">ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</xor-in>
+    <reflect-out>true</reflect-out>
+    <xor-out format="hex">0</xor-out>
+    <check format="hex">e658549ed5015156a302babb4b49ed7e2a4f322caca9527b81d6d36995a0cd1a</check>
+  </model>
+</crc>

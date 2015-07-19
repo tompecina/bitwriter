@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream width-in="1">
+    <crc name="c" model="CRC-11" type="bitstream"/>
+    <bits>
+      1100000000010000000100000100110
+    </bits>
+  </stream>
+  <stream width-in="11">
+    <put name="c"/>
+  </stream>
+  <stream repeat="10">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-11" type="bitstream"/>
+    <bits>
+      1100000000001000100000100011011
+    </bits>
+  </stream>
+  <stream width-in="11">
+    <put name="c"/>
+  </stream>
+  <stream repeat="10">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-11" type="bitstream"/>
+    <bits>
+      1100000000010000100001100000100
+    </bits>
+  </stream>
+  <stream width-in="11">
+    <put name="c"/>
+  </stream>
+  <stream repeat="10">
+    0xee
+  </stream>
+  <stream width-in="1">
+    <crc name="c" model="CRC-11" type="bitstream"/>
+    <bits>
+      0000000000011000100010111010010
+    </bits>
+  </stream>
+  <stream width-in="11">
+    <put name="c"/>
+  </stream>
+  <stream repeat="10">
+    0xee
+  </stream>
+</file>

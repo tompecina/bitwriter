@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      242BC5FB00000040
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      102BC5FB000000A0
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      212BC5FB00000089
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      142BC5FB00000054
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      14B3D8FB000000D4
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      232BC5FB000000F3
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      23B3D8FB00000073
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      092BC5FB00000097
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      09B3D8FB00000017
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      0B2BC5FB000000ED
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      0BB3D8FB0000006D
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      0F2BC5FB00000019
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      0FB3D8FB00000099
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      0A2BC5FB000000D0
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+  <stream>
+    <crc name="c" model="CRC-8/MAXIM"/>
+    <hex>
+      0C2BC5FB0000005E
+    </hex>
+  </stream>
+  <stream>
+    <put name="c"/>
+  </stream>
+  <stream repeat="7">
+    0xee
+  </stream>
+</file>

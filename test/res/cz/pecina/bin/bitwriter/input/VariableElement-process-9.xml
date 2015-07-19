@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <crc name="c" model="crc-32"/>
+    <sum name="s" width="64"/>
+    <set name="x" on-stream-out="{{x + val}}"/>
+    0x59 0x98 0xc1 0x09
+  </stream>
+  <stream width-in="32" repeat="63">
+    <put name="c" reset="false"/>
+  </stream>
+  <stream width-in="64">
+    <release name="x"/>
+    <put name="s"/>
+    <put name="x"/>
+  </stream>
+  <stream>
+    <crc name="c" model="crc-32"/>
+    <set name="k" value="0x1234"/>
+    <sum name="s" width="64" xor-in="{{k}}" xor-out="{{k}}"/>
+    <set name="x" value="{{k}}" on-stream-out="{{x + val}}"/>
+    0x59 0x98 0xc1 0x09
+  </stream>
+  <stream width-in="32" repeat="63">
+    <put name="c" reset="false"/>
+  </stream>
+  <stream width-in="64">
+    <release name="x"/>
+    <put name="s"/>
+    <set name="x" value="{{x ^ k}}"/>
+    <put name="x"/>
+  </stream>
+</file>

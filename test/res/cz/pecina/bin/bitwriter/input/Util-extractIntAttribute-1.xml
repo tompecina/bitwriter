@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>1 2</stream>
+  <stream repeat="2">0x55</stream>
+  <stream repeat="0x2">0xaa</stream>
+  <stream repeat="02">0x33</stream>
+  <stream repeat="0b10">0xcc</stream>
+  <stream repeat="{{1+1}}">1</stream>
+  <stream repeat="{{BigInteger.valueOf(2)}}">2</stream>
+  <stream repeat="0">3</stream>
+  <stream width-out="8">4</stream>
+</file>

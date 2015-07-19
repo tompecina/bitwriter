@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <hex repeat="0">
+      ee
+    </hex>
+  </stream>
+  <stream>
+    <hex>
+      11 22 33 44
+      {{s = "a  a"; s.length}}
+      {{s = "a\n a"; s.length}}
+    </hex>
+  </stream>
+</file>

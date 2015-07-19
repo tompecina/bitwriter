@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <set name="n" value="1"/>
+    <sum name="s" width="32"/>
+    <dec repeat="100">
+      {{n++}}
+    </dec>
+  </stream>
+  <stream width-in="32">
+    <put name="s"/>
+  </stream>
+  <stream>
+    <hex repeat="8">
+      ee
+    </hex>
+  </stream>
+  <stream repeat="20">
+    <sum name="s" width="1" type="bitstream"/>
+    <parity name="p" model="even" type="bitstream"/>
+    <dec repeat="14">
+      {{n = ((n * 1664525) + 1013904223) % 0x100000000; n}}
+    </dec>
+    <release name="s"/>
+    <release name="p"/>
+    <put name="s"/>
+    <put name="p"/>
+  </stream>
+  <stream>
+    <hex repeat="16">
+      ee
+    </hex>
+  </stream>
+  <stream repeat="20">
+    <sum name="s" width="1" type="bitstream"/>
+    <parity name="p" model="odd" type="bitstream"/>
+    <dec repeat="14">
+      {{n = ((n * 1664525) + 1013904223) % 0x100000000; n}}
+    </dec>
+    <release name="s"/>
+    <release name="p"/>
+    <put name="s"/>
+    <put name="p"/>
+  </stream>
+</file>

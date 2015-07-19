@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <hex>
+      <crc name="c0" model="crc-64" reflect-out="0"/>
+      <crc name="c1" model="crc-64" reflect-out="1"/>
+      <crc name="cf" model="crc-64" reflect-out="false"/>
+      <crc name="ct" model="crc-64" reflect-out="true"/>
+      00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
+    </hex>
+  </stream>
+  <stream width-in="64">
+      <set name="t0" value="{{c0}}"/>
+      <set name="t1" value="{{c1}}"/>
+      <set name="tf" value="{{cf}}"/>
+      <set name="tt" value="{{ct}}"/>
+      <set name="ee" value="0xeeeeeeeeeeeeeeee"/>
+      <put name="t0"/><put name="ee" reset="false"/>
+      <put name="t1"/><put name="ee" reset="false"/>
+      <put name="tf"/><put name="ee" reset="false"/>
+      <put name="tt"/><put name="ee" reset="false"/>
+  </stream>
+  <stream>
+    <hex>
+      <crc name="c0" model="crc-64" reflect-out=" 0 "/>
+      <crc name="c1" model="crc-64" reflect-out=" 1 "/>
+      <crc name="cf" model="crc-64" reflect-out=" false "/>
+      <crc name="ct" model="crc-64" reflect-out=" true "/>
+      00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
+    </hex>
+  </stream>
+  <stream width-in="64">
+      <set name="t0" value="{{c0}}"/>
+      <set name="t1" value="{{c1}}"/>
+      <set name="tf" value="{{cf}}"/>
+      <set name="tt" value="{{ct}}"/>
+      <set name="ee" value="0xeeeeeeeeeeeeeeee"/>
+      <put name="t0"/><put name="ee" reset="false"/>
+      <put name="t1"/><put name="ee" reset="false"/>
+      <put name="tf"/><put name="ee" reset="false"/>
+      <put name="tt"/><put name="ee" reset="false"/>
+  </stream>
+</file>
