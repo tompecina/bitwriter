@@ -8,7 +8,7 @@ BITWRITER
 1. ABOUT BITWRITER
 
 Bitwriter is a Java application capable of transforming an XML input file into
-binary output.  Compared to simple binary-data processing utilities such as
+binary output.  Compared to simple binary data-processing utilities such as
 xxd, Bitwriter is much more versatile, as it understands rich input
 vocabulary, including variables, looping constructs,
 parity/checksum/CRC/message digest calculators, and enhanced JavaScript
@@ -71,7 +71,7 @@ followed by an MS-DOS/Windows end-of-line sequence and a zero (null) byte.
 
 However, Bitwriter is not a text writing application, and it is definitely not
 its forte.  Let's consider something more appropriate to its binary nature: a
-file consisting of a preabmle of sixteen 0x33's, followed by a series of 512
+file consisting of a preamble of sixteen 0x33's, followed by a series of 512
 integers of 5000, stored as 32-bit values, little-endian, followed by a
 CRC-16/CCITT checksum computed over the whole sequence of the integers and
 stored, for a change, as big-endian.  This can be accomplished by the
@@ -150,13 +150,13 @@ models.
 
 -l,--list-crc-models
 
-The application prints out the parameters of all preset CRC models and
-exists.  The listing contains the following fields for each model:
+The application prints out the parameters of all preset CRC models and exits.
+The listing contains the following fields for each model:
 
-  ID:       the identification string of the model
+  ID:       the unique identification string of the model
   
-  Alias/es: a list of names; a model can be invoked using either ID or any of
-            its aliases
+  Alias/es: a list of names; a model can be invoked using either its ID or any
+            of the aliases
 	    
   Width:    width of the generator polynomial in bits
   
@@ -198,10 +198,10 @@ separate unit, ie, the concatenation takes place on the binary output level.
 
 -S,--no-schema
 
-Normally, input XML data is checked using the built-in XML Schema file (a copy
-of which is available both in the JAR and on my personal website at
+Normally, input XML data is validated against a built-in XML Schema file (a
+current copy of which is always availabl on my personal website at
 http://www.pecina.cz/xsd/bin-1.0.xsd.  This option suppresses the validation.
-This is not recommended as any error will still be detected and reported by
+This is not recommended as errors will still be detected and reported by
 Bitwriter's processing algorithm, however, the XML validator may provide a
 more relevant and detailed error report.
 
@@ -216,12 +216,11 @@ binary data.  This is useful for debugging.
 
 Bitwriter reads and processes only well-formed and valid XML data.  The format
 of the XML data is straightforward and easy to understand, with no
-irregularities or idiosyncrasies.  It reminds more a of scripting or
-programming language than a data-based XML file.
+irregularities or idiosyncrasies.  It reminds more of a scripting or
+programming language than a data XML file.
 
 The XML Schema describing the vocabulary and semantics of the XML file can be
-downloaded from my personal website; it is stored at
-http://www.pecina.cz/xsd/bin-1.0.xsd.
+downloaded from my personal website (http://www.pecina.cz/xsd/bin-1.0.xsd).
 
 All attributes, with the single exception of "version" in the <file> element,
 can be provided either by a literal string, such as "stream-out", "false" or
@@ -232,15 +231,16 @@ Bitwriter understands the following literal data:
 
 Numbers: An integer can be given in hexadecimal, decimal, octal or binary
 representation of any length.  Numbers are internally represented as Java's
-BigInteger objects.
+BigInteger objects so there is no limit to their size.
 
 Boolean values: The format of XML Schema type xs:boolean is accepted, ie,
 "true"/"false" or "1"/"0".
 
-String constants: These must be given verbatim, case-sensitive, without quotes
-or internal whitespace; quotes are used only when the string is the output of
-a script, eg, {{ 'little' }}.  Omitting the quotes here would cause a syntax
-error.
+String constants: These must be given verbatim, case-sensitive, without
+quotation marks or internal whitespace characters; quotes are used only when
+the string is the output of a script, eg, {{ 'little' }}; without the quotes,
+the script engine would output the value of the variable named "little" rather
+than the string "little".
 
 Numeric sequences: The format of numeric sequences depends on the
 element/context and will be described separately for each element in which
