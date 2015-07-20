@@ -410,11 +410,11 @@ sequence is repeated.
 
 <bits>
 
-Bit stream.  The content sequence is taken character by character, and written
-to input stream either as 0 or 1.  It is important to understand the
+Bit stream.  The content sequence is taken character by character and written
+to the input stream either as 0 or 1.  It is important to understand the
 difference between <bits> and <bin>.  While the latter can be used for
 representing any numeric value, <bits> can only express "zero" or "one" and
-input or output aggregation/de-aggregation mechanism must be empoyed for a
+input or output aggregation/de-aggregation mechanism must be employed for a
 wider base output.  Example: <bin>01010101</bin> means _one_ value 0x55,
 <bits>01010101</bits> is actually _eight_ distinct values: 0, 1, 0, 1, 0, 1,
 0, and 1.
@@ -433,9 +433,9 @@ sequence is repeated.
 
 Floating point data.  The content tokens are interpreted as floating point
 data, conforming to IEEE 754 "binary32" format.  All formats suppported by
-Java are permitted.  Like with all sequence elements, the result is put into
-_one_ numeric value of the input stream, and it is up to the user to provide
-for the appropriate storage.
+Java are permitted.  Like all sequence elements, the result is put into _one_
+numeric value of the input stream, and it is up to the user to provide for the
+appropriate storage.
 
 Content:
 
@@ -469,10 +469,10 @@ sequence is repeated.
 
 Character stream.  The data is extracted from the text in the content of the
 element, according to the rules specified by the "wrap" and "charset"
-attributes.  Special characters such as '\n' are not recognized; Bitwriter is
-primarily a binary, bit-writing application, so if you need more sophisticated
-processing of textual data in the stream, it is recommended to embed them by
-<include>'ing the text from an external file.
+attributes.  Special characters such as '\n' or '\007' are not recognized;
+Bitwriter is primarily a binary, bit-writing application, so if you need more
+sophisticated processing of textual data in the stream, it is recommended to
+embed them by <include>'ing the text from an external file.
 
 Content:
 
@@ -483,14 +483,14 @@ Attributes:
 "repeat" -- Optional, non-negative integer, default "1".  Number of times the
 contents is repeated.
 
-"wrap" -- Optional, Boolean, default "true".  If "false", characters are
-copied including any leading and trailing whitespace characters, if "true",
-they are trimmed out before processing.
+"wrap" -- Optional, Boolean, default "true".  If "false", all characters are
+copied, including any leading and trailing whitespace characters, if "true",
+they are removed from the string before further processing.
 
-"charset" -- Optional, default "UTF-8".  The charset used for converting the
-text string to bytes.  All charsets recognized by Java are accepted, plus
-"raw", which means that the code-point number of the character is used rather
-then its multi-byte representation.
+"charset" -- Optional, default "UTF-8".  The charset (character set) used for
+converting the text string to bytes.  All charsets recognized by Java are
+accepted, plus "raw", which means that the code-point number of the character
+is used rather then its -- possibly multi-byte -- representation.
 
 
 <seq>
@@ -510,9 +510,9 @@ contents is repeated.
 
 <script>
 
-The script is evaluated, but the return values is discarded, so only
-side-effects are important.  The <script> element can be used anywhere, inside
-and outside a stream.
+The script is evaluated, but the return values is discarded, so only the
+side-effects of the execution are important.  The <script> element can be used
+anywhere, inside or outside a stream.
 
 Content:
 
@@ -521,7 +521,7 @@ The script string, not enclosed in double braces.
 Attributes:
 
 "repeat" -- Optional, non-negative integer, default "1".  Number of times the
-script is repeated.
+script is executed.
 
 
 <flush>
@@ -540,8 +540,8 @@ None.
 
 <set>
 
-Sets the values of the variable.  If the variable does not exist, it is
-created and reset.
+Sets the value of the variable.  If the variable does not exist, it is created
+and reset (ie, set to "0").
 
 Content:
 
@@ -550,15 +550,15 @@ None.
 Attributes:
 
 "name" -- Required.  Name of the variable, an identifier consisting of
-uppercase or lowercase letter, digits and special characters '_' and '$', not
-starting with a digit.  Variable names are case sensitive.
+uppercase or lowercase letters, digits and special characters '_' and '$'.  It
+may not start with a digit.  Variable names are case sensitive.
 
 "value" -- Optional, integer.  If specified, the variable is set to the value.
 If specified as a script, it is evaluated immediately.  The script is executed
 as the first action during the write, preceding any other activity, in
-particular before the value is written downstream.  That means that in the
-course of regular write cycle, the triggers are activated in the downstream
-direction, ie, "on-input-stream" first and "on-output-stream" last.
+particular before the value is processed and written downstream.  This means
+that in the course of a regular write cycle, the triggers are activated in the
+downstream direction, ie, "on-input-stream" first and "on-output-stream" last.
 
 "on-stream-in" -- Optional, integer.  A value to which the variable is set on
 a any write to input stream.  Typically a script, evaluation is deferred until
@@ -586,9 +586,9 @@ triggered by a write to the controlled output stream.
 
 <reset>
 
-The variable is reset to 0, all trigger scripts are removed and if it is a
-calculator, it is switched to normal mode.  If the variable does not exist, it
-is created.
+The variable is reset to "0", all trigger scripts are removed and if it has
+been set up as a calculator, it is switched back to normal mode.  If the
+variable does not exist, it is created.
 
 Content:
 
@@ -596,13 +596,13 @@ None.
 
 Attributes:
 
-"name" -- Required, identifier of the variable.
+"name" -- Required, the identifier of the variable.
 
 
 <release>
 
-The variable is released, ie, its script are reset and it is set to normal
-mode.  The value in preserved.  The variable must exist, or an error is
+The variable is released, ie, all its scripts are reset and it is set to
+normal mode.  The value in preserved.  The variable must exist, or an error is
 reported.  This is practical for situations when a calculator, eg, a CRC, is
 not written to the stream immediately after the data it protects.  After the
 data block the variable is released, so it stops updating, and any postamble
@@ -614,7 +614,7 @@ None.
 
 Attributes:
 
-"name" -- Required, identifier of the variable.
+"name" -- Required, the identifier of the variable.
 
 
 <put>
@@ -624,7 +624,7 @@ Unlike normal data sequences, which are always written to the input stream,
 <put> can be used for writing to any of the six streams.  By default, <put>
 also resets the variable.  It is important to keep in mind that only one
 integer is written, though it can be split into multiple bytes using the
-stream aggregation/de-aggregation mechanism.  The <put> element can only
+stream's aggregation/de-aggregation mechanism.  The <put> element can only
 appear inside a stream.
 
 Content:
@@ -633,8 +633,8 @@ None.
 
 Attributes:
 
-"name" -- Optional, identifier of the variable.  If specified, the variable
-must exist.
+"name" -- Optional, the identifier of the variable.  If specified, the
+variable must exist.
 
 "value" -- Optional, integer value to be written instead of the variable.
 Either "name" or "value" must be specified.
@@ -659,7 +659,7 @@ None.
 
 Attributes:
 
-"name" -- Optional, identifier of the variable.  If specified, the variable
+"name" -- Optional, the identifier of the variable.  If specified, the variable
 must exist.
 
 "value" -- Optional, integer value to be written instead of the variable.
@@ -678,14 +678,17 @@ None.
 
 Attributes:
 
-"name" -- Required, identifier of the variable.  It must exist.
+"name" -- Required, the identifier of the variable.  If the variable does not
+exist, it is created.
 
-"type" -- Option, default "bitstream".  The stream to which the variable is
-connected.  The options are "stream-in", "aggregate-stream-in", "bitstream",
-"aggregate-stream-out", "stream-out", "output-stream"; however, as <parity> is
-a one-bit calculator, it only makes sense to connect it to the bit stream.
+"type" -- Optional, default "bitstream".  The stream to which the calculator
+is connected.  The options are "stream-in", "aggregate-stream-in",
+"bitstream", "aggregate-stream-out", "stream-out", "output-stream"; however,
+<parity> is a one-bit calculator, so it only makes sense to connect it to the
+bit stream.
 
-"model" -- Optional, default "odd".  The type of parity to be calculated.
+"model" -- Optional, "even" or "odd", default "odd".  The type of parity to be
+calculated.
 
 
 <sum>
@@ -699,11 +702,12 @@ None.
 
 Attributes:
 
-"name" -- Required, identifier of the variable.  It must exist.
+"name" -- Required, the identifier of the variable.  If the variable does not
+exist, it is created.
 
-"type" -- Option, default "stream-out".  The stream to which the variable is
-connected.  The options are "stream-in", "aggregate-stream-in", "bitstream",
-"aggregate-stream-out", "stream-out", "output-stream".
+"type" -- Optional, default "stream-out".  The stream to which the calculator
+is connected.  The options are "stream-in", "aggregate-stream-in",
+"bitstream", "aggregate-stream-out", "stream-out", "output-stream".
 
 "width" -- Optional, positive integer, default "8".  The bit width of the
 checksum.
@@ -717,8 +721,9 @@ with this value before it is put to the variable.
 
 <crc>
 
-The variable is set up as a CRC all the values written to the selected stream.
-The variable is created and reset if it does not exist.
+The variable is set up as a CRC (Cyclic Redundancy Check) over all the values
+written to the selected stream.  The variable is created and reset if it does
+not exist.
 
 Content:
 
@@ -726,15 +731,17 @@ None.
 
 Attributes:
 
-"name" -- Required, identifier of the variable.  It must exist.
+"name" -- Required, the identifier of the variable.  If the variable does not
+exist, it is created.
 
-"type" -- Option, default "stream-out".  The stream to which the variable is
-connected.  The options are "stream-in", "aggregate-stream-in", "bitstream",
-"aggregate-stream-out", "stream-out", "output-stream".
+"type" -- Optional, default "stream-out".  The stream to which the calculator
+is connected.  The options are "stream-in", "aggregate-stream-in",
+"bitstream", "aggregate-stream-out", "stream-out", "output-stream".
 
 "model" -- Optional.  The ID or name (alias) of the model as defined in the
 presets file (see above).  The string is case-insensitive.  If "model" is
-supplied, its parameters can be overridden by providing individual attributes.
+supplied, its parameters can still be overridden by providing individual
+attributes.
 
 "notation" -- Optional, default "normal".  The notation in which the generator
 polynomial is expressed.  It is always expressed as a value of the polynomial
@@ -745,26 +752,27 @@ are included without any change; "reversed" -- the highest-degree term is
 omitted and the remaining coefficients are reversed; "koopman" -- Koopman's
 notation, in which the lowest-degree coefficient is omitted and the polynomial
 is divided by x, ie, its representation is shifted one bit to the right.
-Example: x ^ 8 + x ^ 2 + x + 1 will be expressed as follows: normal 0x7, full
-0x107, reversed 0xe0, Koopman's 0x83.
+Example: the polynomial x ^ 8 + x ^ 2 + x + 1 will be expressed as follows:
+normal 0x7, full 0x107, reversed 0xe0, Koopman's 0x83.
 
-"width" -- Optional, positive integer.  The bit width of the polynomial.  If
-the notation is "full" or "koopman", it can be derived from the representaiton
-of the polynomial, for "normal" and "reversed", it is a required attribute.
+"width" -- Required or optional (see below), positive integer.  The bit width
+of the polynomial.  If the notation is "full" or "koopman", it can be derived
+from the representaiton of the polynomial, for "normal" and "reversed", it is
+a required attribute.
 
 "polynomial" -- Optional, integer > 1.  The numeric representation of the
 generator polynomial in the given notation.
 
 "reflect-in" -- Optional, Boolean, default "true".  A parameter of the CRC
 model determining the order in which bits are processed by the shift register.
-If "true", MSB bit is processed first, otherwise the LSB bit.
+If "true", the MSB bit is processed first, otherwise the LSB bit.
 
 "xor-in" -- Optional, integer, default "-1".  The initial value of the
 register.
 
 "reflect-out" -- Optional, Boolean, default "false".  It determines the order
-in which bits of the register are output.  If "true", bit order is reversed,
-ie, LSB of the register is presented as MSB.
+in which the bits of the register are output.  If "true", the bit order is
+reversed, ie, the LSB of the register is presented as the MSB.
 
 "xor-out" -- Optional, integer, default "0".  The register is exclusive-or'ed
 with this value before it is assigned to the variable.
@@ -782,17 +790,18 @@ None.
 
 Attributes:
 
-"name" -- Required, identifier of the variable.  It must exist.
+"name" -- Required, the identifier of the variable.  If the variable does not
+exist, it is created.
 
-"type" -- Option, default "stream-out".  The stream to which the variable is
-connected.  The options are "stream-in", "aggregate-stream-in", "bitstream",
-"aggregate-stream-out", "stream-out", "output-stream".
+"type" -- Optional, default "stream-out".  The stream to which the calculator
+is connected.  The options are "stream-in", "aggregate-stream-in",
+"bitstream", "aggregate-stream-out", "stream-out", "output-stream".
 
 "model" -- Required.  The string identifying the digest algorithm.  The
-selection depends on the JRE in which the application is run, but all of the
-common digest types, such as "MD5", "SHA-1" or "SHA-256", should be supported.
-Please refer to your current JRE documentation for a complete and current
-list.
+selection depends on the JRE (Java Runtime Environment) in which the
+application is run, but all of the common digest types, such as "MD5", "SHA-1"
+or "SHA-256", are supported.  Please refer to your current JRE documentation
+for a complete and current list.
 
 
 <random>
@@ -807,26 +816,27 @@ Attributes:
 
 "width" -- Optional, integer, default "8".  The bit width of the generated
 pseudo-random data.  Due to the limitations of JRE's PRNG, which uses a 48-bit
-shift register, the value should not be more than "32".  If you need wider
-data, use input or output aggregation features of Bitwriter.
+shift register, the width should not be more than "32".  If you need wider
+data values, use Bitwriter's input or output aggregation features.
 
 "length" -- Optional, non-negative integer, default "1".  The length of the
 generated sequence.
 
 "seed" -- Optional, integer.  The seed (of Java's long type) for the PRNG.  If
-none is provided, JRE will gather entropy from the operating system and will
-(most likely) generate a different sequance each time the script is executed.
+none is provided, the JRE will gather entropy from the operating system and
+will (most likely) generate a different sequance each time the script is
+executed.
 
 Note: Although Bitwriter is not a cryptography application covering tasks
 dealt with by specialized cryptographic software such as OpenSSL or PGP, its
 ability to work natively with arbitrary size integers makes it an ideal tool
 for preparing cryptographic data files during development, testing and
 experimentation.  However, don't use Bitwriter for anything that requires
-cryptographic strength output.  This is why its functionality in this area was
-deliberately limited and it does not ship with any cryptographic library.  Use
-Bitwriter at will during the development phase of your project, but if you
-need "live" data files, please don't rely on Bitwriter and write properly
-secured scripts.
+cryptographic strength output.  This is why its functionality in this area has
+been deliberately clipped and it does not ship with any cryptographic library.
+Use Bitwriter to the full during the development phase of your project, but if
+you need "live" crypto data files, please don't rely on Bitwriter and write
+properly secured scripts.
 
 
 <include>
@@ -841,7 +851,7 @@ Attributes:
 "location" -- Required.  THe pathname of the included file.
 
 "offset" -- Optional, non-negative integer, default "0".  Offset of the data
-to be included from the beginning of the file.
+to be included, counted from the beginning of the file.
 
 "length" -- Optional, non-negative integer.  The length (number of bytes) of
 the included sequence.  If not specified, the whole file, or its remaining
@@ -849,9 +859,9 @@ part, is included.
 
 "repeat" -- Optional, non-negative integer, default "1".  Number of times the
 file segment is included.  Please note that the inclusion is repeated by
-reopening the input file, so that if the contents of the file changed before
+reopening the input file, so that if the contents of the file change between
 repetitions, different data will be included.  This can be useful, eg, for
-including data from a user-spplied PRNG or an Internet socket.
+including data from a user-spplied PRNG or from an Internet socket.
 
 
 6. DATA MODEL
@@ -862,21 +872,21 @@ or "channels", forming the output octet stream from the input arbitrary-width
 data, and the realization that all practical tasks can be reduced into three
 stages: input aggregation, bit processing, and output de-aggregation.  The
 only thing this setup cannot handle directly are arcane and rarely used data
-models like mid-endian data stream, but these can still be processed using the
-scripting feature.
+models such as mid-endian data stream, but these can still be processed using
+the scripting features.
 
-All data is represented as sequences of non-negative integers of arbitraty bit
+All data is represented as sequences of non-negative integers of arbitrary bit
 length.  Negative values are only meaningful for masking, though Bitwriter
-will process them correctly.
+will process them correctly, masking them as needed to fit the stream width.
 
-It is important to keep in mind that the data streams are processed on the
-fly, data is buffered only when necessary for the next stage.  This is why
+It is important to keep in mind that all the data streams are processed on the
+fly, the data is buffered only when necessary for the next stage.  This is why
 Bitwriter keeps no record of the sequences written to the streams; if you need
-such records, you must employ Bitwriter's scripting features.
+such records, or logs, you may employ Bitwriter's scripting features.
 
 
-During its operation, Bitwriter uses six data streams through which the data
-traverse:
+For its operation, Bitwriter uses six data streams through which data is
+funnelled:
 
 
 6.1. Input stream
@@ -888,7 +898,7 @@ width as a number of bits is specified by the "width-in" parameter to
 
 6.2. Aggregate input stream
 
-This stream gathers values from the input stream and groups them into
+This stream receives values from the input stream and groups them into
 aggregate values according to the required input endianness of the stream.
 The width of this stream, given by the attribute "width-aggregate-in", must be
 a multiple of "width-in".  If this stream is wider than the input stream, the
@@ -914,20 +924,21 @@ written to it.
 6.5. Output stream
 
 This stream has a fixed width depending on the computer architecture, which is
-normally 8.  Its role in the engine is to prepares data for being written to
-the output file.  The strean's main function is to de-aggregate the output
-data, ie, split it into bytes according to the required output endianness.
+normally "8".  Its role in the engine is to prepares data for being written to
+the output file.  The stream's main function is to de-aggregate the output
+data, ie, to split it into bytes according to the required output endianness.
 
 
 6.6. Controlled output stream
 
 Basically a copy of the output stream where special output processing takes
-place.  This involves converting the data to hexadecimal representation of the
+place.  This involves converting the data to hexadecimal representation if the
 command-line argument "-x" is specified, or discarding it, if required so by
 the "discard" attribute to the <stream> element.
 
 The flow of data through the bit processing engine is most easily understood
-by studying the examples below.
+by studying the examples as provided in this manual and in the examples/
+folder of the package.
 
 
 7. FORMAT OF CRC PRESET MODELS FILE
@@ -936,8 +947,8 @@ The user can supply his/her own list of CRC models by way of an XML file.  It
 is validated against the built-in XML Schema, which can be downloaded from
 http://www.pecina.cz/xsd/crc-1.0.xsd.
 
-The format of the XML file is rather simple.  Its root element is <crc>, with
-one required attribute "version", which must be equal to "1.0" for the
+The format of the XML file is relatively simple.  Its root element is <crc>,
+with one required attribute "version", which must be equal to "1.0" for the
 Bitwriter to recognize it as a valid CRC models file.
 
 An example CRC file, containing only one model:
@@ -960,7 +971,8 @@ An example CRC file, containing only one model:
 The <model> element has one required attribute, "id".  It is the unique
 identifier of the model.
 
-It contains a sequence of elements describing the model's parameters:
+This element is a container for a (fixed-order) sequence of elements
+describing the model's parameters:
 
 - One or more <name> elements, the names (or aliases) by which the model can
   be referred to in the input XML file.
@@ -982,39 +994,44 @@ It contains a sequence of elements describing the model's parameters:
   "true"/"false" and "0"/"1" are accepted.
 
 - Required <xor-in>, the model's xorIn; like <polynomial>, it must have
-  "format" equal to "hex".
+  "format" attribute equal to "hex".
 
 - Required Boolean <reflect-out>, the RefOut parameter of the model.
 
 - Required <xor-out>, the model's xorOut value; in hexadecimal notation and
   with the required "format" set to "hex".
 
-- The last element is optional <check>; if present, it must have the "format"
-  attribute set to "hex" and its value must be the CRC value of the ASCII
-  string "123456789" (or {0x31, 0x32,... 0x39}).
+- The last element is the optional <check>; if present, it must have the
+  "format" attribute set to "hex" and its value must be the CRC value of the
+  ASCII string "123456789" (or {0x31, 0x32,... 0x39}).
 
 
 8. BITWRITER SCRIPTING
 
-Bitwriter takes advantage of Java's Nashhorn -- a dialect of ECMA Script, aka
-JavaScript -- as its scripting platform.  The script context (bindings) is
-shared between all the script instances, with the scope being the whole input
-file -- or input string -- processing, so that variables set in one script
-snippet can be referenced from all the subsequent snippets in the same XML
-file/string.
+Bitwriter takes advantage of Java's Nashhorn -- a dialect of the ECMA Script,
+aka JavaScript -- as its scripting platform.  The script context (the
+bindings) is shared between all the script instances within the input file or
+string, so that variables set in one script snippet can be referenced from all
+the subsequent snippets in the same XML file/string.  However, there is no way
+how to transmit information between different input files or strings: this
+also applies to variables which are reset, so that all information is
+forgotten (the context is deleted) at the end of the input file/string.
 
-There are no limitations stipulated for the use of Nashhorn, and no
-limitations of which Java resources can be accessed by a script.  When a
-script is launched, its bindings have the following preset values:
+There are no limitations set on the use of Nashhorn, and no limitations apply
+to which Java resources can be accessed by a running script.  When a script is
+launched, its bindings have the following preset values:
 
 - All Bitwriter variables', including calculators, are set, using the same
-  identifiers as in XML, eg, if the XML file initialized the variable "x", it
-  will be directly accessible from the script as the JavaScript variable "x".
-  The value of the variable is a BitInteger object, and it is initialized as
-  such, but the scripting language will convert the value to a number whenever
-  needed.  This means that in most cases, the user does not have to bother
-  about the representation of the variables and he/she can use them directly
-  in arithmetic operations and function calls.
+  identifiers as in XML, eg, if the XML file initialized the variable "total",
+  it will be directly accessible from within the script as the JavaScript
+  variable "total".  The value of the variable is a BitInteger object, and it
+  is initialized as such, but the scripting language will convert the value to
+  a number whenever needed.  This automatism is a very useful feature: it
+  means that in most cases, the user does not have to bother about the
+  internal representation of the variables and he/she can use them directly in
+  arithmetic operations and function calls.  One only needs to access the
+  variables as BigInteger's when they are wider than what ECMA script's
+  universal numeric types can handle (which is something like 53 bits).
 
 - If the script execution has been triggered by a write to a stream, the
   Nashhorn variable "val" is set to the value being written, as a BigInteger
@@ -1025,20 +1042,20 @@ script is launched, its bindings have the following preset values:
   integer value, not a BigInteger).
 
 - The variable "streamLength" is set to the number of bytes already written to
-  the current stream.  If the current stream is discarded, this value is still
-  incremented, which can be used, for instance, for automatic counting of
-  bytes written to a "buffer" variable.
+  the current stream.  If the current stream is being discarded, this value is
+  still incremented, which can be used, for instance, for automatic counting
+  of bytes written to a "buffer" variable.
 
 - Similarly, "totalLength" is the total number of bytes written to the output
-  file.  However, the bytes written to discarded streams are not counted in.
+  file.  Bytes written to discarded streams are not counted in.
 
 - "BigInteger" is set to the BigInteger type so it can be used directly.
 
 - "variables" is set to Bitwriter's variables object.  This is practical for
-  more sophisticated manipulations involving the variables, such as accessing
-  and modifying the calculators and their properties.
+  more sophisticated manipulations with the variables, such as accessing the
+  calculators and their properties.
 
-- The variable "connector" is set to a special object that provides certain
+- The variable "connector" is set to a special object that provides several
   convenience methods as a "shortcut" to the Java methods.  These are:
 
   - getProcessor() -- accessor of the InputTreeProcessor object
@@ -1063,7 +1080,8 @@ script is launched, its bindings have the following preset values:
   - flush() -- flush the streams
 
 When the script execution finishes, the variables are updated accroding to
-changes made to their Nashhorn equivalents.  However, this only applies to
+changes made to their JavaScript equivalents.  However, this only applies to
 non-calculator (normal-mode) variables, calculators and their registers are
-never updated automatically.  If you wish to update a calculator value from a
-script, you must do it explicitly, using the "variables" accessor object.
+never updated automatically.  If the user wishes to update a calculator value
+from a script, he/she must do it explicitly, using the "variables" accessor
+object.
