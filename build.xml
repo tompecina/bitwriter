@@ -177,7 +177,7 @@
 	  classpathref="base.path"
 	  fork="true">
       <arg line="${args}"/>
-      <jvmarg value="-Djava.util.logging.config.file=${package}/debug.properties"/>
+      <jvmarg value="-Djava.util.logging.config.file=debug.properties"/>
       <assertions>
 	<enable/>
       </assertions>
