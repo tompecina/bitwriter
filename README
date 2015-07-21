@@ -435,7 +435,7 @@ sequence is repeated.
 Floating point data.  The content tokens are interpreted as floating point
 data, conforming to IEEE 754 "binary32" format.  All formats suppported by
 Java are permitted.  Like all sequence elements, the result is put into _one_
-numeric value of the input stream, and it is up to the user to provide for the
+numeric value of the input stream, and it is up to the user to provide for
 appropriate storage.
 
 Content:
@@ -454,7 +454,7 @@ Floating point data.  The content tokens are interpreted as floating point
 data, conforming to IEEE 754 "binary64" format.  All formats suppported by
 Java are permitted.  Like with all sequence elements, the result is put into
 _one_ numeric value of the input stream, and it is up to the user to provide
-for the appropriate storage.
+for appropriate storage.
 
 Content:
 
