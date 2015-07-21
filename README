@@ -867,18 +867,20 @@ including data from a user-spplied PRNG or from an Internet socket.
 
 6. DATA MODEL
 
-The data model -- the "data processing engine" -- used by Bitwriter is a
-compromise between the original idea of a fully configurable set of streams,
-or "channels", forming the output octet stream from the input arbitrary-width
-data, and the realization that all practical tasks can be reduced into three
-stages: input aggregation, bit processing, and output de-aggregation.  The
-only thing this setup cannot handle directly are arcane and rarely used data
-models such as mid-endian data stream, but these can still be processed using
-the scripting features.
+The data model -- the "data processing engine" -- used by Bitwriter is
+a compromise between the original idea of a fully configurable set of
+streams, or "channels", forming the output octet stream from the input
+arbitrary-width data, and the realization that practically any
+thinkable task can be reduced into three stages: input aggregation,
+bit processing, and output de-aggregation.  The only thing this setup
+cannot handle directly are arcane and rarely used data models such as
+mid-endian data stream, but these can still be processed using the
+scripting features of the application.
 
-All data is represented as sequences of non-negative integers of arbitrary bit
-length.  Negative values are only meaningful for masking, though Bitwriter
-will process them correctly, masking them as needed to fit the stream width.
+All data is represented as sequences of non-negative integers of
+unlimited bit length.  Negative values are only meaningful for
+masking, though Bitwriter will process them correctly, clipping
+(masking) them as needed to fit the stream width.
 
 It is important to keep in mind that all the data streams are processed on the
 fly, the data is buffered only when necessary for the next stage.  This is why
@@ -886,15 +888,15 @@ Bitwriter keeps no record of the sequences written to the streams; if you need
 such records, or logs, you may employ Bitwriter's scripting features.
 
 
-For its operation, Bitwriter uses six data streams through which data is
-funnelled:
+Bitwriter operates using six data streams through which the input data
+is funnelled:
 
 
 6.1. Input stream
 
-This is the stream where input seqences are written, value by value.  Its
-width as a number of bits is specified by the "width-in" parameter to
-<stream>.
+This is the stream where input seqences are written, value by value.
+Its width, expressed as a number of bits, is specified by the
+"width-in" parameter to <stream>.
 
 
 6.2. Aggregate input stream
@@ -1009,14 +1011,15 @@ describing the model's parameters:
 
 8. BITWRITER SCRIPTING
 
-Bitwriter takes advantage of Java's Nashhorn -- a dialect of the ECMA Script,
-aka JavaScript -- as its scripting platform.  The script context (the
-bindings) is shared between all the script instances within the input file or
-string, so that variables set in one script snippet can be referenced from all
-the subsequent snippets in the same XML file/string.  However, there is no way
-how to transmit information between different input files or strings: this
-also applies to variables which are reset, so that all information is
-forgotten (the context is deleted) at the end of the input file/string.
+Bitwriter takes advantage of Java's Nashhorn -- a dialect of the ECMA
+Script, aka JavaScript -- as its scripting platform.  The script
+context (the bindings) is shared between all the script instances
+within the input file or string, so that variables set in one script
+snippet can be referenced from all the subsequent snippets in the same
+XML file/string.  However, there is no way how to transmit information
+between different input files or strings: this also applies to
+variables, which are reset, so that all information is forgotten (the
+context is deleted) at the end of the input file/string processing.
 
 There are no limitations set on the use of Nashhorn, and no limitations apply
 to which Java resources can be accessed by a running script.  When a script is
