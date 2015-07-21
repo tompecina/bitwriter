@@ -121,13 +121,12 @@ Usage:
 
 In its most basic mode, the application takes its input XML file(s)
 and outputs the binary file generated according to the XML description
-either to STDOUT, or to an output file, provided the pathname is
-provided by giving the -o option.  Input can also be specified
-directly by one or more literal strings (the -s option).  These can be
-either complete XML files starting with the "<?xml ..."  preamble, or
-the content normally put between <file> and </file>.  If no other
-source of input is provided, the application tries to read its input
-from STDIN.
+either to STDOUT, or to an output file, provided the pathname is given
+by the -o option.  Input can also be specified directly by one or more
+literal strings (the -s option).  These can be either complete XML
+files starting with the "<?xml ..."  preamble, or the content normally
+put between <file> and </file>.  If no other source of input is
+provided, the application tries to read its input from STDIN.
 
 
 Detailed description of all available command line options follows:
