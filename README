@@ -91,12 +91,13 @@ following Bitwriter script:
     </stream>
   </file>
 
-Finally, to demonstrate the power of Bitwriter's scripting, this is an example
-of a 1KiB block of pseudo-random data followed by an LRC conforming to ISO
-1155.  There are too many different checksum types to implement, therefore,
-the decision was to "hard-code" only the most basic and rudimentary ones to
-Bitwriter and resort to scripting for the rest.  The solution can be as simple
-as this:
+Finally, to demonstrate the power of Bitwriter's scripting, this is an
+example of a 1KiB block of pseudo-random data followed by an LRC
+(Longitudinal Redundancy Check) conforming to ISO 1155.  There are too
+many different checksum types to implement, therefore, the decision
+was to "hard-code" only the most basic and rudimentary ones to
+Bitwriter and resort to scripting for the rest.  This is where
+Bitwriter really shines; the solution can be as simple as this:
 
   <file version="1.0">
     <stream>
