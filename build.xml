@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="Creates a binary file from an XML description"
-	 default="compile"
+	 default="help"
 	 basedir=".">
 
   <!-- defs -->
@@ -58,6 +58,17 @@
   <property name="tests"
 	    value="Test*"/>
 
+  <!-- help -->
+  <target name="help"
+	  description="Display list of available targets">
+    <java classname="org.apache.tools.ant.Main">
+      <arg value="-projecthelp" />
+      <arg value="-buildfile" />
+      <arg value="${ant.file}" />
+      <arg value="-verbose" />
+    </java>
+  </target>
+  
   <!-- classpath -->
   <path id="base.path">
     <pathelement location="${build.classes.dir}"/>
