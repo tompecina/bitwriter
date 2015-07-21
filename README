@@ -1025,7 +1025,7 @@ There are no limitations set on the use of Nashhorn, and no limitations apply
 to which Java resources can be accessed by a running script.  When a script is
 launched, its bindings have the following preset values:
 
-- All Bitwriter variables', including calculators, are set, using the same
+- All Bitwriter variables, including calculators, are set, using the same
   identifiers as in XML, eg, if the XML file initialized the variable "total",
   it will be directly accessible from within the script as the JavaScript
   variable "total".  The value of the variable is a BitInteger object, and it
