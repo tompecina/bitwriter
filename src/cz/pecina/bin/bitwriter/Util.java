@@ -189,12 +189,12 @@ public final class Util {
 	    throw new ProcessorException("Null string");
 	}
 	final String trimmedString = string.trim();
-	BigInteger r = null;
+	BigInteger r;
 	Matcher matcher = pattern0.matcher(trimmedString);
 	if (matcher.matches()) {
 	    return BigInteger.ZERO;
 	}
-	MatchResult matchResult = null;
+	MatchResult matchResult;
 	matcher = pattern16.matcher(trimmedString);
 	try {
 	    if (matcher.matches()) {

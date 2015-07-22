@@ -206,7 +206,7 @@ public class InputTreeProcessor implements AutoCloseable {
 		log.finest("Variable updated from calculator, new value: " +
 			   Util.bigIntegerToString(variable.getValue()));
 	    }
-	    String expression = null;
+	    String expression;
 	    switch (type) {
 		case STREAM_IN:
 		    expression = variable.getOnStreamIn();
@@ -224,6 +224,7 @@ public class InputTreeProcessor implements AutoCloseable {
 		    expression = variable.getOnStreamOut();
 		    break;
 		case OUTPUT_STREAM:
+		default:
 		    expression = variable.getOnOutputStream();
 		    break;
 	    }

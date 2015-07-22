@@ -65,7 +65,7 @@ public class RandomElement extends ParsedElement {
 	    Long.MAX_VALUE,
 	    0,
 	    processor.getScriptProcessor());
-	Random random = null;
+	Random random;
 	if (element.getAttribute("seed") != null) {
 	    random = new Random(seed);
 	} else {

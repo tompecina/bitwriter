@@ -44,7 +44,7 @@ public class Digest extends Calculator {
     // for description see Calculator
     @Override
     public BigInteger getRegister() {
-	byte[] buffer = null;
+	byte[] buffer;
 	try {
 	    buffer = ((MessageDigest)(digest.clone())).digest();
 	} catch (CloneNotSupportedException exception) {

@@ -107,7 +107,6 @@ public class ScriptProcessor {
     public Object eval(final String expression
 		       ) throws ProcessorException {
 	log.finer("eval() called with: " + expression);
-	Object result = null;
 	final ControlledOutputStream stream =
 	    processor.getControlledOutputStream();
 	bindings.put("streamNumber", stream.getStreamNumber());
@@ -118,6 +117,7 @@ public class ScriptProcessor {
 		       variables.get(name).getValue());
 	    bindings.put(name, variables.get(name).getValue());
 	}
+	Object result;
 	try {
 	    result = engine.eval(expression, bindings);
 	} catch (ScriptException | NullPointerException exception) {
@@ -219,7 +219,7 @@ public class ScriptProcessor {
      */
     public BigInteger evalAsBigInteger(final String expression
 				       ) throws ProcessorException {
-	BigInteger result = null;
+	BigInteger result;
 	if (isScript(expression)) {
 	    Object value = eval(extractScript(expression));
 	    try {

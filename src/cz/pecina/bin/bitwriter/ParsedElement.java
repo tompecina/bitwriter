@@ -236,7 +236,7 @@ public abstract class ParsedElement {
 	if (!element.hasAttribute(attributeName)) {
 	    return defaultValue;
 	}
-	BigInteger r = null;
+	BigInteger r;
 	final String s = element.getAttribute(attributeName);
 	if (scriptProcessor != null) {
 	    r = scriptProcessor.evalAsBigInteger(s);

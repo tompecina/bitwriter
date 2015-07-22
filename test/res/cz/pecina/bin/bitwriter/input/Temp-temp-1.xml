@@ -1,48 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
 
-  <stream width-in="32">
-    <float>
-      1.5 2.0 4 16 -8 NaN
-    </float>
-  </stream>
-  <stream width-in="64">
-    <double>
-      1.5 2.0 4 16 -8 NaN
-    </double>
+  <set name="x"/>
+  <stream>
+    {{ x = 5.9 }}
+    <put name="x"/>
   </stream>
 
-
-
-  <!-- 15 6a 89 11   52 1c ed da -->
-  <!-- <crc name="c" polynomial="0x67" width="8" reflect-in="false" reflect-out="false" xor-in="0" xor-out="0"/> -->
-  <!-- <stream> -->
-  <!--   <hex> -->
-  <!--     52 -->
-  <!--   </hex> -->
-  <!--   <put name="c"/> -->
-  <!-- </stream> -->
-
-  <!-- <crc name="c" polynomial="0x67" width="8" reflect-in="true" reflect-out="true" xor-in="0" xor-out="0"/> -->
-  <!-- <stream> -->
-  <!--   <hex> -->
-  <!--     52 -->
-  <!--   </hex> -->
-  <!--   <put name="c"/> -->
-  <!-- </stream> -->
-
-  <!-- <crc name="c" polynomial="0x67" width="8" reflect-in="false" reflect-out="false" xor-in="0" xor-out="0"/> -->
-  <!-- <stream reflect-in="true"> -->
-  <!--   0x52 -->
-  <!--   <put name="c"/> -->
-  <!-- </stream> -->
-
-  <!-- <crc name="r" polynomial="0xcd" width="8" reflect-in="true" reflect-out="true" xor-in="0" xor-out="0"/> -->
-  <!-- <stream> -->
-  <!--   <hex> -->
-  <!--     01 00 -->
-  <!--   </hex> -->
-  <!--   <put name="r"/> -->
-  <!-- </stream> -->
-  
 </file>

@@ -283,7 +283,7 @@ public class Parameters {
 	log.fine("Command line parsing started");
 
 	final CommandLineParser parser = new DefaultParser();
-	CommandLine line = null;
+	CommandLine line;
 	try {
 	    line = parser.parse(options, args);
 	} catch (ParseException exception) {

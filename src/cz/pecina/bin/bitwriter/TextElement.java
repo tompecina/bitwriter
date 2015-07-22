@@ -64,7 +64,7 @@ public class TextElement extends ParsedElement {
 	for (int iter = 0; iter < count; iter++) {
 	    for (Node content: consolidate(element)) {
 		if (content instanceof Text) {
-		    String text = null;
+		    String text;
 		    if (trim) {
 			text = ((Text)content).getTextContent().trim();
 		    } else {

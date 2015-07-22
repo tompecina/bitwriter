@@ -98,7 +98,7 @@ public class CrcElement extends VariableElement {
 		POLYNOMIAL_NOTATIONS,
 		"normal",
 		processor.getScriptProcessor()).toUpperCase());
-	Polynomial polynomialObject = null;
+	Polynomial polynomialObject;
 	try {
 	    polynomialObject = new Polynomial(polynomial, notation, width);
 	} catch (PolynomialException exception) {

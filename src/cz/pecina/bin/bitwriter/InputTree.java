@@ -97,7 +97,7 @@ public class InputTree {
 		    exception.getMessage());
 	    }
 	}
-	Document doc = null;
+	Document doc;
 	try {
 	    doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 		  .parse(new ByteArrayInputStream(inputString.getBytes()));

@@ -63,7 +63,7 @@ public class BitWriter {
      */
     public static void main(final String args[]) {
 	log.fine("Application started");
-	
+
 	final int exitCode = process(args, System.in, System.out, System.err);
 
 	log.fine("Application terminated with exit code: " + exitCode);

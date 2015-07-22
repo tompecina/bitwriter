@@ -66,7 +66,7 @@ public class Polynomial {
 	log.finest("Getting polynomial: " +
 		   Util.bigIntegerToString(polynomial) +
 		   ", in notation: " + notation);
-	BigInteger r = null;
+	BigInteger r;
 	switch (notation) {
 	    case NORMAL:
 		r = polynomial;
@@ -75,10 +75,8 @@ public class Polynomial {
 	    case REVERSED:
 		r = Util.reflect(polynomial, width);
 	    case KOOPMAN:
-		if (polynomial.testBit(0)) {
-		    r = null;
-		}
-		r = polynomial.setBit(width).shiftRight(1);
+	    default:
+		r = (polynomial.testBit(0) ?  null : polynomial.setBit(width).shiftRight(1));
 	}
 	log.finest("Result: " + Util.bigIntegerToString(r));
 	return r;

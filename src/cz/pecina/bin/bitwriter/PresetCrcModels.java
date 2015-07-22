@@ -120,7 +120,7 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
 	        "Error in CRC models file (1), exception: " +
 		exception.getMessage());
 	}
-	Document doc = null;
+	Document doc;
 	try {
 	    doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 		  .parse(new ByteArrayInputStream(
