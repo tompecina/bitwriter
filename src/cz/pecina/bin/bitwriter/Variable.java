@@ -98,6 +98,11 @@ public class Variable {
 	this.type = type;
     }
     
+    /**
+     * Gets the type of the variable.
+     *
+     * @return the type of the variable
+     */
     public Type getType() {
 	log.finest("Getting type of variable '" + name + "': " + type);
 	return type;
