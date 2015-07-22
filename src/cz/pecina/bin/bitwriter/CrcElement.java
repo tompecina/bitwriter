@@ -23,7 +23,7 @@ package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -51,9 +51,9 @@ public class CrcElement extends VariableElement {
 	BigInteger xorIn = BigInteger.ONE.negate();
 	boolean reflectOut = true;
 	BigInteger xorOut = BigInteger.ZERO;
-	if (element.getAttributeValue("model") != null) {
+	if (element.hasAttribute("model")) {
 	    final String modelName = processor.getScriptProcessor()
-		.evalAsString(element.getAttributeValue("model"));
+		.evalAsString(element.getAttribute("model"));
 	    log.fine("CRC model attribute found, loading model for: " +
 		     modelName);
 	    final CrcModel crcModel =

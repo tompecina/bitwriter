@@ -25,15 +25,18 @@ import java.util.ArrayList;
 import java.math.BigInteger;
 import java.io.PrintStream;
 import java.io.StringReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.xml.XMLConstants;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 import org.xml.sax.SAXException;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import java.util.logging.Logger;
 
 /**
@@ -119,8 +122,13 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
 	}
 	Document doc = null;
 	try {
-	    doc = new SAXBuilder().build(new StringReader(crcModelsString));
-	} catch (JDOMException exception) {
+	    doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+		  .parse(new ByteArrayInputStream(
+		  crcModelsString.getBytes()));
+	} catch (FactoryConfigurationError |
+		 ParserConfigurationException |
+		 SAXException |
+		 IllegalArgumentException exception) {
 	    throw new PresetCrcModelsException(
 	        "Error in CRC models file (2), exception: " +
 		exception.getMessage());
@@ -129,34 +137,48 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
 	        "Error in CRC models file (3), exception: " +
 		exception.getMessage());
 	}
-	Element crcElement = null;
-	crcElement = doc.getRootElement();
-	if (!crcElement.getName().equals("crc")) {
+	final Element crcElement = doc.getDocumentElement();
+	if (!crcElement.getTagName().equals("crc")) {
 	    throw new PresetCrcModelsException(
-	        "Error in CRC models file (5), no <crc> tag");
+	        "Error in CRC models file, no <crc> tag");
 	}
 	if (!CRC_XML_FILE_VERSION.equals(
-	     crcElement.getAttributeValue("version"))) {
+	     crcElement.getAttribute("version"))) {
 	    throw new PresetCrcModelsException(
-	        "Error in CRC models file (6), version mismatch");
+	        "Error in CRC models file, version mismatch");
 	}
-	for (Element modelElement: crcElement.getChildren("model")) {
+	final NodeList modelElements =
+	    crcElement.getElementsByTagName("model");
+	for (int i = 0; i < modelElements.getLength(); i++) {
+	    final Element modelElement = (Element)(modelElements.item(i));
+	    log.finer("Processing model: " + modelElement.getAttribute("id"));
 	    try {
 		final CrcModel model = new CrcModel();
-		model.setId(modelElement.getAttributeValue("id"));
-		for (Element nameElement: modelElement.getChildren("name")) {
-		    model.addName(nameElement.getTextNormalize());
+		model.setId(modelElement.getAttribute("id"));
+		final NodeList nameElements =
+		    modelElement.getElementsByTagName("name");
+		for (int j = 0; j < nameElements.getLength(); j++) {
+		    final Element nameElement =
+			(Element)(nameElements.item(j));
+		    log.finest("Processing name: " +
+			       nameElement.getTextContent().trim());
+		    model.addName(nameElement.getTextContent().trim());
 		}
 		final Element descriptionElement =
-		    modelElement.getChild("description");
+		    (Element)(modelElement.getElementsByTagName("description")
+		    .item(0));
 		if (descriptionElement != null) {
-		    model.setDescription(
-		        descriptionElement.getTextNormalize());
+		    model.setDescription(descriptionElement.getTextContent()
+		        .trim());
 		}
 		final Element polynomialElement =
-		    modelElement.getChild("polynomial");
+		    (Element)(modelElement.getElementsByTagName("polynomial")
+		    .item(0));
 		final BigInteger polynomial =
-		    new BigInteger(polynomialElement.getTextNormalize(), 16);
+		    new BigInteger(polynomialElement.getTextContent().trim(),
+				   16);
+		log.finer("Polynomial: " +
+			  Util.bigIntegerToString(polynomial));
 		final Polynomial.Notation notation =
 		    Polynomial.Notation.valueOf(
 		    ParsedElement.extractStringArrayAttribute(
@@ -172,24 +194,31 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
 		}
 		int width = 0;
 		final String stringWidth =
-		    modelElement.getChildTextNormalize("width");
+		    modelElement.getElementsByTagName("width").item(0)
+		    .getTextContent().trim();
 		if (stringWidth != null) {
 		    width = Integer.parseInt(stringWidth);
 		}
 		model.setPolynomial(
 		    new Polynomial(polynomial, notation, width));
-		model.setReflectIn(Util.stringToBoolean(
-		    modelElement.getChildTextNormalize("reflect-in")));
-		model.setReflectOut(Util.stringToBoolean(
-		    modelElement.getChildTextNormalize("reflect-out")));
-		model.setXorIn(new BigInteger(
-		    modelElement.getChildTextNormalize("xor-in"), 16));
-		model.setXorOut(new BigInteger(
-		    modelElement.getChildTextNormalize("xor-out"), 16));
-		final Element checkElement = modelElement.getChild("check");
+		model.setReflectIn(Util.stringToBoolean(modelElement
+		    .getElementsByTagName("reflect-in").item(0)
+		    .getTextContent().trim()));
+		model.setReflectOut(Util.stringToBoolean(modelElement
+		    .getElementsByTagName("reflect-out").item(0)
+		    .getTextContent().trim()));
+		model.setXorIn(new BigInteger(modelElement
+		    .getElementsByTagName("xor-in").item(0)
+		    .getTextContent().trim(), 16));
+		model.setXorOut(new BigInteger( modelElement
+		    .getElementsByTagName("xor-out").item(0)
+		    .getTextContent().trim(), 16));
+		final Element checkElement =
+		    (Element)(modelElement.getElementsByTagName("check")
+		    .item(0));
 		if (checkElement != null) {
-		    model.setCheck(new BigInteger(
-		        checkElement.getTextNormalize(), 16));
+		    model.setCheck(new BigInteger(checkElement
+		        .getTextContent().trim(), 16));
 		}
 		add(model);
 		if (model.hasCheck()) {

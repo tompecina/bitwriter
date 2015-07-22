@@ -22,7 +22,7 @@
 package cz.pecina.bin.bitwriter;
 
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -48,8 +48,8 @@ public class LoopElement extends ParsedElement {
 					      1,
 					      processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {
-	    for (Element innerElement: element.getChildren()) {
-		switch (innerElement.getName()) {
+	    for (Element innerElement: getChildren(element)) {
+		switch (innerElement.getTagName()) {
 		    case "stream":
 			new StreamElement(processor, innerElement);
 			break;

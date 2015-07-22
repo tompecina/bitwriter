@@ -23,7 +23,7 @@ package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -53,35 +53,59 @@ public class SetElement extends VariableElement {
 	if (value != null) {
 	    variable.setValue(value);
 	}
-	final String onStreamIn =
-	    element.getAttributeValue("on-stream-in");
-	if (onStreamIn != null) {
-	    variable.setOnStreamIn(onStreamIn);
+	if (element.hasAttribute("on-stream-in")) {
+	    final String onStreamIn =
+		element.getAttribute("on-stream-in");
+	    if (onStreamIn.isEmpty()) {
+		variable.setOnStreamIn(null);
+	    } else {
+		variable.setOnStreamIn(onStreamIn);
+	    }
 	}
-	final String onAggregateStreamIn =
-	    element.getAttributeValue("on-aggregate-stream-in");
-	if (onAggregateStreamIn != null) {
-	    variable.setOnAggregateStreamIn(onAggregateStreamIn);
+	if (element.hasAttribute("on-aggregate-stream-in")) {
+	    final String onAggregateStreamIn =
+		element.getAttribute("on-aggregate-stream-in");
+	    if (onAggregateStreamIn.isEmpty()) {
+		variable.setOnAggregateStreamIn(null);
+	    } else {
+		variable.setOnAggregateStreamIn(onAggregateStreamIn);
+	    }
 	}
-	final String onBitStream =
-	    element.getAttributeValue("on-bitstream");
-	if (onBitStream != null) {
-	    variable.setOnBitStream(onBitStream);
+	if (element.hasAttribute("on-bitstream")) {
+	    final String onBitStream =
+		element.getAttribute("on-bitstream");
+	    if (onBitStream.isEmpty()) {
+		variable.setOnBitStream(null);
+	    } else {
+		variable.setOnBitStream(onBitStream);
+	    }
 	}
-	final String onAggregateStreamOut =
-	    element.getAttributeValue("on-aggregate-stream-out");
-	if (onAggregateStreamOut != null) {
-	    variable.setOnAggregateStreamOut(onAggregateStreamOut);
+	if (element.hasAttribute("on-aggregate-stream-out")) {
+	    final String onAggregateStreamOut =
+		element.getAttribute("on-aggregate-stream-out");
+	    if (onAggregateStreamOut.isEmpty()) {
+		variable.setOnAggregateStreamOut(null);
+	    } else {
+		variable.setOnAggregateStreamOut(onAggregateStreamOut);
+	    }
 	}
-	final String onStreamOut =
-	    element.getAttributeValue("on-stream-out");
-	if (onStreamOut != null) {
-	    variable.setOnStreamOut(onStreamOut);
+	if (element.hasAttribute("on-stream-out")) {
+	    final String onStreamOut =
+		element.getAttribute("on-stream-out");
+	    if (onStreamOut.isEmpty()) {
+		variable.setOnStreamOut(null);
+	    } else {
+		variable.setOnStreamOut(onStreamOut);
+	    }
 	}
-	final String onOutputStream =
-	    element.getAttributeValue("on-output-stream");
-	if (onOutputStream != null) {
-	    variable.setOnOutputStream(onOutputStream);
+	if (element.hasAttribute("on-output-stream")) {
+	    final String onOutputStream =
+		element.getAttribute("on-output-stream");
+	    if (onOutputStream.isEmpty()) {
+		variable.setOnOutputStream(null);
+	    } else {
+		variable.setOnOutputStream(onOutputStream);
+	    }
 	}
 	
 	log.fine("<set> element processed");

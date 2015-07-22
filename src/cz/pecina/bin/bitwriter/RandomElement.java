@@ -24,7 +24,7 @@ package cz.pecina.bin.bitwriter;
 import java.math.BigInteger;
 import java.util.Random;
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**

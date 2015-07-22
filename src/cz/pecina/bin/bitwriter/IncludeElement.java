@@ -25,9 +25,7 @@ import java.math.BigInteger;
 import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import org.jdom2.Content;
-import org.jdom2.Element;
-import org.jdom2.Text;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**

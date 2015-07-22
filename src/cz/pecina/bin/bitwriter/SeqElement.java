@@ -23,9 +23,9 @@ package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
 import java.io.IOException;
-import org.jdom2.Content;
-import org.jdom2.Element;
-import org.jdom2.Text;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 import java.util.logging.Logger;
 
 /**
@@ -44,7 +44,7 @@ public class SeqElement extends ParsedElement {
     private void process() throws ProcessorException, IOException {
 	log.fine("Processing <seq>/<stream> element");
 
-	if (element.getName().equals("stream")) {
+	if (element.getTagName().equals("stream")) {
 	    processor.getControlledOutputStream().setDiscard(
 	      extractBooleanAttribute(element,
 				      "discard",
@@ -113,9 +113,10 @@ public class SeqElement extends ParsedElement {
 	    1,
 	    processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {
-	    for (Content content: consolidate(element.getContent())) {
+	    for (Node content: consolidate(element)) {
 		if (content instanceof Text) {
-		    final String trimmedText = ((Text)content).getTextTrim();
+		    final String trimmedText = ((Text)content)
+			.getTextContent().trim();
 		    if (trimmedText.length() == 0) {
 			continue;
 		    }
@@ -129,7 +130,7 @@ public class SeqElement extends ParsedElement {
 		    }
 		} else if (content instanceof Element) {
 		    final Element innerElement = (Element)content;
-		    switch (innerElement.getName()) {
+		    switch (innerElement.getTagName()) {
 			case "hex":
 			    new RadixElement(processor, innerElement, 16);
 			    break;
@@ -177,7 +178,7 @@ public class SeqElement extends ParsedElement {
 		    }
 		}
 	    }
-	    if (element.getName().equals("stream")) {
+	    if (element.getTagName().equals("stream")) {
 		processor.getInStream().flush();
 		processor.getControlledOutputStream().resetStream();
 		log.finer("Resetting stream");

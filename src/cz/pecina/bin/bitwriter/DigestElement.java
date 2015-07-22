@@ -23,7 +23,7 @@ package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -45,8 +45,8 @@ public class DigestElement extends VariableElement {
 	final Variable variable = getOrCreateVariable(element);
 	variable.reset();
 	setVariableType(variable, element, "stream-out");
-	final String model = element.getAttributeValue("model");
-	if ((model == null) || model.trim().isEmpty()) {
+	final String model = element.getAttribute("model");
+	if (model.trim().isEmpty()) {
 	    throw new ProcessorException("Digest model must be specified");
 	}
 	variable.setCalculator(new Digest(model));

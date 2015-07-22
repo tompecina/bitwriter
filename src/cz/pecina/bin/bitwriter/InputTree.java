@@ -23,14 +23,16 @@ package cz.pecina.bin.bitwriter;
 
 import javax.xml.XMLConstants;
 import java.io.StringReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 import org.xml.sax.SAXException;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -97,8 +99,12 @@ public class InputTree {
 	}
 	Document doc = null;
 	try {
-	    doc = new SAXBuilder().build(new StringReader(inputString));
-	} catch (JDOMException exception) {
+	    doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+		  .parse(new ByteArrayInputStream(inputString.getBytes()));
+	} catch (FactoryConfigurationError |
+		 ParserConfigurationException |
+		 SAXException |
+		 IllegalArgumentException exception) {
 	    throw new ProcessorException(
 	        "Invalid input file (2), exception: " +
 		exception.getMessage());
@@ -107,15 +113,15 @@ public class InputTree {
 	        "Invalid input file (3), exception: " +
 		exception.getMessage());
 	}
-	rootElement = doc.getRootElement();
-	if (!rootElement.getName().equals("file")) {
+	rootElement = doc.getDocumentElement();
+	if (!rootElement.getTagName().equals("file")) {
 	    throw new ProcessorException(
-	        "Invalid input file (4), no <file> tag");
+	        "Invalid input file, no <file> tag");
 	}
 	if (!Constants.FILE_XML_FILE_VERSION.equals(
-	        rootElement.getAttributeValue("version"))) {
+	        rootElement.getAttribute("version"))) {
 	    throw new ProcessorException(
-	        "Invalid input file (5), version mismatch");
+	        "Invalid input file, version mismatch");
 	}
 	log.fine("Parsing completed");
     }

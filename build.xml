@@ -73,7 +73,6 @@
   <path id="base.path">
     <pathelement location="${build.classes.dir}"/>
     <pathelement location="${lib.dir}/commons-cli.jar"/>
-    <pathelement location="${lib.dir}/jdom2.jar"/>
   </path>
 
   <!-- tokens -->
@@ -151,8 +150,6 @@
 	 basedir="${build.classes.dir}">
       <zipfileset src="${lib.dir}/commons-cli.jar"
 		  includes="org/"/>
-      <zipfileset src="${lib.dir}/jdom2.jar"
-		  includes="org/"/>
       <manifest>
         <attribute name="Main-Class"
 		   value="cz.pecina.bin.bitwriter.BitWriter"/>
@@ -200,7 +197,6 @@
     <pathelement location="${build.classes.dir}"/>
     <pathelement location="${build.test.classes.dir}"/>
     <pathelement location="${lib.dir}/commons-cli.jar"/>
-    <pathelement location="${lib.dir}/jdom2.jar"/>
     <pathelement location="${test.lib.dir}/junit.jar"/>
   </path>
 

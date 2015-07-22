@@ -21,7 +21,7 @@
 
 package cz.pecina.bin.bitwriter;
 
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -48,7 +48,8 @@ public class ScriptElement extends ParsedElement {
 	    1,
 	    processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {
-	    processor.getScriptProcessor().eval(element.getTextTrim());
+	    processor.getScriptProcessor().eval(element
+	        .getTextContent().trim());
 	}
 	log.fine("<script> element processed");
     }

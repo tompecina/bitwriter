@@ -23,9 +23,9 @@ package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
 import java.io.IOException;
-import org.jdom2.Content;
-import org.jdom2.Element;
-import org.jdom2.Text;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 import java.util.logging.Logger;
 
 /**
@@ -52,9 +52,10 @@ public class FloatElement extends ParsedElement {
 					      1,
 					      processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {
-	    for (Content content: consolidate(element.getContent())) {
+	    for (Node content: consolidate(element)) {
 		if (content instanceof Text) {
-		    final String trimmedText = ((Text)content).getTextTrim();
+		    final String trimmedText = ((Text)content)
+			.getTextContent().trim();
 		    if (trimmedText.length() == 0) {
 			continue;
 		    }
@@ -94,7 +95,7 @@ public class FloatElement extends ParsedElement {
 		    }
 		} else if (content instanceof Element) {
 		    final Element innerElement = (Element)content;
-		    switch (innerElement.getName()) {
+		    switch (innerElement.getTagName()) {
 			case "flush":
 			    new FlushElement(processor, innerElement);
 			    break;

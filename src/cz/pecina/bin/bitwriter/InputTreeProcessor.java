@@ -27,7 +27,7 @@ import java.util.TreeMap;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -264,7 +264,7 @@ public class InputTreeProcessor implements AutoCloseable {
 
 	final Element rootElement = inputTree.getRootElement();
 
-	if (!rootElement.getName().equals("file")) {
+	if (!rootElement.getTagName().equals("file")) {
 	    throw new ProcessorException("Root element must be <file>");
 	}
 	new FileElement(this, rootElement);

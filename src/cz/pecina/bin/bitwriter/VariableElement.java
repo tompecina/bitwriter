@@ -22,7 +22,7 @@
 package cz.pecina.bin.bitwriter;
 
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -136,7 +136,7 @@ public abstract class VariableElement extends ParsedElement {
 					 ) throws ProcessorException,
 						  IOException {
 	log.fine("Variable element creation started");
-	switch (element.getName()) {
+	switch (element.getTagName()) {
 	    case "set":
 		return new SetElement(processor, element);
 	    case "parity":
@@ -163,7 +163,7 @@ public abstract class VariableElement extends ParsedElement {
 	    default:
 		throw new ProcessorException(
 	            "Error in input file, illegal element <" +
-		    element.getName() + ">");
+		    element.getTagName() + ">");
 	}
     }
     

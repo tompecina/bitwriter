@@ -25,9 +25,10 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.IOException;
-import org.jdom2.Content;
-import org.jdom2.Element;
-import org.jdom2.Text;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
+import org.w3c.dom.NodeList;
 import java.util.logging.Logger;
 
 /**
@@ -71,23 +72,42 @@ public abstract class ParsedElement {
     protected Element element;
 
     /**
-     * Consolidates adjacent texts. Element breaks a token, comments,
+     * Gets all element children of an element as a list.
+     *
+     * @param  element the element to be processed
+     * @return         list of children of the element
+     */
+    public static List<Element> getChildren(final Element element) {
+	final List<Element> list = new ArrayList<>();
+	final NodeList nodes = element.getChildNodes();
+	for (int i = 0; i < nodes.getLength(); i++) {
+	    if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+		list.add((Element)(nodes.item(i)));
+	    }
+	}
+	return list;
+    }
+    
+    /**
+     * Consolidates adjacent text nodes. Element breaks a token, comments,
      * PIs etc. do not.
      *
-     * @param  content <code>Content</code> object to be processed
-     * @return         list of consolidated <code>Content</code> objects
+     * @param  element element to be processed
+     * @return         list of consolidated <code>Node</code> objects
      */
-    public static List<Content> consolidate(final List<Content> content) {
-	final List<Content> newContent = new ArrayList<>();
+    public static List<Node> consolidate(final Element element) {
+	final List<Node> newContent = new ArrayList<>();
 	Text p = null;
-	for (Content item: content) {
+	final NodeList nodes = element.getChildNodes();
+	for (int i = 0; i < nodes.getLength(); i++) {
+	    final Node item = nodes.item(i);
 	    if (item instanceof Text) {
 		if (p == null) {
 		    newContent.add(item);
 		    p = (Text)item;
 		} else {
-		    p.append((Text)item);
-		    ((Text)item).setText(null);
+		    p.appendData(((Text)item).getData());
+		    ((Text)item).setData(null);
 		}
 	    } else if (item instanceof Element) {
 		newContent.add(item);
@@ -123,22 +143,21 @@ public abstract class ParsedElement {
 	final int defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
-	int r = 0;
-	final String s = element.getAttributeValue(attributeName);
-	if (s == null) {
+	if (!element.hasAttribute(attributeName)) {
 	    return defaultValue;
-	} else {
-	    if (scriptProcessor != null) {
-		r = scriptProcessor.evalAsInt(s);
-	    } else {
-		r = Util.stringToInt(s);
-	    }
-	    if ((r < minValue) || (r > maxValue)) {
-		throw new ProcessorException(
-		    "Attribute '" + attributeName + "' out of range");
-	    }
-	    return r;
 	}
+	int r = 0;
+	final String s = element.getAttribute(attributeName);
+	if (scriptProcessor != null) {
+	    r = scriptProcessor.evalAsInt(s);
+	} else {
+	    r = Util.stringToInt(s);
+	}
+	if ((r < minValue) || (r > maxValue)) {
+	    throw new ProcessorException(
+	        "Attribute '" + attributeName + "' out of range");
+	}
+	return r;
     }
 
     /**
@@ -167,22 +186,21 @@ public abstract class ParsedElement {
 	final long defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
-	long r = 0;
-	final String s = element.getAttributeValue(attributeName);
-	if (s == null) {
+	if (!element.hasAttribute(attributeName)) {
 	    return defaultValue;
-	} else {
-	    if (scriptProcessor != null) {
-		r = scriptProcessor.evalAsLong(s);
-	    } else {
-		r = Util.stringToLong(s);
-	    }
-	    if ((r < minValue) || (r > maxValue)) {
-		throw new ProcessorException(
-		    "Attribute '" + attributeName + "' out of range");
-	    }
-	    return r;
 	}
+	long r = 0;
+	final String s = element.getAttribute(attributeName);
+	if (scriptProcessor != null) {
+	    r = scriptProcessor.evalAsLong(s);
+	} else {
+	    r = Util.stringToLong(s);
+	}
+	if ((r < minValue) || (r > maxValue)) {
+	    throw new ProcessorException(
+	        "Attribute '" + attributeName + "' out of range");
+	    }
+	return r;
     }
 
     /**
@@ -215,25 +233,24 @@ public abstract class ParsedElement {
 	    "extractBigIntegerAttribute called, for element: %s," +
 	    " attribute: %s, minValue: %s, maxValue: %s, defaultValue: %s",
 	    element, attributeName, minValue, maxValue, defaultValue));
-	BigInteger r = null;
-	final String s = element.getAttributeValue(attributeName);
-	if (s == null) {
+	if (!element.hasAttribute(attributeName)) {
 	    return defaultValue;
-	} else {
-	    if (scriptProcessor != null) {
-		r = scriptProcessor.evalAsBigInteger(s);
-	    } else {
-		r = Util.stringToBigInteger(s);
-	    }
-	    if (((minValue != null) && (r.compareTo(minValue) < 0)) ||
-		((maxValue != null) && (r.compareTo(maxValue) > 0))) {
-		throw new ProcessorException(
-		    "Attribute '" + attributeName + "' out of range");
-	    }
-	    log.finest(String.format(
-	        "extractBigIntegerAttribute returns: %s", r));
-	    return r;
 	}
+	BigInteger r = null;
+	final String s = element.getAttribute(attributeName);
+	if (scriptProcessor != null) {
+	    r = scriptProcessor.evalAsBigInteger(s);
+	} else {
+	    r = Util.stringToBigInteger(s);
+	}
+	if (((minValue != null) && (r.compareTo(minValue) < 0)) ||
+	    ((maxValue != null) && (r.compareTo(maxValue) > 0))) {
+	    throw new ProcessorException(
+	        "Attribute '" + attributeName + "' out of range");
+	}
+	log.finest(String.format(
+	    "extractBigIntegerAttribute returns: %s", r));
+	return r;
     }
 
     /**
@@ -256,20 +273,19 @@ public abstract class ParsedElement {
 	final boolean defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
+	if (!element.hasAttribute(attributeName)) {
+	    return defaultValue;
+	}
 	boolean r = false;
-	String s = element.getAttributeValue(attributeName);
-	if (s == null) {
-	    r = defaultValue;
-	} else {
-	    if (scriptProcessor != null) {
-		s = scriptProcessor.evalAsString(s);
-	    }
-	    try {
-		r = Util.stringToBoolean(s);
-	    } catch (ProcessorException exception) {
-		throw new ProcessorException(
-		    "Error in attribute '" + attributeName + "'");
-	    }
+	String s = element.getAttribute(attributeName);
+	if (scriptProcessor != null) {
+	    s = scriptProcessor.evalAsString(s);
+	}
+	try {
+	    r = Util.stringToBoolean(s);
+	} catch (ProcessorException exception) {
+	    throw new ProcessorException(
+	        "Error in attribute '" + attributeName + "'");
 	}
 	return r;
     }
@@ -300,22 +316,21 @@ public abstract class ParsedElement {
 	final boolean defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
+	if (!element.hasAttribute(attributeName)) {
+	    return defaultValue;
+	}
 	boolean r = false;
-	String s = element.getAttributeValue(attributeName);
-	if (s == null) {
-	    r = defaultValue;
+	String s = element.getAttribute(attributeName);
+	if (scriptProcessor != null) {
+	    s = scriptProcessor.evalAsString(s);
+	}
+	if (s.equals(falseString)) {
+	    r = false;
+	} else if (s.equals(trueString)) {
+	    r = true;
 	} else {
-	    if (scriptProcessor != null) {
-		s = scriptProcessor.evalAsString(s);
-	    }
-	    if (s.equals(falseString)) {
-		r = false;
-	    } else if (s.equals(trueString)) {
-		r = true;
-	    } else {
-		throw new ProcessorException("Error in attribute '" +
-					     attributeName + "'");
-	    }
+	    throw new ProcessorException("Error in attribute '" +
+					 attributeName + "'");
 	}
 	return r;
     }
@@ -340,12 +355,13 @@ public abstract class ParsedElement {
 	final String defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
-	String r = element.getAttributeValue(attributeName);
-	if (r == null) {
-	    r = defaultValue;
-	} else if (scriptProcessor != null) {
+	if (!element.hasAttribute(attributeName)) {
+	    return defaultValue;
+	}
+	String r = element.getAttribute(attributeName);
+	if (scriptProcessor != null) {
 	    r = scriptProcessor.evalAsString(
-	        element.getAttributeValue(attributeName).trim());
+	        element.getAttribute(attributeName).trim());
 	}
 	return r;
     }
@@ -372,10 +388,10 @@ public abstract class ParsedElement {
 	final String defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
-	String r = element.getAttributeValue(attributeName);
-	if (r == null) {
+	if (!element.hasAttribute(attributeName)) {
 	    return defaultValue;
 	}
+	String r = element.getAttribute(attributeName);
 	if (scriptProcessor != null) {
 	    r = scriptProcessor.evalAsString(r.trim());
 	}
@@ -386,7 +402,7 @@ public abstract class ParsedElement {
 	}
 	throw new ProcessorException(
 	    "Error in input file, attribute value, element '" +
-	    element.getName() + "', attribute '" +
+	    element.getTagName() + "', attribute '" +
 	    attributeName + "', value '" + r + "'");
     }
 

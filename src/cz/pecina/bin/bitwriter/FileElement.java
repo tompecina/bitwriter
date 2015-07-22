@@ -22,7 +22,7 @@
 package cz.pecina.bin.bitwriter;
 
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -41,8 +41,8 @@ public class FileElement extends ParsedElement {
     private void process() throws ProcessorException, IOException {
 	log.fine("Processing <file> element");
 
-	for (Element innerElement: element.getChildren()) {
-	    switch (innerElement.getName()) {
+	for (Element innerElement: getChildren(element)) {
+	    switch (innerElement.getTagName()) {
 		case "stream":
 		    new StreamElement(processor, innerElement);
 		    break;

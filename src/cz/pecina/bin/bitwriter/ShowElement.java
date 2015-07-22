@@ -23,7 +23,7 @@ package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
 import java.io.IOException;
-import org.jdom2.Element;
+import org.w3c.dom.Element;
 import java.util.logging.Logger;
 
 /**
@@ -42,9 +42,9 @@ public class ShowElement extends VariableElement {
     private void process() throws ProcessorException, IOException {
 	log.fine("Processing <show> element");
 
-	final String variableName = element.getAttributeValue("name");
+	final String variableName = element.getAttribute("name").trim();
 	Variable variable = null;
-	if (variableName != null) {
+	if (!variableName.isEmpty()) {
 	    try {		    
 		variable = getVariable(element);
 	    } catch (ProcessorException exception) {
@@ -59,8 +59,8 @@ public class ShowElement extends VariableElement {
 	    }			
 	}
 	BigInteger value = null;
-	final String stringValue = element.getAttributeValue("value");
-	if (stringValue != null) {
+	final String stringValue = element.getAttribute("value").trim();
+	if (!stringValue.isEmpty()) {
 	    value = extractBigIntegerAttribute(
 	        element,
 		"value",
@@ -87,19 +87,17 @@ public class ShowElement extends VariableElement {
 	if (variable != null) {
 	    value = variable.getValue();
 	}
-	if (element.getName().equals("show")) {
-	    if (variable != null) {
-		processor.getStderr().println(
-		    String.format("%s: %s (%s)",
-				  variable.getName(),
-				  value.toString(),
-				  Util.bigIntegerToString(value)));
-	    } else {
-		processor.getStderr().println(
-		    String.format("%s (%s)",
-				  value.toString(),
-				  Util.bigIntegerToString(value)));
-	    }
+	if (variable != null) {
+	    processor.getStderr().println(
+	        String.format("%s: %s (%s)",
+			      variable.getName(),
+			      value.toString(),
+			      Util.bigIntegerToString(value)));
+	} else {
+	    processor.getStderr().println(
+	        String.format("%s (%s)",
+			      value.toString(),
+			      Util.bigIntegerToString(value)));
 	}
 	
 	log.fine("<show> element processed");
