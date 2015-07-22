@@ -470,10 +470,8 @@ sequence is repeated.
 
 Character stream.  The data is extracted from the text in the content of the
 element, according to the rules specified by the "wrap" and "charset"
-attributes.  Special characters such as '\n' or '\007' are not recognized;
-Bitwriter is primarily a binary, bit-writing application, so if you need more
-sophisticated processing of textual data in the stream, it is recommended to
-embed them by <include>'ing the text from an external file.
+attributes.  Special characters can be expressed using XML entities, eg,
+"&#7;".
 
 Content:
 
