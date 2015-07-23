@@ -10,7 +10,7 @@
   <property name="author"
 	    value="Tom\u00e1\u0161 Pecina"/>
   <property name="version"
-	    value="1.0.1"/>
+	    value="1.0.2"/>
   <property name="license"
 	    value="GNU General Public License Version 3"/>
   <property name="prefix"
