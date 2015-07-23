@@ -1,0 +1,10 @@
+BITWRITER
+
+1.0.1  2015-07-22  Incremental release
+------------------------------------------------------------------------------
+* JDOM2 API requiring external JAR replaced with DOM.
+* Minor fixes and improvements.
+
+1.0.0  2015-07-20  Initial release
+------------------------------------------------------------------------------
+* Initial release, fully functional, no serious issues.
