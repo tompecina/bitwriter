@@ -1,6 +1,6 @@
 /* SeqElement.java
  *
- * Copyright (C) 2015, Tomas Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015, Tomáš Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
