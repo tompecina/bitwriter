@@ -76,7 +76,9 @@ public class Polynomial {
 		r = Util.reflect(polynomial, width);
 	    case KOOPMAN:
 	    default:
-		r = (polynomial.testBit(0) ?  null : polynomial.setBit(width).shiftRight(1));
+		r = (polynomial.testBit(0) ?
+		     null :
+		     polynomial.setBit(width).shiftRight(1));
 	}
 	log.finest("Result: " + Util.bigIntegerToString(r));
 	return r;

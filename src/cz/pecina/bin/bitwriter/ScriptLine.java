@@ -27,7 +27,6 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.regex.MatchResult;
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 /**
  * Parser for parsing of lines containing both script and non-script terms.
@@ -79,13 +78,8 @@ public class ScriptLine implements Iterable<String>, Iterator<String> {
 	Matcher matcher = startsWithScriptPrefixPattern.matcher(line);
 	if (!matcher.matches()) {
 	    log.finest("Matching line without script prefix: " + line);
-	    if (tokenize) {
-		matcher = doesNotStartWithScriptPrefixPatternTokenize
-		          .matcher(line);
-	    } else {
-		matcher = doesNotStartWithScriptPrefixPatternDoNotTokenize
-		          .matcher(line);
-	    }
+	    matcher = (tokenize ? doesNotStartWithScriptPrefixPatternTokenize :
+	        doesNotStartWithScriptPrefixPatternDoNotTokenize).matcher(line);
 	    if (!matcher.matches()) {
 		throw new NoSuchElementException("Error in script: " + line);
 	    }

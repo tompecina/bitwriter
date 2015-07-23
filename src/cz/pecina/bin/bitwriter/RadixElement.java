@@ -64,70 +64,57 @@ public class RadixElement extends ParsedElement {
 		if (content instanceof Text) {
 		    final String trimmedText =
 			((Text)content).getTextContent().trim();
-		    if (trimmedText.length() == 0) {
+		    if (trimmedText.isEmpty()) {
 			continue;
 		    }
-		    if (radix != 0) {
-			for (String split: new ScriptLine(trimmedText)) {
-			    if (ScriptProcessor.isScript(split)) {
-				final BigInteger value =
-				    processor.getScriptProcessor()
-				    .evalAsBigInteger(split);
-				write(value);
-			    } else if (radix == 16) {
-				if ((split.length() % 2) != 0) {
+		    for (String split:
+			 new ScriptLine(trimmedText, radix != 0)) {
+			final boolean isScript =
+			    ScriptProcessor.isScript(split);
+			if (isScript) {
+			    write(processor.getScriptProcessor()
+				  .evalAsBigInteger(split));
+			} else {
+			    if (radix == 0) {
+				if (split.equals("0")) {
+				    write(BigInteger.ZERO);
+				} else if (split.equals("1")) {
+				    write(BigInteger.ONE);
+				} else {
 				    throw new ProcessorException(
-				        "Error in input file, illegal" +
-					" hex string: " + split);
+				        "Error in input file," +
+					" illegal character in <bits>");
 				}
-				for (int i = 0; i < split.length(); i += 2) {
+			    } else {
+				if (radix != 16) {
 				    try {
-					write(new BigInteger(split.substring(
-					    i,
-					    (i + 2)),
-					    radix));
+					write(new BigInteger(split, radix));
 				    } catch (NumberFormatException |
 					     NullPointerException exception) {
 					throw new ProcessorException(
 				            "Illegal number format (1): " +
 					    split);
 				    }
-				}
-			    } else {
-				try {
-				    write(new BigInteger(split, radix));
-				} catch (NumberFormatException |
-					 NullPointerException exception) {
-				    throw new ProcessorException(
-				        "Illegal number format (2): " +
-					split);
-				}
-			    }
-			}
-		    } else {
-			for (String split:
-			     new ScriptLine(trimmedText, false)) {
-			    final BigInteger value =
-				processor.getScriptProcessor()
-				.evalAsBigInteger(split);
-			    final boolean isScript =
-				ScriptProcessor.isScript(split);
-			    if (!isScript || (value != null)) {
-				if (value.compareTo(BigInteger.ZERO)
-				    == 0) {
-				    write(value);
-				} else if (value.compareTo(BigInteger.ONE)
-					   == 0) {
-				    write(value);
 				} else {
-				    if (isScript) {
+				    if ((split.length() % 2) != 0) {
 					throw new ProcessorException(
-					    "Script returned illegal" +
-					    " bit value: " + value);
-				    } else {
-					throw new ProcessorException(
-				            "Error in input file," +
-					    " illegal character in <bits>");
+				            "Error in input file, illegal" +
+					    " hex string: " + split);
+				    }
+				    for (int i = 0;
+					 i < split.length();
+					 i += 2) {
+					try {
+					    write(new BigInteger(
+					        split.substring(i, (i + 2)),
+						radix));
+					} catch (
+					    NumberFormatException |
+					    NullPointerException exception) {
+					    throw new ProcessorException(
+				                "Illegal number format (2): " +
+						split);
+					}
 				    }
 				}
 			    }

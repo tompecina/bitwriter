@@ -56,7 +56,7 @@ public class FloatElement extends ParsedElement {
 		if (content instanceof Text) {
 		    final String trimmedText = ((Text)content)
 			.getTextContent().trim();
-		    if (trimmedText.length() == 0) {
+		    if (trimmedText.isEmpty()) {
 			continue;
 		    }
 		    for (String split: new ScriptLine(trimmedText)) {
