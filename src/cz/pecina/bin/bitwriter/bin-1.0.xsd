@@ -307,19 +307,19 @@
 
   <xs:simpleType name="positiveHexInteger">
     <xs:restriction base="xs:NMTOKEN">
-      <xs:pattern value="\+?0x0*[1-9a-fA-F]+[0-9a-fA-F]*"/>
+      <xs:pattern value="\+?0[xX]0*[1-9a-fA-F]+[0-9a-fA-F]*"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="hexZero">
     <xs:restriction base="xs:NMTOKEN">
-      <xs:pattern value="[-+]?0x0+"/>
+      <xs:pattern value="[-+]?0[xX]0+"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="negativeHexInteger">
     <xs:restriction base="xs:NMTOKEN">
-      <xs:pattern value="-0x0*[1-9a-fA-F]+[0-9a-fA-F]*"/>
+      <xs:pattern value="-0[xX]0*[1-9a-fA-F]+[0-9a-fA-F]*"/>
     </xs:restriction>
   </xs:simpleType>
 
@@ -373,19 +373,19 @@
 
   <xs:simpleType name="positiveBinInteger">
     <xs:restriction base="xs:NMTOKEN">
-      <xs:pattern value="\+?0b0*1[01]*"/>
+      <xs:pattern value="\+?0[bB]0*1[01]*"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="binZero">
     <xs:restriction base="xs:NMTOKEN">
-      <xs:pattern value="[-+]?0b0+"/>
+      <xs:pattern value="[-+]?0[bB]0+"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="negativeBinInteger">
     <xs:restriction base="xs:NMTOKEN">
-      <xs:pattern value="-0b0*1[01]*"/>
+      <xs:pattern value="-0[bB]0*1[01]*"/>
     </xs:restriction>
   </xs:simpleType>
 

@@ -163,13 +163,13 @@ public final class Util {
 
     // patterns for stringToBigInteger
     private static final Pattern pattern16 =
-	Pattern.compile("^([-+]?)0x([\\da-fA-F]+)$");
+	Pattern.compile("^([-+]?)0[xX]([\\da-fA-F]+)$");
     private static final Pattern pattern10 =
 	Pattern.compile("^([-+]?)([1-9]\\d*)$");
     private static final Pattern pattern8 =
 	Pattern.compile("^([-+]?)0([0-7]+)$");
     private static final Pattern pattern2 =
-	Pattern.compile("^([-+]?)0b([01]+)$");
+	Pattern.compile("^([-+]?)0[bB]([01]+)$");
     private static final Pattern pattern0 =
 	Pattern.compile("^[-+]?0+$");
 
