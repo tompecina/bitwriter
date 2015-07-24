@@ -119,7 +119,7 @@ public class OutAggregateStream implements Stream {
 	final int widthOut = outStream.getWidthOut();
 	try {
 	    processor.trigger(Variable.Type.AGGREGATE_STREAM_OUT, value);
-	} catch (ProcessorException exception) {
+	} catch (final ProcessorException exception) {
 	    throw new IOException(exception.getMessage());
 	}
 	final int counter = widthOutAggregate / widthOut;

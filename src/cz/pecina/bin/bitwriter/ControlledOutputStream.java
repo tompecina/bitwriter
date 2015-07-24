@@ -172,7 +172,7 @@ public class ControlledOutputStream implements Stream {
 	value = value.and(mask);
 	try {
 	    processor.trigger(Variable.Type.OUTPUT_STREAM, value);
-	} catch (ProcessorException exception) {
+	} catch (final ProcessorException exception) {
 	    throw new IOException(exception.getMessage());
 	}
 	if (!discard) {

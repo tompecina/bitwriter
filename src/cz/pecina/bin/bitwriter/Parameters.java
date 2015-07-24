@@ -286,7 +286,7 @@ public class Parameters {
 	CommandLine line;
 	try {
 	    line = parser.parse(options, args);
-	} catch (ParseException exception) {
+	} catch (final ParseException exception) {
 	    throw new ParametersException(
 	        "Failed to parse the command line, exception: " +
 		exception.getMessage());

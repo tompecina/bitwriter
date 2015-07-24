@@ -47,7 +47,7 @@ public class PutElement extends VariableElement {
 	if (!variableName.isEmpty()) {
 	    try {		    
 		variable = getVariable(element);
-	    } catch (ProcessorException exception) {
+	    } catch (final ProcessorException exception) {
 		throw new ProcessorException(
 		    "Error in input file, variable '" +
 		    variableName + "' not allowed");

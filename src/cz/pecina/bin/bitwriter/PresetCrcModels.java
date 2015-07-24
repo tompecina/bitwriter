@@ -115,7 +115,7 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
 		.getResourceAsStream("crc-" + CRC_XML_FILE_VERSION +
 		".xsd"))).newValidator().validate(new StreamSource(
 		new StringReader(crcModelsString)));
-	} catch (SAXException | IOException exception) {
+	} catch (final SAXException | IOException exception) {
 	    throw new PresetCrcModelsException(
 	        "Error in CRC models file (1), exception: " +
 		exception.getMessage());
@@ -125,14 +125,14 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
 	    doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 		  .parse(new ByteArrayInputStream(
 		  crcModelsString.getBytes()));
-	} catch (FactoryConfigurationError |
+	} catch (final FactoryConfigurationError |
 		 ParserConfigurationException |
 		 SAXException |
 		 IllegalArgumentException exception) {
 	    throw new PresetCrcModelsException(
 	        "Error in CRC models file (2), exception: " +
 		exception.getMessage());
-	} catch (IOException exception) {
+	} catch (final IOException exception) {
 	    throw new PresetCrcModelsException(
 	        "Error in CRC models file (3), exception: " +
 		exception.getMessage());
@@ -235,7 +235,7 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
 		    }
 		}	
 		log.finer("Read: " + model.getId());
-	    } catch (ProcessorException |
+	    } catch (final ProcessorException |
 		     PolynomialException |
 		     NumberFormatException |
 		     NullPointerException exception) {

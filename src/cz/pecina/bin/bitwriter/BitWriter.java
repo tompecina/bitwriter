@@ -87,25 +87,25 @@ public class BitWriter {
 	
 	try {
 	    new BitWriter(args, stdin, stdout, stderr);
-	} catch (ParametersException exception) {
+	} catch (final ParametersException exception) {
 	    stderr.println("Error in parameters: " +
 			   exception.getMessage());
 	    Parameters.usage(stderr);
 	    log.fine("Processing terminated abnormally, exception: " +
 		     exception.getMessage());
 	    return Constants.EXIT_CODE_ERROR_IN_PARAMETERS;
-	} catch (PresetCrcModelsException exception) {
+	} catch (final PresetCrcModelsException exception) {
 	    stderr.println("Error in CRC models file: " +
 			   exception.getMessage());
 	    log.fine("Processing terminated abnormally, exception: " +
 		     exception.getMessage());
 	    return Constants.EXIT_CODE_ERROR_IN_PRESET_CRC_MODELS;
-	} catch (ProcessorException exception) {
+	} catch (final ProcessorException exception) {
 	    stderr.println("Processing error: " + exception.getMessage());
 	    log.fine("Processing terminated abnormally, exception: " +
 		     exception.getMessage());
 	    return Constants.EXIT_CODE_PROCESSING_ERROR;
-	} catch (IOException exception) {
+	} catch (final IOException exception) {
 	    stderr.println("I/O error: " + exception.getMessage());
 	    log.fine("Processing terminated abnormally, exception: " +
 		     exception.getMessage());

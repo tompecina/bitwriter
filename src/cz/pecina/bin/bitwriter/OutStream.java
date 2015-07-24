@@ -90,7 +90,7 @@ public class OutStream implements Stream {
 	value = value.and(mask);
 	try {
 	    processor.trigger(Variable.Type.STREAM_OUT, value);
-	} catch (ProcessorException exception) {
+	} catch (final ProcessorException exception) {
 	    throw new IOException(exception.getMessage());
 	}
 	controlledOutputStream.write(value);

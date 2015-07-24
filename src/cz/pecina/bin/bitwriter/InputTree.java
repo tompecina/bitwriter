@@ -91,7 +91,7 @@ public class InputTree {
 		    ".xsd"))).newValidator()
 		    .validate(new StreamSource(
 		    new StringReader(inputString)));
-	    } catch (SAXException | IOException exception) {
+	    } catch (final SAXException | IOException exception) {
 		throw new ProcessorException(
 		    "Invalid input file (1), exception: " +
 		    exception.getMessage());
@@ -101,14 +101,14 @@ public class InputTree {
 	try {
 	    doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 		  .parse(new ByteArrayInputStream(inputString.getBytes()));
-	} catch (FactoryConfigurationError |
+	} catch (final FactoryConfigurationError |
 		 ParserConfigurationException |
 		 SAXException |
 		 IllegalArgumentException exception) {
 	    throw new ProcessorException(
 	        "Invalid input file (2), exception: " +
 		exception.getMessage());
-	} catch (IOException exception) {
+	} catch (final IOException exception) {
 	    throw new ProcessorException(
 	        "Invalid input file (3), exception: " +
 		exception.getMessage());

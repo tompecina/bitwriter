@@ -68,7 +68,8 @@ public class Connector {
 		} else {
 		    r = new BigInteger(value.toString());
 		}
-	    } catch (NumberFormatException | NullPointerException exception) {
+	    } catch (final NumberFormatException |
+		     NullPointerException exception) {
 		throw new ProcessorException(
 		    "Value '" + value + "' cannot be converted to number");
 	    }

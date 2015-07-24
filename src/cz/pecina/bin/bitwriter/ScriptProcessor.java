@@ -120,10 +120,10 @@ public class ScriptProcessor {
 	Object result;
 	try {
 	    result = engine.eval(expression, bindings);
-	} catch (ScriptException | NullPointerException exception) {
+	} catch (final ScriptException | NullPointerException exception) {
 		throw new ProcessorException("Script error (1), exception: " +
 					     exception.getMessage());
-	    } catch (RuntimeException exception) {
+	    } catch (final RuntimeException exception) {
 		throw new ProcessorException("Script error (2), exception: " +
 					     exception.getMessage());
 	    }
@@ -141,7 +141,7 @@ public class ScriptProcessor {
 		    try {
 			variables.get(name).setValue(
 			    new BigInteger(value.toString()));
-		    } catch (NumberFormatException |
+		    } catch (final NumberFormatException |
 			     NullPointerException exception) {
 			throw new ProcessorException(
 		            "Script set variable '" + name +
@@ -171,7 +171,8 @@ public class ScriptProcessor {
 		    value = Math.round((Double)value);
 		}
 		result = new Integer(value.toString());
-	    } catch (NumberFormatException | NullPointerException exception) {
+	    } catch (final NumberFormatException |
+		     NullPointerException exception) {
 		throw new ProcessorException(
 		    "Script returned value that cannot" +
 		    " be converted to int: " + value);
@@ -199,7 +200,8 @@ public class ScriptProcessor {
 		    value = Math.round((Double)value);
 		}
 		result = new Long(value.toString());
-	    } catch (NumberFormatException | NullPointerException exception) {
+	    } catch (final NumberFormatException |
+		     NullPointerException exception) {
 		throw new ProcessorException(
 		    "Script returned value that cannot" +
 		    " be converted to long: " + value);
@@ -227,7 +229,8 @@ public class ScriptProcessor {
 		    value = Math.round((Double)value);
 		}
 		result = new BigInteger(value.toString());
-	    } catch (NumberFormatException | NullPointerException exception) {
+	    } catch (final NumberFormatException |
+		     NullPointerException exception) {
 		throw new ProcessorException(
 		    "Script returned value that cannot" +
 		    " be converted to BigInteger: " + value);
@@ -258,7 +261,8 @@ public class ScriptProcessor {
 		} else {
 		    result = new Float(value.toString());
 		}
-	    } catch (NumberFormatException | NullPointerException exception) {
+	    } catch (final NumberFormatException |
+		     NullPointerException exception) {
 		throw new ProcessorException(
 		    "Script returned value that cannot" +
 		    " be converted to float: " + value);
@@ -289,7 +293,8 @@ public class ScriptProcessor {
 		} else {
 		    result = new Double(value.toString());
 		}
-	    } catch (NumberFormatException | NullPointerException exception) {
+	    } catch (final NumberFormatException |
+		     NullPointerException exception) {
 		throw new ProcessorException(
 		    "Script returned value that cannot" +
 		    " be converted to double: " + value);
@@ -345,7 +350,7 @@ public class ScriptProcessor {
 			 engine.eval("Java.type('java.math.BigInteger')"));
 	    bindings.put("connector", processor.getConnector());
 	    bindings.put("variables", variables);
-	} catch (ScriptException exception) {
+	} catch (final ScriptException exception) {
 	    throw new ProcessorException("Cannot initialize the bindings");
 	}
 

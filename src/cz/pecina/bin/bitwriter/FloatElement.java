@@ -85,7 +85,7 @@ public class FloatElement extends ParsedElement {
 				        Float.floatToIntBits(
 					Util.stringToFloat(split)));
 				}
-			    } catch (NumberFormatException |
+			    } catch (final NumberFormatException |
 				     NullPointerException exception) {
 				throw new ProcessorException(
 				    "Illegal number format (2): " + split);

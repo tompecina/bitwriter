@@ -101,7 +101,7 @@ public class CrcElement extends VariableElement {
 	Polynomial polynomialObject;
 	try {
 	    polynomialObject = new Polynomial(polynomial, notation, width);
-	} catch (PolynomialException exception) {
+	} catch (final PolynomialException exception) {
 	    throw new ProcessorException(
 	        "Bad polynomial, exception: " + exception.getMessage());
 	}
@@ -138,7 +138,7 @@ public class CrcElement extends VariableElement {
 	try {
 	    variable.setCalculator(new Crc(new CrcModel(
 	        polynomialObject, reflectIn, xorIn, reflectOut, xorOut)));
-	} catch (NumberFormatException | NullPointerException exception) {
+	} catch (final NumberFormatException | NullPointerException exception) {
 	    throw new ProcessorException("Illegal value in CRC model");
 	}
 	

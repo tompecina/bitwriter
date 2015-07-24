@@ -89,7 +89,7 @@ public class RadixElement extends ParsedElement {
 				if (radix != 16) {
 				    try {
 					write(new BigInteger(split, radix));
-				    } catch (NumberFormatException |
+				    } catch (final NumberFormatException |
 					     NullPointerException exception) {
 					throw new ProcessorException(
 				            "Illegal number format (1): " +
@@ -108,7 +108,7 @@ public class RadixElement extends ParsedElement {
 					    write(new BigInteger(
 					        split.substring(i, (i + 2)),
 						radix));
-					} catch (
+					} catch (final
 					    NumberFormatException |
 					    NullPointerException exception) {
 					    throw new ProcessorException(

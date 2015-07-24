@@ -56,14 +56,13 @@ public class ScriptLine implements Iterable<String>, Iterator<String> {
 	return !line.isEmpty();
     }
 
-    private static final Pattern startsWithScriptPrefixPattern =
+    private static final Pattern PATTERN_SCRIPT =
 	Pattern.compile("(?s)^(" +
 			Constants.ESCAPED_SCRIPT_PREFIX + ".*?" +
 			Constants.ESCAPED_SCRIPT_SUFFIX + ")\\s*(.*)$");
-    private static final Pattern doesNotStartWithScriptPrefixPatternTokenize =
+    private static final Pattern PATTERN_NO_SCRIPT_TOKENIZE =
 	Pattern.compile("(?s)^(\\S+)\\s*(.*)$");
-    private static final Pattern
-	doesNotStartWithScriptPrefixPatternDoNotTokenize =
+    private static final Pattern PATTERN_NO_SCRIPT_NOT_TOKENIZE =
 	Pattern.compile("(?s)^(.)\\s*(.*)$");
 
     // for description see Iterator
@@ -75,11 +74,11 @@ public class ScriptLine implements Iterable<String>, Iterator<String> {
 	    throw new NoSuchElementException(
 	        "Trying to access non-existent script line element");
 	}
-	Matcher matcher = startsWithScriptPrefixPattern.matcher(line);
+	Matcher matcher = PATTERN_SCRIPT.matcher(line);
 	if (!matcher.matches()) {
 	    log.finest("Matching line without script prefix: " + line);
-	    matcher = (tokenize ? doesNotStartWithScriptPrefixPatternTokenize :
-	        doesNotStartWithScriptPrefixPatternDoNotTokenize).matcher(line);
+	    matcher = (tokenize ? PATTERN_NO_SCRIPT_TOKENIZE :
+	        PATTERN_NO_SCRIPT_NOT_TOKENIZE).matcher(line);
 	    if (!matcher.matches()) {
 		throw new NoSuchElementException("Error in script: " + line);
 	    }

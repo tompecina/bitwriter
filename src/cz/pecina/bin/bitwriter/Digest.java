@@ -47,8 +47,8 @@ public class Digest extends Calculator {
 	byte[] buffer;
 	try {
 	    buffer = ((MessageDigest)(digest.clone())).digest();
-	} catch (CloneNotSupportedException exception) {
-	    buffer = new byte[] {0};
+	} catch (final CloneNotSupportedException exception) {
+	    buffer = new byte[1];
 	}
 	BigInteger r = BigInteger.ZERO;
 	for (int i = 0; i < buffer.length; i++) {
@@ -111,12 +111,12 @@ public class Digest extends Calculator {
 	
 	try {
 	    digest = MessageDigest.getInstance(model);
-	} catch (NoSuchAlgorithmException exception) {
+	} catch (final NoSuchAlgorithmException exception) {
 	    throw new ProcessorException("No such message digest algorithm");
 	}
 	try {
 	    digest.clone();
-	} catch (CloneNotSupportedException exception) {
+	} catch (final CloneNotSupportedException exception) {
 	    throw new ProcessorException("Algorithm '" + model +
 	        "' cannot be used, no support for cloning");
 	}

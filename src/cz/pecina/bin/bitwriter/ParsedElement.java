@@ -46,26 +46,24 @@ public abstract class ParsedElement {
     /**
      * String array of all variable types.
      */
-    public static final String[] VARIABLE_TYPES =
-	new String[] {"stream-in", "aggregate-stream-in", "bitstream",
-		      "aggregate-stream-out", "stream-out", "output-stream"};
-    
+    public static final String[] VARIABLE_TYPES = {
+	"stream-in", "aggregate-stream-in", "bitstream",
+	"aggregate-stream-out", "stream-out", "output-stream"};
     /**
      * String array of all party models.
      */
-    public static final String[] PARITY_MODELS = new String[] {"even", "odd"};
+    public static final String[] PARITY_MODELS = {"even", "odd"};
 
     /**
      * String array of all polynomial notations.
      */
-    public static final String[] POLYNOMIAL_NOTATIONS = new String[] {
+    public static final String[] POLYNOMIAL_NOTATIONS = {
 	"normal", "full", "reversed", "koopman"};
 
     /**
      * String array of all endianness types.
      */
-    public static final String[] ENDIANESS_TYPES =
-	new String[] {"big", "little"};
+    public static final String[] ENDIANESS_TYPES = {"big", "little"};
 
     // fields
     protected InputTreeProcessor processor;
@@ -283,7 +281,7 @@ public abstract class ParsedElement {
 	}
 	try {
 	    r = Util.stringToBoolean(s);
-	} catch (ProcessorException exception) {
+	} catch (final ProcessorException exception) {
 	    throw new ProcessorException(
 	        "Error in attribute '" + attributeName + "'");
 	}

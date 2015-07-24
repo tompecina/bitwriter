@@ -111,7 +111,7 @@ public class InAggregateStream implements Stream {
 	value = value.and(mask);
 	try {
 	    processor.trigger(Variable.Type.AGGREGATE_STREAM_IN, value);
-	} catch (ProcessorException exception) {
+	} catch (final ProcessorException exception) {
 	    throw new IOException(exception.getMessage());
 	}
 	final int offset = (reflectIn ? 0 : (widthInAggregate - 1));

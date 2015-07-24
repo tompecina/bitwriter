@@ -131,7 +131,7 @@ public class InStream implements Stream {
 	value = value.and(mask);
 	try {
 	    processor.trigger(Variable.Type.STREAM_IN, value);
-	} catch (ProcessorException exception) {
+	} catch (final ProcessorException exception) {
 	    throw new IOException(exception.getMessage());
 	}
 	for (int i = 0; i < widthIn; i++) {

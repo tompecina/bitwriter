@@ -99,7 +99,7 @@ public class BitStream implements Stream {
 	value = value.and(mask);
 	try {
 	    processor.trigger(Variable.Type.BITSTREAM, value);
-	} catch (ProcessorException exception) {
+	} catch (final ProcessorException exception) {
 	    throw new IOException(exception.getMessage());
 	}
 	if (value.testBit(0)) {

@@ -100,7 +100,7 @@ public final class Util {
 	}
 	try {
 	    return Files.readAllBytes(Paths.get(path));
-	} catch (IOException exception) {
+	} catch (final IOException exception) {
 	    throw new IOException("Failed to read file '" + path +
 				  "', exception: " +
 				  exception.getMessage());
@@ -133,7 +133,8 @@ public final class Util {
 	}
 	try {
 	    return new Scanner(stream, "UTF-8").useDelimiter("\\A").next();
-	} catch (NoSuchElementException | IllegalStateException exception) {
+	} catch (final NoSuchElementException |
+		 IllegalStateException exception) {
 	    throw new IOException("Failed to read input stream");
 	}
     }
@@ -162,15 +163,15 @@ public final class Util {
     }
 
     // patterns for stringToBigInteger
-    private static final Pattern pattern16 =
+    private static final Pattern PATTERN16 =
 	Pattern.compile("^([-+]?)0[xX]([\\da-fA-F]+)$");
-    private static final Pattern pattern10 =
+    private static final Pattern PATTERN10 =
 	Pattern.compile("^([-+]?)([1-9]\\d*)$");
-    private static final Pattern pattern8 =
+    private static final Pattern PATTERN8 =
 	Pattern.compile("^([-+]?)0([0-7]+)$");
-    private static final Pattern pattern2 =
+    private static final Pattern PATTERN2 =
 	Pattern.compile("^([-+]?)0[bB]([01]+)$");
-    private static final Pattern pattern0 =
+    private static final Pattern PATTERN0 =
 	Pattern.compile("^[-+]?0+$");
 
     /**
@@ -190,28 +191,28 @@ public final class Util {
 	}
 	final String trimmedString = string.trim();
 	BigInteger r;
-	Matcher matcher = pattern0.matcher(trimmedString);
+	Matcher matcher = PATTERN0.matcher(trimmedString);
 	if (matcher.matches()) {
 	    return BigInteger.ZERO;
 	}
 	MatchResult matchResult;
-	matcher = pattern16.matcher(trimmedString);
+	matcher = PATTERN16.matcher(trimmedString);
 	try {
 	    if (matcher.matches()) {
 		matchResult = matcher.toMatchResult();
 		r = new BigInteger(matchResult.group(2), 16);
 	    } else {
-		matcher = pattern10.matcher(trimmedString);
+		matcher = PATTERN10.matcher(trimmedString);
 		if (matcher.matches()) {
 		    matchResult = matcher.toMatchResult();
 		    r = new BigInteger(matchResult.group(2), 10);
 		} else {
-		    matcher = pattern8.matcher(trimmedString);
+		    matcher = PATTERN8.matcher(trimmedString);
 		    if (matcher.matches()) {
 			matchResult = matcher.toMatchResult();
 			r = new BigInteger(matchResult.group(2), 8);
 		    } else {
-			matcher = pattern2.matcher(trimmedString);
+			matcher = PATTERN2.matcher(trimmedString);
 			if (matcher.matches()) {
 			    matchResult = matcher.toMatchResult();
 			    r = new BigInteger(matchResult.group(2), 2);
@@ -223,7 +224,7 @@ public final class Util {
 		    }
 		}
 	    }
-	} catch (NumberFormatException exception) {
+	} catch (final NumberFormatException exception) {
 	    throw new ProcessorException("Bad number format (2): " +
 					 trimmedString);
 	}
@@ -292,7 +293,7 @@ public final class Util {
 	log.finer("Converting '" + string + "' to float");
 	try {
 	    return Float.valueOf(string.trim());
-	} catch (NumberFormatException exception) {
+	} catch (final NumberFormatException exception) {
 	    throw new ProcessorException("Invalid float format: " + string);
 	}
     }
@@ -310,7 +311,7 @@ public final class Util {
 	log.finer("Converting '" + string + "' to double");
 	try {
 	    return Double.valueOf(string.trim());
-	} catch (NumberFormatException exception) {
+	} catch (final NumberFormatException exception) {
 	    throw new ProcessorException(
 	        "Invalid double format: " + string);
 	}
