@@ -56,8 +56,7 @@ public class OutAggregateStream implements Stream {
 	    throw new ProcessorException("Illegal output width");
 	}
 	if ((widthOutAggregate % outStream.getWidthOut()) != 0) {
-	    throw new ProcessorException(
-	        String.format("Mismatch of output widths"));
+	    throw new ProcessorException("Mismatch of output widths");
 	}
 	this.widthOutAggregate = widthOutAggregate;
 	mask = Util.makeMask(widthOutAggregate);

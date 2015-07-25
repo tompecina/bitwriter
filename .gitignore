@@ -13,3 +13,8 @@ hs_err_pid*
 
 # Backup files
 *~
+\#*
+
+# Temporary files
+/build*
+*.log

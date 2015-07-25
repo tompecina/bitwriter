@@ -167,8 +167,8 @@ public class ControlledOutputStream implements Stream {
     // for description see Object
     @Override
     public void write(BigInteger value) throws IOException {
-	log.finest(String.format("Writing to ControlledOutputStream: ",
-				 Util.bigIntegerToString(value)));
+	log.finest("Writing to ControlledOutputStream: " +
+		   Util.bigIntegerToString(value));
 	value = value.and(mask);
 	try {
 	    processor.trigger(Variable.Type.OUTPUT_STREAM, value);

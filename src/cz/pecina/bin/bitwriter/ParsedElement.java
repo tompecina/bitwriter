@@ -246,8 +246,7 @@ public abstract class ParsedElement {
 	    throw new ProcessorException(
 	        "Attribute '" + attributeName + "' out of range");
 	}
-	log.finest(String.format(
-	    "extractBigIntegerAttribute returns: %s", r));
+	log.finest("extractBigIntegerAttribute returns: " + r);
 	return r;
     }
 
