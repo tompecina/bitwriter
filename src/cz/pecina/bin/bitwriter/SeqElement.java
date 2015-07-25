@@ -62,7 +62,7 @@ public class SeqElement extends ParsedElement {
 				    "width-aggregate-out",
 				    1,
 				    Integer.MAX_VALUE,
-				    processor.getOutStream().getWidthOut(),
+				    8,
 				    processor.getScriptProcessor()));
 	    processor.getOutAggregateStream().setEndiannessOut(
 	        Stream.Endianness.valueOf(extractStringArrayAttribute(

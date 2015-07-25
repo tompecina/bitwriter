@@ -25,9 +25,12 @@ import javax.xml.XMLConstants;
 import java.io.StringReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.SAXException;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -64,6 +67,24 @@ public class InputTree {
 	return "InputTree";
     }
 
+    // validation error handler
+    private class Handler implements ErrorHandler {
+	@Override
+	public void warning(final SAXParseException exception
+			    ) throws SAXException {
+	}
+	@Override
+	public void error(final SAXParseException exception
+			  ) throws SAXException {
+	    throw exception;
+	}
+	@Override
+	public void fatalError(final SAXParseException exception
+			       ) throws SAXException {
+	    throw exception;
+	}
+    }
+    
     /**
      * Main constructor.
      *
@@ -82,35 +103,36 @@ public class InputTree {
 	if (inputString == null) {
 	    throw new ProcessorException("Null string cannot be parsed");
 	}
-	if (validate) {
-	    try {
-		SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-		    .newSchema(new StreamSource(InputTree.class
-		    .getResourceAsStream("bin-" +
-		    Constants.FILE_XML_FILE_VERSION +
-		    ".xsd"))).newValidator()
-		    .validate(new StreamSource(
-		    new StringReader(inputString)));
-	    } catch (final SAXException | IOException exception) {
-		throw new ProcessorException(
-		    "Invalid input file (1), exception: " +
-		    exception.getMessage());
-	    }
-	}
 	Document doc;
 	try {
-	    doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-		  .parse(new ByteArrayInputStream(inputString.getBytes()));
+	    
+	    final DocumentBuilderFactory builderFactory = DocumentBuilderFactory
+		.newInstance();
+	    builderFactory.setNamespaceAware(true);
+	    builderFactory.setCoalescing(true);
+	    builderFactory.setIgnoringComments(true);
+	    if (validate) {
+		builderFactory.setSchema(SchemaFactory.newInstance(
+		    XMLConstants.W3C_XML_SCHEMA_NS_URI)
+		    .newSchema(new StreamSource(InputTree.class
+		    .getResourceAsStream("bin-" +
+		    Constants.FILE_XML_FILE_VERSION + ".xsd"))));
+		builderFactory.setValidating(false);
+	    }
+	    DocumentBuilder builder = builderFactory.newDocumentBuilder();
+	    builder.setErrorHandler(new Handler());
+	    doc = builder.parse(
+	        new ByteArrayInputStream(inputString.getBytes()));
 	} catch (final FactoryConfigurationError |
 		 ParserConfigurationException |
 		 SAXException |
 		 IllegalArgumentException exception) {
 	    throw new ProcessorException(
-	        "Invalid input file (2), exception: " +
+	        "Invalid input file (1), exception: " +
 		exception.getMessage());
 	} catch (final IOException exception) {
 	    throw new ProcessorException(
-	        "Invalid input file (3), exception: " +
+	        "Invalid input file (2), exception: " +
 		exception.getMessage());
 	}
 	rootElement = doc.getDocumentElement();

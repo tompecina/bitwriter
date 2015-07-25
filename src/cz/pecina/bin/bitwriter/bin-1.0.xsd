@@ -75,7 +75,7 @@
 	  <xs:attribute name="width-out" type="positiveIntegerOrScript" default="8"/>
 	  <xs:attribute name="endianness-in" type="endiannessOrScript" default="big"/>
 	  <xs:attribute name="endianness-out" type="endiannessOrScript" default="big"/>
-	  <xs:attribute name="width-aggregate-in" type="positiveIntegerOrScript" default="8"/>
+	  <xs:attribute name="width-aggregate-in" type="positiveIntegerOrScript"/>
 	  <xs:attribute name="width-aggregate-out" type="positiveIntegerOrScript" default="8"/>
 	  <xs:attribute name="reflect-in" type="booleanOrScript" default="false"/>
 	  <xs:attribute name="reflect-out" type="booleanOrScript" default="false"/>
