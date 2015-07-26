@@ -6,10 +6,12 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.regex.MatchResult;
 import java.io.File;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import junit.framework.TestCase;
@@ -97,8 +99,8 @@ public class TestProcessor extends TestCase {
 	}
 	final ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
 	final ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-	try (StringReader reader1 = new StringReader(inputString);
-	     StringReader reader2 = new StringReader(inputString)) {
+	try (Reader reader1 = new StringReader(inputString);
+	     Reader reader2 = new StringReader(inputString)) {
 	    (new InputTreeProcessor(outputStream1))
 		.process(parametersNoValidate,
 			 reader1,
@@ -137,24 +139,28 @@ public class TestProcessor extends TestCase {
 	} catch (IOException exception) {
 	    fail("Failed to process file '" + (prefix + fileName) + "'");
 	}
-	ByteArrayOutputStream outputStream;
-	try (StringReader reader1 = new StringReader(inputString);
-	     StringReader reader2 = new StringReader(inputString)) {
-	    outputStream = new ByteArrayOutputStream();
-	    final InputTreeProcessor processor =
-		new InputTreeProcessor(outputStream);
-	    processor.process(parametersNoValidate,
-			      reader1,
-			      presetCrcModels,
-			      System.err);
-	    processor.process(parametersValidate,
-			      reader2,
-			      presetCrcModels,
-			      System.err);
+	try (Reader reader = new StringReader(inputString)) {
+	    (new InputTreeProcessor(new ByteArrayOutputStream()))
+		.process(parametersNoValidate,
+			 reader,
+			 presetCrcModels,
+			 System.err);
+	    return 1;
+	} catch (Exception exception) {
+	    if (!(exception instanceof ProcessorException)) {
+		return 2;
+	    }
+	}
+	try (Reader reader = new StringReader(inputString)) {
+	    (new InputTreeProcessor(new ByteArrayOutputStream()))
+		.process(parametersValidate,
+			 reader,
+			 presetCrcModels,
+			 System.err);
+	    return 1;
 	} catch (Exception exception) {
 	    return ((exception instanceof ProcessorException) ? 0 : 2);
 	}
-	return 1;
     }
 
     public void testInputTreeProcessor() {
