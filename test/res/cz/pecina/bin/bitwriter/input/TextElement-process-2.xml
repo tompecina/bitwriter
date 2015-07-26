@@ -2,7 +2,7 @@
 <file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
 
   <stream>
-    <text charset="CP1250">
+    <text charset="ISO-8859-2">
       Příliš žluťoučký kůň úpěnlivě přepíná ďábelské kódy.
     </text>
   </stream>

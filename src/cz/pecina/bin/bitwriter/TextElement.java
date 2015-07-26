@@ -59,7 +59,7 @@ public class TextElement extends ParsedElement {
 	final String charset = extractStringAttribute(
 	    element,
 	    "charset",
-	    "UTF-8",
+	    Constants.DEFAULT_CHARSET,
 	    processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {
 	    for (Node content: children(element)) {

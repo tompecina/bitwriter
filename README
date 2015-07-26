@@ -481,10 +481,11 @@ contents is repeated.
 copied, including any leading and trailing whitespace characters, if "true",
 they are removed from the string before further processing.
 
-"charset" -- Optional, default "UTF-8".  The charset (character set) used for
-converting the text string to bytes.  All charsets recognized by Java are
-accepted, plus "raw", which means that the code-point number of the character
-is used rather then its -- possibly multi-byte -- representation.
+"charset" -- Optional, default is the default encoding (charset) of the
+operating system.  The charset (character set) used for converting the text
+string to bytes.  All charsets recognized by Java are accepted, plus "raw",
+which means that the code-point number of the character is used rather then
+its -- possibly multi-byte -- representation.
 
 
 <seq>

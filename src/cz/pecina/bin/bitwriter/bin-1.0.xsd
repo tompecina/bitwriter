@@ -102,7 +102,7 @@
     </xs:choice>
     <xs:attribute name="repeat" type="nonNegativeIntegerOrScript" default="1"/>
     <xs:attribute name="trim" type="booleanOrScript" default="true"/>
-    <xs:attribute name="charset" type="tokenOrScript" default="UTF-8"/>
+    <xs:attribute name="charset" type="tokenOrScript"/>
   </xs:complexType>
 
   <xs:annotation>
