@@ -87,8 +87,7 @@ public abstract class ParsedElement {
     }
     
     /**
-     * Consolidates adjacent text nodes. Element breaks a token, comments,
-     * PIs etc. do not.
+     * Get children <code>Node</code>s as a list.
      *
      * @param  element element to be processed
      * @return         list of children <code>Node</code>s
