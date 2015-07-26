@@ -92,7 +92,9 @@ public final class XmlParser {
 	    final DocumentBuilderFactory builderFactory = DocumentBuilderFactory
 		.newInstance();
 	    builderFactory.setNamespaceAware(true);
-	    builderFactory.setValidating(false);
+	    builderFactory.setCoalescing(true);
+	    builderFactory.setIgnoringComments(true);
+	    builderFactory.setIgnoringElementContentWhitespace(true);
 	    if (validate) {
 		builderFactory.setSchema(SchemaFactory.newInstance(
 		    XMLConstants.W3C_XML_SCHEMA_NS_URI)
