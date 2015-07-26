@@ -23,6 +23,7 @@ package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
 import javax.xml.XMLConstants;
+import java.nio.charset.Charset;
 
 /**
  * Constants.
@@ -78,10 +79,16 @@ public final class Constants {
     public static final String SCHEMA_PREFIX = "http://www.pecina.cz/xsd/";
 
     /**
+     * Default charset.
+     */
+    public static final String DEFAULT_CHARSET =
+	Charset.defaultCharset().name();
+
+    /**
      * XML preamble.
      */
     public static final String XML_PREAMBLE = String.format(
-	"<?xml version=\"1.0\" encoding=\"UTF-8\"?>%n" +
+	"<?xml version=\"1.0\" encoding=\"" + DEFAULT_CHARSET + "\"?>%n" +
 	"<file xmlns:xsi=\"%3$s\" xsi:noNamespaceSchemaLocation=" +
 	"\"%1$sbin-%2$s.xsd\" version=\"%2$s\">%n",
 	SCHEMA_PREFIX,

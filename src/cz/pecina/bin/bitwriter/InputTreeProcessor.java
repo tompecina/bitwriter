@@ -24,9 +24,9 @@ package cz.pecina.bin.bitwriter;
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.TreeMap;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.Reader;
 import java.io.IOException;
 import org.w3c.dom.Element;
 import java.util.logging.Logger;
@@ -45,7 +45,7 @@ public class InputTreeProcessor implements AutoCloseable {
 
     // fields
     protected Parameters parameters;
-    protected Reader reader;
+    protected InputStream inputStream;
     protected PrintStream stderr;
     protected PresetCrcModels presetCrcModels;
     protected ScriptProcessor scriptProcessor;
@@ -249,28 +249,28 @@ public class InputTreeProcessor implements AutoCloseable {
      * Processes XML input.
      *
      * @param     parameters         the parameters object
-     * @param     reader             reader containing the XML data
+     * @param     inputStream        input stream containing the XML data
      * @param     presetCrcModels    the preset CRC models
      * @param     stderr             console error stream
      * @exception ProcessorException on processing error
      * @exception IOException        on I/O error
      */
     public void process(final Parameters parameters,
-			final Reader reader,
+			final InputStream inputStream,
 			final PresetCrcModels presetCrcModels,
 			final PrintStream stderr
 			) throws ProcessorException, IOException {
 	log.fine("Parsing input tree");
 
 	this.parameters = parameters;
-	this.reader = reader;
+	this.inputStream = inputStream;
 	this.presetCrcModels = presetCrcModels;
 	this.stderr = stderr;
 	controlledOutputStream.setHexMode(parameters.isHexMode());
 
 	scriptProcessor = new ScriptProcessor(this);
 	
-	final InputTree inputTree = new InputTree(reader);
+	final InputTree inputTree = new InputTree(inputStream);
 	final Element rootElement = inputTree.getRootElement();
 
 	if (!rootElement.getTagName().equals("file")) {

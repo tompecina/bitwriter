@@ -22,9 +22,8 @@
 package cz.pecina.bin.bitwriter;
 
 import javax.xml.XMLConstants;
-import java.io.Reader;
+import java.io.InputStream;
 import java.io.IOException;
-import org.xml.sax.InputSource;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.SAXException;
@@ -70,7 +69,7 @@ public final class XmlParser {
     /**
      * Parses XML data.
      *
-     * @param     reader             reader containing the XML data
+     * @param     inputStream        input stream containing the XML data
      *                               to be parsed
      * @param     schema             name of the XML Schema
      * @param     validate           <code>false</code> turns off XML Schema
@@ -79,13 +78,13 @@ public final class XmlParser {
      * @return                       the parsed XML tree
      * @exception ProcessorException on parsing error
      */
-    public static Document parse(final Reader reader,
+    public static Document parse(final InputStream inputStream,
 				 final String schema,
 				 final boolean validate
 				 ) throws ProcessorException {
 	log.fine("Parsing input data");
 
-	if (reader == null) {
+	if (inputStream == null) {
 	    throw new ProcessorException("Null data cannot be parsed");
 	}
 	try {
@@ -103,7 +102,7 @@ public final class XmlParser {
 	    }
 	    final DocumentBuilder builder = builderFactory.newDocumentBuilder();
 	    builder.setErrorHandler(new Handler());
-	    final Document doc = builder.parse(new InputSource(reader));
+	    final Document doc = builder.parse(inputStream);
 	    log.fine("Parsing completed");
 	    return doc;
 	} catch (final FactoryConfigurationError |

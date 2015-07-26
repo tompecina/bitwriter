@@ -21,7 +21,7 @@
 
 package cz.pecina.bin.bitwriter;
 
-import java.io.Reader;
+import java.io.InputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.util.logging.Logger;
@@ -58,15 +58,15 @@ public class InputTree {
     /**
      * Main constructor.
      *
-     * @param     reader             reader containing the XML data
+     * @param     inputStream        input stream containing the XML data
      *                               to be parsed
      * @exception ProcessorException on parsing error
      */
-    public InputTree(final Reader reader
+    public InputTree(final InputStream inputStream
 		     ) throws ProcessorException {
 	log.fine("Parsing input data");
 
-	final Document doc = XmlParser.parse(reader,
+	final Document doc = XmlParser.parse(inputStream,
 	    "bin-" + Constants.FILE_XML_FILE_VERSION + ".xsd",
 	    true);
 	rootElement = doc.getDocumentElement();

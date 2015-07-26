@@ -23,7 +23,7 @@ package cz.pecina.bin.bitwriter;
 
 import java.util.ArrayList;
 import java.math.BigInteger;
-import java.io.Reader;
+import java.io.InputStream;
 import java.io.PrintStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -92,13 +92,13 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
     }
 
     // processes the file
-    private void process(final Reader reader
+    private void process(final InputStream inputStream
 			 ) throws PresetCrcModelsException {
 	log.fine("Parsing started");
 
 	Document doc;
 	try {
-	    doc = XmlParser.parse(reader,
+	    doc = XmlParser.parse(inputStream,
 	        "crc-" + Constants.CRC_XML_FILE_VERSION + ".xsd",
 	        true);
 	} catch (final ProcessorException exception) {
@@ -226,14 +226,14 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
     /**
      * Main constructor.
      *
-     * @param     reader                   models XML file
+     * @param     inputStream              models XML file
      * @exception PresetCrcModelsException on errors in the models file
      */
-    public PresetCrcModels(final Reader reader
+    public PresetCrcModels(final InputStream inputStream
 			   ) throws PresetCrcModelsException {
 	log.fine("Reading CRC model presets from an XML string");
 
-	process(reader);
+	process(inputStream);
 
 	log.fine("CRC model presets set up");
     }

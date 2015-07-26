@@ -6,11 +6,10 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.regex.MatchResult;
 import java.io.File;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,8 +26,8 @@ public class TestProcessor extends TestCase {
 				  ParametersException,
 				  IOException {
 	crcFileURL = BitWriter.class.getResource("crc.xml");
-	presetCrcModels = new PresetCrcModels(new InputStreamReader(
-	    BitWriter.class.getResourceAsStream("crc.xml")));
+	presetCrcModels = new PresetCrcModels(
+	    BitWriter.class.getResourceAsStream("crc.xml"));
 	parameters = new Parameters();
     }
 
@@ -65,12 +64,6 @@ public class TestProcessor extends TestCase {
     private boolean testFile(final String fileName) {
 	final String inPrefix = "input/";
 	final String outPrefix = "output/";
-	String inputString = null;
-	try {
-	    inputString = resourceToString(inPrefix + fileName);
-	} catch (IOException exception) {
-	    fail("Failed to process file '" + (inPrefix + fileName) + "'");
-	}
 	String outputString = null;
 	try {
 	    outputString = resourceToString(
@@ -95,10 +88,11 @@ public class TestProcessor extends TestCase {
 	    }
 	}
 	final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-	try (Reader reader = new StringReader(inputString)) {
+	try (InputStream inputStream = getClass()
+	     .getResourceAsStream(inPrefix + fileName)) {
 	    (new InputTreeProcessor(outputStream))
 		.process(parameters,
-			 reader,
+			 inputStream,
 			 presetCrcModels,
 			 System.err);
 	} catch (ProcessorException| IOException  exception) {
@@ -118,16 +112,11 @@ public class TestProcessor extends TestCase {
 
     private int testFileFail(final String fileName) {
 	final String prefix = "input/";
-	String inputString = null;
-	try {
-	    inputString = resourceToString(prefix + fileName);
-	} catch (IOException exception) {
-	    fail("Failed to process file '" + (prefix + fileName) + "'");
-	}
-	try (Reader reader = new StringReader(inputString)) {
+	try (InputStream inputStream = getClass()
+	     .getResourceAsStream(prefix + fileName)) {
 	    (new InputTreeProcessor(new ByteArrayOutputStream()))
 		.process(parameters,
-			 reader,
+			 inputStream,
 			 presetCrcModels,
 			 System.err);
 	    return 1;

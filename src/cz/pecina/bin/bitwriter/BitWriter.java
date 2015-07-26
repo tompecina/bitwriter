@@ -25,11 +25,9 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import java.util.List;
 import java.util.ArrayList;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.FileOutputStream;
@@ -161,13 +159,12 @@ public class BitWriter {
 	    return;
 	}
 
-	final Reader crcModelsReader =
+	final InputStream crcModelsInputStream =
 	    (parameters.getCrcFileNameFlag() ?
-	     new FileReader(parameters.getCrcFileName()) :
-	     new InputStreamReader(BitWriter.class
- 	         .getResourceAsStream("crc.xml")));
+	     new FileInputStream(parameters.getCrcFileName()) :
+	     BitWriter.class.getResourceAsStream("crc.xml"));
 	final PresetCrcModels presetCrcModels =
-	    new PresetCrcModels(crcModelsReader);
+	    new PresetCrcModels(crcModelsInputStream);
 
 	if (parameters.getListCrcFlag()) {
 	    presetCrcModels.list(stderr);
@@ -182,7 +179,7 @@ public class BitWriter {
 	    outputStream = stdout;
 	}
 
-	final List<Reader> readers = new ArrayList<>();
+	final List<InputStream> inputStreams = new ArrayList<>();
 	if (parameters.getLiteralStrings() != null) {
 	    for (String literalString: parameters.getLiteralStrings()) {
 		String s;
@@ -193,26 +190,26 @@ public class BitWriter {
 			literalString.trim() +
 			Constants.XML_POSTAMBLE;
 		}
-		readers.add(new StringReader(s));
-	    }
-	}		    
-	if (parameters.getFileNames() != null) {
-	    for (String inputFileName: parameters.getFileNames()) {
-		readers.add(new FileReader(inputFileName));
+		inputStreams.add(new ByteArrayInputStream(s.getBytes()));
 	    }
 	}
-	if (readers.isEmpty()) {
-	    readers.add(new InputStreamReader(stdin));
+	if (parameters.getFileNames() != null) {
+	    for (String inputFileName: parameters.getFileNames()) {
+		inputStreams.add(new FileInputStream(inputFileName));
+	    }
+	}
+	if (inputStreams.isEmpty()) {
+	    inputStreams.add(stdin);
 	}
 	    
 	final InputTreeProcessor processor =
 	    new InputTreeProcessor(outputStream);
-	for (Reader reader: readers) {
+	for (InputStream inputStream: inputStreams) {
 	    processor.process(parameters,
-			      reader,
+			      inputStream,
 			      presetCrcModels,
 			      stderr);
-	    reader.close();
+	    inputStream.close();
 	}
 	processor.close();
 	

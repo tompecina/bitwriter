@@ -1,5 +1,10 @@
 BITWRITER
 
+Upcoming
+------------------------------------------------------------------------------
+* Support for non-UTF-8 input files and strings added.
+
+
 1.0.2  2015-07-26  Maintenance release
 ------------------------------------------------------------------------------
 * Option -S removed (too technical, not really needed).
@@ -8,10 +13,12 @@ BITWRITER
 * 0X and 0B accepted for hex and binary values.
 * Minor fixes and improvements.
 
+
 1.0.1  2015-07-22  Maintenance release
 ------------------------------------------------------------------------------
 * JDOM2 API requiring external JAR replaced with DOM.
 * Minor fixes and improvements.
+
 
 1.0.0  2015-07-20  Initial release
 ------------------------------------------------------------------------------
