@@ -1,6 +1,14 @@
 BITWRITER
 
-1.0.1  2015-07-22  Incremental release
+1.0.2  2015-07-26  Maintenance release
+------------------------------------------------------------------------------
+* Option -S removed (too technical, not really needed).
+* Processing made to rely on the validator (saves code).
+* Defaults in the XSDs made more precise.
+* 0X and 0B accepted for hex and binary values.
+* Minor fixes and improvements.
+
+1.0.1  2015-07-22  Maintenance release
 ------------------------------------------------------------------------------
 * JDOM2 API requiring external JAR replaced with DOM.
 * Minor fixes and improvements.
