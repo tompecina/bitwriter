@@ -95,24 +95,34 @@ public class TestProcessor extends TestCase {
 		}
 	    }
 	}
-	ByteArrayOutputStream outputStream;
-	try (StringReader reader = new StringReader(inputString)) {
-	    outputStream = new ByteArrayOutputStream();
-	    final InputTreeProcessor processor =
-		new InputTreeProcessor(outputStream);
-	    processor.process(parametersValidate,
-			      reader,
-			      presetCrcModels,
-			      System.err);
+	final ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
+	final ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
+	try (StringReader reader1 = new StringReader(inputString);
+	     StringReader reader2 = new StringReader(inputString)) {
+	    (new InputTreeProcessor(outputStream1))
+		.process(parametersNoValidate,
+			 reader1,
+			 presetCrcModels,
+			 System.err);
+	    (new InputTreeProcessor(outputStream2))
+		.process(parametersNoValidate,
+			 reader2,
+			 presetCrcModels,
+			 System.err);
 	} catch (ProcessorException| IOException  exception) {
 	    return false;
 	}
-	final byte[] outputByteArray = outputStream.toByteArray();
-	if (outputByteArray.length != outputLength) {
+	final byte[] outputByteArray1 = outputStream1.toByteArray();
+	if (outputByteArray1.length != outputLength) {
+	    return false;
+	}
+	final byte[] outputByteArray2 = outputStream2.toByteArray();
+	if (outputByteArray2.length != outputLength) {
 	    return false;
 	}
 	for (int i = 0; i < outputLength; i++) {
-	    if (outputByteArray[i] != outputBytes[i]) {
+	    if ((outputByteArray1[i] != outputBytes[i]) ||
+		(outputByteArray2[i] != outputBytes[i])) {
 	    	return false;
 	    }
 	}
@@ -128,12 +138,17 @@ public class TestProcessor extends TestCase {
 	    fail("Failed to process file '" + (prefix + fileName) + "'");
 	}
 	ByteArrayOutputStream outputStream;
-	try (StringReader reader = new StringReader(inputString)) {
+	try (StringReader reader1 = new StringReader(inputString);
+	     StringReader reader2 = new StringReader(inputString)) {
 	    outputStream = new ByteArrayOutputStream();
 	    final InputTreeProcessor processor =
 		new InputTreeProcessor(outputStream);
 	    processor.process(parametersNoValidate,
-			      reader,
+			      reader1,
+			      presetCrcModels,
+			      System.err);
+	    processor.process(parametersValidate,
+			      reader2,
 			      presetCrcModels,
 			      System.err);
 	} catch (Exception exception) {
