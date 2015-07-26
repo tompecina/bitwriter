@@ -8,6 +8,6 @@ if [ ! -f $fi ]; then
     exit 1
 fi
 cat $fi
-java -cp 'lib/*:build/classes' cz.pecina.bin.bitwriter.BitWriter -x -S $fi
+java -cp 'lib/*:build/classes' cz.pecina.bin.bitwriter.BitWriter -x $fi
 echo "==============================================="
 cat $fo

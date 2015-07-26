@@ -60,19 +60,15 @@ public class InputTree {
      *
      * @param     reader             reader containing the XML data
      *                               to be parsed
-     * @param     validate           <code>false</code> turns off XML Schema
-     *                               validation (primarily for testing
-     *                               purposes)
      * @exception ProcessorException on parsing error
      */
-    public InputTree(final Reader reader,
-		     final boolean validate
+    public InputTree(final Reader reader
 		     ) throws ProcessorException {
 	log.fine("Parsing input data");
 
 	final Document doc = XmlParser.parse(reader,
 	    "bin-" + Constants.FILE_XML_FILE_VERSION + ".xsd",
-	    validate);
+	    true);
 	rootElement = doc.getDocumentElement();
 	if (!rootElement.getTagName().equals("file")) {
 	    throw new ProcessorException(

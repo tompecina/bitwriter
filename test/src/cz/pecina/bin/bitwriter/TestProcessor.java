@@ -94,36 +94,22 @@ public class TestProcessor extends TestCase {
 		}
 	    }
 	}
-	final ByteArrayOutputStream outputStream1 = new ByteArrayOutputStream();
-	final ByteArrayOutputStream outputStream2 = new ByteArrayOutputStream();
-	try (Reader reader1 = new StringReader(inputString);
-	     Reader reader2 = new StringReader(inputString)) {
-	    (new InputTreeProcessor(outputStream1))
+	final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	try (Reader reader = new StringReader(inputString)) {
+	    (new InputTreeProcessor(outputStream))
 		.process(parameters,
-			 false,
-			 reader1,
-			 presetCrcModels,
-			 System.err);
-	    (new InputTreeProcessor(outputStream2))
-		.process(parameters,
-			 true,
-			 reader2,
+			 reader,
 			 presetCrcModels,
 			 System.err);
 	} catch (ProcessorException| IOException  exception) {
 	    return false;
 	}
-	final byte[] outputByteArray1 = outputStream1.toByteArray();
-	if (outputByteArray1.length != outputLength) {
-	    return false;
-	}
-	final byte[] outputByteArray2 = outputStream2.toByteArray();
-	if (outputByteArray2.length != outputLength) {
+	final byte[] outputByteArray = outputStream.toByteArray();
+	if (outputByteArray.length != outputLength) {
 	    return false;
 	}
 	for (int i = 0; i < outputLength; i++) {
-	    if ((outputByteArray1[i] != outputBytes[i]) ||
-		(outputByteArray2[i] != outputBytes[i])) {
+	    if (outputByteArray[i] != outputBytes[i]) {
 	    	return false;
 	    }
 	}
@@ -141,20 +127,6 @@ public class TestProcessor extends TestCase {
 	try (Reader reader = new StringReader(inputString)) {
 	    (new InputTreeProcessor(new ByteArrayOutputStream()))
 		.process(parameters,
-			 false,
-			 reader,
-			 presetCrcModels,
-			 System.err);
-	    return 1;
-	} catch (Exception exception) {
-	    if (!(exception instanceof ProcessorException)) {
-		return 2;
-	    }
-	}
-	try (Reader reader = new StringReader(inputString)) {
-	    (new InputTreeProcessor(new ByteArrayOutputStream()))
-		.process(parameters,
-			 true,
 			 reader,
 			 presetCrcModels,
 			 System.err);

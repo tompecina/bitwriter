@@ -91,28 +91,15 @@ public abstract class ParsedElement {
      * PIs etc. do not.
      *
      * @param  element element to be processed
-     * @return         list of coalesced <code>Node</code> objects
+     * @return         list of children <code>Node</code>s
      */
-    public static List<Node> coalesce(final Element element) {
-	final List<Node> newContent = new ArrayList<>();
-	Text p = null;
+    public static List<Node> children(final Element element) {
+	final List<Node> list = new ArrayList<>();
 	final NodeList nodes = element.getChildNodes();
 	for (int i = 0; i < nodes.getLength(); i++) {
-	    final Node item = nodes.item(i);
-	    if (item instanceof Text) {
-		if (p == null) {
-		    newContent.add(item);
-		    p = (Text)item;
-		} else {
-		    p.appendData(((Text)item).getData());
-		    ((Text)item).setData(null);
-		}
-	    } else if (item instanceof Element) {
-		newContent.add(item);
-		p = null;
-	    }
+	    list.add(nodes.item(i));
 	}
-	return newContent;
+	return list;
     }
 
     /**

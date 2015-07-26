@@ -60,7 +60,7 @@ public class RadixElement extends ParsedElement {
 	    1,
 	    processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {
-	    for (Node content: coalesce(element)) {
+	    for (Node content: children(element)) {
 		if (content instanceof Text) {
 		    final String trimmedText =
 			((Text)content).getTextContent().trim();

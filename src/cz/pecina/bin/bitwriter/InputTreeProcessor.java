@@ -249,8 +249,6 @@ public class InputTreeProcessor implements AutoCloseable {
      * Processes XML input.
      *
      * @param     parameters         the parameters object
-     * @param     validate           validate input against the default
-     *                               XML Schema
      * @param     reader             reader containing the XML data
      * @param     presetCrcModels    the preset CRC models
      * @param     stderr             console error stream
@@ -258,7 +256,6 @@ public class InputTreeProcessor implements AutoCloseable {
      * @exception IOException        on I/O error
      */
     public void process(final Parameters parameters,
-			final boolean validate,
 			final Reader reader,
 			final PresetCrcModels presetCrcModels,
 			final PrintStream stderr
@@ -273,7 +270,7 @@ public class InputTreeProcessor implements AutoCloseable {
 
 	scriptProcessor = new ScriptProcessor(this);
 	
-	final InputTree inputTree = new InputTree(reader, validate);
+	final InputTree inputTree = new InputTree(reader);
 	final Element rootElement = inputTree.getRootElement();
 
 	if (!rootElement.getTagName().equals("file")) {
