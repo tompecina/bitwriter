@@ -91,9 +91,9 @@ public abstract class ParsedElement {
      * PIs etc. do not.
      *
      * @param  element element to be processed
-     * @return         list of consolidated <code>Node</code> objects
+     * @return         list of coalesced <code>Node</code> objects
      */
-    public static List<Node> consolidate(final Element element) {
+    public static List<Node> coalesce(final Element element) {
 	final List<Node> newContent = new ArrayList<>();
 	Text p = null;
 	final NodeList nodes = element.getChildNodes();

@@ -113,7 +113,7 @@ public class SeqElement extends ParsedElement {
 	    1,
 	    processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {
-	    for (Node content: consolidate(element)) {
+	    for (Node content: coalesce(element)) {
 		if (content instanceof Text) {
 		    final String trimmedText = ((Text)content)
 			.getTextContent().trim();
