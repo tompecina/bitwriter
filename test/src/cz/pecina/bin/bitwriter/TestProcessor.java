@@ -2,16 +2,16 @@ package cz.pecina.bin.bitwriter;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.regex.MatchResult;
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.io.InputStreamReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.nio.file.DirectoryStream;
 import junit.framework.TestCase;
 
 public class TestProcessor extends TestCase {
@@ -89,29 +89,30 @@ public class TestProcessor extends TestCase {
 
     public void testInputTreeProcessor() {
     	final String prefix = "test/res/cz/pecina/bin/bitwriter/input";
-    	final Pattern testedPattern =
-	    Pattern.compile("^([^-]+)-([^-]+)-([^.]+)\\.xml$"); 
-    	final Pattern failPattern = Pattern.compile("^.*-fail.xml$"); 
-    	final File inputDir = new File(prefix);
-    	for (String fileName: inputDir.list()) {
-    	    final Matcher testedMatcher = testedPattern.matcher(fileName);
-    	    final Matcher failMatcher = failPattern.matcher(fileName);
-    	    if (!testedMatcher.matches()) {
-    		continue;
-    	    }
-    	    final MatchResult result = testedMatcher.toMatchResult();
-    	    if (failMatcher.matches()) {
-    		final int r = testFileFail(fileName);
+	final Path inputDirectory = Paths.get(prefix);
+	try (DirectoryStream<Path> paths =
+	     Files.newDirectoryStream(inputDirectory, "*[0-9].xml")) {
+	    for (Path path: paths) {
+    		assertTrue("Test file '" + path.getFileName() +
+			   "' failed",
+			   testFile(path.getFileName().toString()));
+	    }
+	} catch (IOException exception) {
+	    fail("Failed to process directory (1)");
+	}
+	try (DirectoryStream<Path> paths =
+	     Files.newDirectoryStream(inputDirectory, "*-fail.xml")) {
+	    for (Path path: paths) {
+    		final int r = testFileFail(path.getFileName().toString());
     		if (r == 1) {
-    		    fail("Test file '" + fileName + "' did not fail");
+    		    fail("Test file '" + path.getFileName() + "' did not fail");
     		} else if (r == 2) {
-    		    fail("Test file '" + fileName +
+    		    fail("Test file '" + path.getFileName() +
 			 "' failed with uncaught exception");
     		}
-    	    } else {
-    		assertTrue("Test file '" + fileName +
-			   "' failed", testFile(fileName));
     	    }
+	} catch (IOException exception) {
+	    fail("Failed to process directory (2)");
     	}
     }
     
