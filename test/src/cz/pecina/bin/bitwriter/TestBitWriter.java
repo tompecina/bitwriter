@@ -208,42 +208,6 @@ public class TestBitWriter extends TestCase {
 
 	r = test(new String[]
 	    {"-s",
-	     "<stream extra-attribute=\"true\">0x55</stream>",
-	     "-S"},
-		 null);
-	assertEquals("Error in process, no schema (1)",
-		     0,
-		     r.exitCode);
-	assertEquals("Error in process, no schema (2)",
-		     1,
-		     r.out.length);
-	assertEquals("Error in process, no schema (3)",
-		     0x55,
-		     (r.out[0] & 0xff));
-	assertEquals("Error in process, no schema (4)",
-		     0,
-		     r.err.length());
-
-	r = test(new String[]
-	    {"-s",
-	     "<stream extra-attribute=\"true\">0x55</stream>",
-	     "--no-schema"},
-		 null);
-	assertEquals("Error in process, no schema (5)",
-		     0,
-		     r.exitCode);
-	assertEquals("Error in process, no schema (6)",
-		     1,
-		     r.out.length);
-	assertEquals("Error in process, no schema (7)",
-		     0x55,
-		     (r.out[0] & 0xff));
-	assertEquals("Error in process, no schema (8)",
-		     0,
-		     r.err.length());
-
-	r = test(new String[]
-	    {"-s",
 	     "<stream extra-attribute=\"true\">0x55</stream>"},
 		 null);
 	assertEquals("Error in process, no schema (9)",

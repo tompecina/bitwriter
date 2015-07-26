@@ -20,8 +20,7 @@ public class TestProcessor extends TestCase {
 
     protected URL crcFileURL;
     protected PresetCrcModels presetCrcModels;
-    protected Parameters parametersValidate;
-    protected Parameters parametersNoValidate;
+    protected Parameters parameters;
 
     @Override
     protected void setUp() throws PresetCrcModelsException,
@@ -30,9 +29,7 @@ public class TestProcessor extends TestCase {
 	crcFileURL = BitWriter.class.getResource("crc.xml");
 	presetCrcModels = new PresetCrcModels(new InputStreamReader(
 	    BitWriter.class.getResourceAsStream("crc.xml")));
-	parametersValidate = new Parameters();
-	parametersNoValidate = new Parameters();
-	parametersNoValidate.setValidate(false);
+	parameters = new Parameters();
     }
 
     private String resourceToString(final String name
@@ -102,12 +99,14 @@ public class TestProcessor extends TestCase {
 	try (Reader reader1 = new StringReader(inputString);
 	     Reader reader2 = new StringReader(inputString)) {
 	    (new InputTreeProcessor(outputStream1))
-		.process(parametersNoValidate,
+		.process(parameters,
+			 false,
 			 reader1,
 			 presetCrcModels,
 			 System.err);
 	    (new InputTreeProcessor(outputStream2))
-		.process(parametersNoValidate,
+		.process(parameters,
+			 true,
 			 reader2,
 			 presetCrcModels,
 			 System.err);
@@ -141,7 +140,8 @@ public class TestProcessor extends TestCase {
 	}
 	try (Reader reader = new StringReader(inputString)) {
 	    (new InputTreeProcessor(new ByteArrayOutputStream()))
-		.process(parametersNoValidate,
+		.process(parameters,
+			 false,
 			 reader,
 			 presetCrcModels,
 			 System.err);
@@ -153,7 +153,8 @@ public class TestProcessor extends TestCase {
 	}
 	try (Reader reader = new StringReader(inputString)) {
 	    (new InputTreeProcessor(new ByteArrayOutputStream()))
-		.process(parametersValidate,
+		.process(parameters,
+			 true,
 			 reader,
 			 presetCrcModels,
 			 System.err);

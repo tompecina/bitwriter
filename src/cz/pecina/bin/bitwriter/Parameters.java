@@ -89,12 +89,6 @@ public class Parameters {
     	         .build()
     	    );
     	options.addOption(
-    	    Option.builder("S")
-    	         .longOpt("no-schema")
-    	         .desc("do not validate input against XML Schema")
-    	         .build()
-    	    );
-    	options.addOption(
     	    Option.builder("o")
     	         .longOpt("output-file")
     	         .hasArg()
@@ -133,7 +127,6 @@ public class Parameters {
     protected String crcFileName;
     protected boolean listCrcFlag;
     protected String[] literalStrings;
-    protected boolean validate = true;
     protected boolean hexMode;
     protected String[] fileNames;
 
@@ -195,27 +188,6 @@ public class Parameters {
     public String[] getLiteralStrings() {
 	log.finer("Getting literalStrings: " + literalStrings);
 	return literalStrings;
-    }
-    
-    /**
-     * Set the suppress Schema validation option.
-     *
-     * @param validate <code>true</code> if Schema validation is
-     *                 to be suppressed
-     */
-    public void setValidate(final boolean validate) {
-	log.fine("Setting validate to: " + validate);
-	this.validate = validate;
-    }
-    
-    /**
-     * Gets the suppress Schema validation option.
-     *
-     * @return <code>true</code> if Schema validation is suppressed
-     */
-    public boolean getValidate() {
-	log.finer("Getting validate: " + validate);
-	return validate;
     }
     
     /**
@@ -309,8 +281,6 @@ public class Parameters {
 	}
 
 	listCrcFlag = line.hasOption("l");
-
-	validate = !(line.hasOption("S"));
 
 	hexMode = line.hasOption("x");
 

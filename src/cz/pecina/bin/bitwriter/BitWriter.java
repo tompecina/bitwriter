@@ -209,6 +209,7 @@ public class BitWriter {
 	    new InputTreeProcessor(outputStream);
 	for (Reader reader: readers) {
 	    processor.process(parameters,
+			      true,
 			      reader,
 			      presetCrcModels,
 			      stderr);

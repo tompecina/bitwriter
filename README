@@ -197,16 +197,6 @@ the command line.  The content of each string and file is processed as a
 separate unit, ie, the concatenation takes place on the binary output level.
 
 
--S,--no-schema
-
-Normally, input XML data is validated against a built-in XML Schema file (a
-current copy of which is always availabl on my personal website at
-http://www.pecina.cz/xsd/bin-1.0.xsd.  This option suppresses the validation.
-This is not recommended as errors will still be detected and reported by
-Bitwriter's processing algorithm, however, the XML validator may provide a
-more relevant and detailed error report.
-
-
 -x,--hex-mode
 
 In hexadecimal mode, human-readable hexadecimal output is produced instead of
