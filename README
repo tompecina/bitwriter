@@ -195,6 +195,8 @@ input string(s) and file(s) are specified, the strings are processed first, in
 the order of appearance, then the files, one after another as they appear on
 the command line.  The content of each string and file is processed as a
 separate unit, ie, the concatenation takes place on the binary output level.
+If the XML prolog is specified, the encoding (charset) is set to the default
+used by the operating system.
 
 
 -x,--hex-mode
@@ -205,10 +207,11 @@ binary data.  This is useful for debugging.
 
 5. INPUT DATA FORMAT
 
-Bitwriter reads and processes only well-formed and valid XML data.  The format
-of the XML data is straightforward and easy to understand, with no
-irregularities or idiosyncrasies.  It reminds more of a scripting or
-programming language than a data XML file.
+Bitwriter reads and processes only well-formed and valid XML data in any
+encoding recognized by the JRE (Java Runtime Environment).  The format of the
+XML data is straightforward and easy to understand, with no irregularities or
+idiosyncrasies.  It reminds more of a scripting or programming language than a
+data XML file.
 
 The XML Schema describing the vocabulary and semantics of the XML file can be
 downloaded from my personal website (http://www.pecina.cz/xsd/bin-1.0.xsd).
@@ -789,10 +792,10 @@ is connected.  The options are "stream-in", "aggregate-stream-in",
 "bitstream", "aggregate-stream-out", "stream-out", "output-stream".
 
 "model" -- Required.  The string identifying the digest algorithm.  The
-selection depends on the JRE (Java Runtime Environment) in which the
-application is run, but all of the common digest types, such as "MD5", "SHA-1"
-or "SHA-256", are supported.  Please refer to your current JRE documentation
-for a complete and current list.
+selection depends on the JRE in which the application is run, but all of the
+common digest types, such as "MD5", "SHA-1" or "SHA-256", are supported.
+Please refer to your current JRE documentation for a complete and current
+list.
 
 
 <random>
