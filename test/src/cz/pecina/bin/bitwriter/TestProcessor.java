@@ -6,8 +6,10 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.regex.MatchResult;
 import java.io.File;
+import java.io.StringReader;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import junit.framework.TestCase;
@@ -24,9 +26,8 @@ public class TestProcessor extends TestCase {
 				  ParametersException,
 				  IOException {
 	crcFileURL = BitWriter.class.getResource("crc.xml");
-	presetCrcModels = new PresetCrcModels(
-	    Util.streamToString(
-	        BitWriter.class.getResourceAsStream("crc.xml")));
+	presetCrcModels = new PresetCrcModels(new InputStreamReader(
+	    BitWriter.class.getResourceAsStream("crc.xml")));
 	parametersValidate = new Parameters();
 	parametersNoValidate = new Parameters();
 	parametersNoValidate.setValidate(false);
@@ -95,12 +96,12 @@ public class TestProcessor extends TestCase {
 	    }
 	}
 	ByteArrayOutputStream outputStream;
-	try {
+	try (StringReader reader = new StringReader(inputString)) {
 	    outputStream = new ByteArrayOutputStream();
 	    final InputTreeProcessor processor =
 		new InputTreeProcessor(outputStream);
 	    processor.process(parametersValidate,
-			      inputString,
+			      reader,
 			      presetCrcModels,
 			      System.err);
 	} catch (ProcessorException| IOException  exception) {
@@ -112,7 +113,7 @@ public class TestProcessor extends TestCase {
 	}
 	for (int i = 0; i < outputLength; i++) {
 	    if (outputByteArray[i] != outputBytes[i]) {
-		return false;
+	    	return false;
 	    }
 	}
 	return true;
@@ -127,12 +128,12 @@ public class TestProcessor extends TestCase {
 	    fail("Failed to process file '" + (prefix + fileName) + "'");
 	}
 	ByteArrayOutputStream outputStream;
-	try {
+	try (StringReader reader = new StringReader(inputString)) {
 	    outputStream = new ByteArrayOutputStream();
 	    final InputTreeProcessor processor =
 		new InputTreeProcessor(outputStream);
 	    processor.process(parametersNoValidate,
-			      inputString,
+			      reader,
 			      presetCrcModels,
 			      System.err);
 	} catch (Exception exception) {

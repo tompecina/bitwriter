@@ -210,10 +210,10 @@
 	  <xs:attribute name="notation" type="notationOrScript" default="normal"/>
   	  <xs:attribute name="width" type="positiveIntegerOrScript"/>
   	  <xs:attribute name="polynomial" type="positiveIntegerOrScript"/>
-  	  <xs:attribute name="reflect-in" type="booleanOrScript" default="true"/>
-  	  <xs:attribute name="xor-in" type="integerOrScript" default="-1"/>
-  	  <xs:attribute name="reflect-out" type="booleanOrScript" default="true"/>
-  	  <xs:attribute name="xor-out" type="integerOrScript" default="0"/>
+  	  <xs:attribute name="reflect-in" type="booleanOrScript"/>
+  	  <xs:attribute name="xor-in" type="integerOrScript"/>
+  	  <xs:attribute name="reflect-out" type="booleanOrScript"/>
+  	  <xs:attribute name="xor-out" type="integerOrScript"/>
   	</xs:extension>
       </xs:complexContent>
     </xs:complexType>

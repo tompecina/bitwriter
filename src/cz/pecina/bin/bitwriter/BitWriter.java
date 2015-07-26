@@ -25,6 +25,10 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -157,15 +161,13 @@ public class BitWriter {
 	    return;
 	}
 
-	String crcModelsString;
-	if (parameters.getCrcFileNameFlag()) {
-	    crcModelsString = Util.fileToString(parameters.getCrcFileName());
-	} else {
-	    crcModelsString = Util.streamToString(BitWriter
-	        .class.getResourceAsStream("crc.xml"));
-	}
+	final Reader crcModelsReader =
+	    (parameters.getCrcFileNameFlag() ?
+	     new FileReader(parameters.getCrcFileName()) :
+	     new InputStreamReader(BitWriter.class
+ 	         .getResourceAsStream("crc.xml")));
 	final PresetCrcModels presetCrcModels =
-	    new PresetCrcModels(crcModelsString);
+	    new PresetCrcModels(crcModelsReader);
 
 	if (parameters.getListCrcFlag()) {
 	    presetCrcModels.list(stderr);
@@ -180,37 +182,37 @@ public class BitWriter {
 	    outputStream = stdout;
 	}
 
-	final List<String> inputStrings = new ArrayList<>();
+	final List<Reader> readers = new ArrayList<>();
 	if (parameters.getLiteralStrings() != null) {
 	    for (String literalString: parameters.getLiteralStrings()) {
+		String s;
 		if (literalString.startsWith("<?xml ")) {
-		    inputStrings.add(literalString.trim());
+		    s = literalString.trim();
 		} else {
-		    inputStrings.add(Constants.XML_PREAMBLE +
-				     literalString.trim() +
-				     Constants.XML_POSTAMBLE);
+		    s = Constants.XML_PREAMBLE +
+			literalString.trim() +
+			Constants.XML_POSTAMBLE;
 		}
+		readers.add(new StringReader(s));
 	    }
 	}		    
 	if (parameters.getFileNames() != null) {
 	    for (String inputFileName: parameters.getFileNames()) {
-		inputStrings.add(Util.fileToString(inputFileName).trim());
+		readers.add(new FileReader(inputFileName));
 	    }
 	}
-	if (inputStrings.isEmpty()) {
-	    inputStrings.add(Util.streamToString(stdin));
+	if (readers.isEmpty()) {
+	    readers.add(new InputStreamReader(stdin));
 	}
 	    
 	final InputTreeProcessor processor =
 	    new InputTreeProcessor(outputStream);
-	for (String inputString: inputStrings) {
-	    if (inputString.isEmpty()) {
-		continue;
-	    }
+	for (Reader reader: readers) {
 	    processor.process(parameters,
-			      inputString,
+			      reader,
 			      presetCrcModels,
 			      stderr);
+	    reader.close();
 	}
 	processor.close();
 	

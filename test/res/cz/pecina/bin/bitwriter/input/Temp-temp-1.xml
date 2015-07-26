@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
 
-  <set name="x"/>
-  <stream repeat="{{ (0.1  * 0.7) * 100 }}">
-    {{ x = (0.1  * 0.7) * 100 }}
-    <put name="x"/>
+  <!-- <stream> -->
+  <!--   <crc name="c" model="CRC-10"/> -->
+  <!--   <hex> -->
+  <!--     116A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A00AF -->
+  <!--   </hex> -->
+  <!-- </stream> -->
+  <!-- <stream width-in="10"> -->
+  <!--   <put name="c"/> -->
+  <!-- </stream> -->
+  
+  <stream>
+    <crc name="c" model="CRC-10"/>
+    <hex>
+      116A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A6A00AF
+    </hex>
   </stream>
+  <stream width-in="10">
+    <put name="c"/>
+  </stream>
+  <!-- <stream repeat="14"> -->
+  <!--   0xee -->
+  <!-- </stream> -->
 
+  
 </file>

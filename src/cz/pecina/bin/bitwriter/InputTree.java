@@ -21,19 +21,7 @@
 
 package cz.pecina.bin.bitwriter;
 
-import javax.xml.XMLConstants;
-import java.io.StringReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.SAXException;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
+import java.io.Reader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.util.logging.Logger;
@@ -67,74 +55,24 @@ public class InputTree {
 	return "InputTree";
     }
 
-    // validation error handler
-    private class Handler implements ErrorHandler {
-	@Override
-	public void warning(final SAXParseException exception
-			    ) throws SAXException {
-	}
-	@Override
-	public void error(final SAXParseException exception
-			  ) throws SAXException {
-	    throw exception;
-	}
-	@Override
-	public void fatalError(final SAXParseException exception
-			       ) throws SAXException {
-	    throw exception;
-	}
-    }
-    
     /**
      * Main constructor.
      *
-     * @param     inputString        the string containing the XML tree
+     * @param     reader             the reader containing the XML data
      *                               to be parsed
      * @param     validate           <code>false</code> turns off XML Schema
      *                               validation (primarily for testing
      *                               purposes)
      * @exception ProcessorException on parsing error
      */
-    public InputTree(final String inputString,
+    public InputTree(final Reader reader,
 		     final boolean validate
 		     ) throws ProcessorException {
-	log.fine("Parsing input string");
+	log.fine("Parsing input data");
 
-	if (inputString == null) {
-	    throw new ProcessorException("Null string cannot be parsed");
-	}
-	Document doc;
-	try {
-	    
-	    final DocumentBuilderFactory builderFactory = DocumentBuilderFactory
-		.newInstance();
-	    builderFactory.setNamespaceAware(true);
-	    builderFactory.setCoalescing(true);
-	    builderFactory.setIgnoringComments(true);
-	    if (validate) {
-		builderFactory.setSchema(SchemaFactory.newInstance(
-		    XMLConstants.W3C_XML_SCHEMA_NS_URI)
-		    .newSchema(new StreamSource(InputTree.class
-		    .getResourceAsStream("bin-" +
-		    Constants.FILE_XML_FILE_VERSION + ".xsd"))));
-		builderFactory.setValidating(false);
-	    }
-	    DocumentBuilder builder = builderFactory.newDocumentBuilder();
-	    builder.setErrorHandler(new Handler());
-	    doc = builder.parse(
-	        new ByteArrayInputStream(inputString.getBytes()));
-	} catch (final FactoryConfigurationError |
-		 ParserConfigurationException |
-		 SAXException |
-		 IllegalArgumentException exception) {
-	    throw new ProcessorException(
-	        "Invalid input file (1), exception: " +
-		exception.getMessage());
-	} catch (final IOException exception) {
-	    throw new ProcessorException(
-	        "Invalid input file (2), exception: " +
-		exception.getMessage());
-	}
+	final Document doc = XmlParser.parse(reader,
+	    "bin-" + Constants.FILE_XML_FILE_VERSION + ".xsd",
+	    validate);
 	rootElement = doc.getDocumentElement();
 	if (!rootElement.getTagName().equals("file")) {
 	    throw new ProcessorException(

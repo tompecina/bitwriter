@@ -23,17 +23,8 @@ package cz.pecina.bin.bitwriter;
 
 import java.util.ArrayList;
 import java.math.BigInteger;
+import java.io.Reader;
 import java.io.PrintStream;
-import java.io.StringReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import javax.xml.XMLConstants;
-import org.xml.sax.SAXException;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -50,9 +41,6 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
     // static logger
     private static final Logger log =
 	Logger.getLogger(PresetCrcModels.class.getName());
-
-    // XML file version
-    private static final String CRC_XML_FILE_VERSION = "1.0";
 
     /**
      * Generates a lists of all models and sends it to a print stream.
@@ -104,36 +92,18 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
     }
 
     // processes the file
-    private void process(final String crcModelsString
+    private void process(final Reader reader
 			 ) throws PresetCrcModelsException {
 	log.fine("Parsing started");
 
-	try {
-	    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-		.newSchema(new StreamSource(getClass()
-		.getResourceAsStream("crc-" + CRC_XML_FILE_VERSION +
-		".xsd"))).newValidator().validate(new StreamSource(
-		new StringReader(crcModelsString)));
-	} catch (final SAXException | IOException exception) {
-	    throw new PresetCrcModelsException(
-	        "Error in CRC models file (1), exception: " +
-		exception.getMessage());
-	}
 	Document doc;
 	try {
-	    doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-		  .parse(new ByteArrayInputStream(
-		  crcModelsString.getBytes()));
-	} catch (final FactoryConfigurationError |
-		 ParserConfigurationException |
-		 SAXException |
-		 IllegalArgumentException exception) {
+	    doc = XmlParser.parse(reader,
+	        "crc-" + Constants.CRC_XML_FILE_VERSION + ".xsd",
+	        true);
+	} catch (final ProcessorException exception) {
 	    throw new PresetCrcModelsException(
-	        "Error in CRC models file (2), exception: " +
-		exception.getMessage());
-	} catch (final IOException exception) {
-	    throw new PresetCrcModelsException(
-	        "Error in CRC models file (3), exception: " +
+	        "Error in CRC models file, exception: " +
 		exception.getMessage());
 	}
 	final Element crcElement = doc.getDocumentElement();
@@ -141,7 +111,7 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
 	    throw new PresetCrcModelsException(
 	        "Error in CRC models file, no <crc> tag");
 	}
-	if (!CRC_XML_FILE_VERSION.equals(
+	if (!Constants.CRC_XML_FILE_VERSION.equals(
 	     crcElement.getAttribute("version"))) {
 	    throw new PresetCrcModelsException(
 	        "Error in CRC models file, version mismatch");
@@ -256,15 +226,14 @@ public class PresetCrcModels extends ArrayList<CrcModel> {
     /**
      * Main constructor.
      *
-     * @param     crcModelsString          string containing the 
-     *                                     models XML file
+     * @param     reader                   models XML file
      * @exception PresetCrcModelsException on errors in the models file
      */
-    public PresetCrcModels(final String crcModelsString
+    public PresetCrcModels(final Reader reader
 			   ) throws PresetCrcModelsException {
 	log.fine("Reading CRC model presets from an XML string");
 
-	process(crcModelsString);
+	process(reader);
 
 	log.fine("CRC model presets set up");
     }

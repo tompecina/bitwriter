@@ -68,6 +68,11 @@ public final class Constants {
     public static final String FILE_XML_FILE_VERSION = "1.0";
 
     /**
+     * Version of the CRC presets XML file.
+     */
+    public static final String CRC_XML_FILE_VERSION = "1.0";
+
+    /**
      * Prefix of the Schema location.
      */
     public static final String SCHEMA_PREFIX = "http://www.pecina.cz/xsd/";

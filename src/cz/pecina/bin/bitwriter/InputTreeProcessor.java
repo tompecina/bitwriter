@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.Reader;
 import java.io.IOException;
 import org.w3c.dom.Element;
 import java.util.logging.Logger;
@@ -44,7 +45,7 @@ public class InputTreeProcessor implements AutoCloseable {
 
     // fields
     protected Parameters parameters;
-    protected String inputString;
+    protected Reader reader;
     protected PrintStream stderr;
     protected PresetCrcModels presetCrcModels;
     protected ScriptProcessor scriptProcessor;
@@ -244,23 +245,32 @@ public class InputTreeProcessor implements AutoCloseable {
 	inStream.close();
     }
 
-    // processes the input tree
+    /**
+     * Processes XML input.
+     *
+     * @param     parameters         the parameters object
+     * @param     reader             the reader containing the XML data
+     * @param     presetCrcModels    the preset CRC models
+     * @param     stderr             console error stream
+     * @exception ProcessorException on processing error
+     * @exception IOException        on I/O error
+     */
     public void process(final Parameters parameters,
-			final String inputString,
+			final Reader reader,
 			final PresetCrcModels presetCrcModels,
 			final PrintStream stderr
 			) throws ProcessorException, IOException {
 	log.fine("Parsing input tree");
 
 	this.parameters = parameters;
-	this.inputString = inputString;
+	this.reader = reader;
 	this.presetCrcModels = presetCrcModels;
 	this.stderr = stderr;
 	controlledOutputStream.setHexMode(parameters.isHexMode());
 
 	scriptProcessor = new ScriptProcessor(this);
 	
-	final InputTree inputTree = new InputTree(inputString,
+	final InputTree inputTree = new InputTree(reader,
 						  parameters.getValidate());
 
 	final Element rootElement = inputTree.getRootElement();
