@@ -58,7 +58,7 @@ public class InputTree {
     /**
      * Main constructor.
      *
-     * @param     reader             the reader containing the XML data
+     * @param     reader             reader containing the XML data
      *                               to be parsed
      * @param     validate           <code>false</code> turns off XML Schema
      *                               validation (primarily for testing

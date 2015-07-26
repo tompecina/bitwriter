@@ -249,7 +249,7 @@ public class InputTreeProcessor implements AutoCloseable {
      * Processes XML input.
      *
      * @param     parameters         the parameters object
-     * @param     reader             the reader containing the XML data
+     * @param     reader             reader containing the XML data
      * @param     presetCrcModels    the preset CRC models
      * @param     stderr             console error stream
      * @exception ProcessorException on processing error

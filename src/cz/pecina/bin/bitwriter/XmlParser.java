@@ -70,7 +70,7 @@ public final class XmlParser {
     /**
      * Parses XML data.
      *
-     * @param     reader             the reader containing the XML data
+     * @param     reader             reader containing the XML data
      *                               to be parsed
      * @param     schema             name of the XML Schema
      * @param     validate           <code>false</code> turns off XML Schema
