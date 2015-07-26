@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.MatchResult;
 import java.io.File;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.io.InputStreamReader;
 import java.io.ByteArrayOutputStream;
@@ -30,17 +31,17 @@ public class TestProcessor extends TestCase {
     private boolean testFile(final String fileName) {
 	final String inPrefix = "input/";
 	final String outPrefix = "output/";
-	final StreamTokenizer outputTokenizer =
-	    new StreamTokenizer(new InputStreamReader(
-	    getClass().getResourceAsStream((outPrefix + fileName)
-	    .replace(".xml", ".hex"))));
-	outputTokenizer.resetSyntax();
-        outputTokenizer.wordChars('a', 'f');
-        outputTokenizer.wordChars('A', 'F');
-        outputTokenizer.wordChars('0', '9');
-        outputTokenizer.whitespaceChars(0, ' ');
 	final List<Integer> outputBytes = new ArrayList<>();
-	try {
+	try (InputStreamReader streamReader = new InputStreamReader(
+	     getClass().getResourceAsStream((outPrefix + fileName)
+	     .replace(".xml", ".hex")))) {
+	    final StreamTokenizer outputTokenizer =
+		new StreamTokenizer(streamReader);
+	    outputTokenizer.resetSyntax();
+	    outputTokenizer.wordChars('a', 'f');
+	    outputTokenizer.wordChars('A', 'F');
+	    outputTokenizer.wordChars('0', '9');
+	    outputTokenizer.whitespaceChars(0, ' ');
 	    while (outputTokenizer.nextToken() != StreamTokenizer.TT_EOF) {
 		outputBytes.add(Integer.valueOf(outputTokenizer.sval, 16));
 	    }
