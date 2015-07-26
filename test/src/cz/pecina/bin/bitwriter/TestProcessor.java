@@ -3,9 +3,10 @@ package cz.pecina.bin.bitwriter;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.FileInputStream;
 import java.io.StreamTokenizer;
-import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.FileReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -16,6 +17,8 @@ import junit.framework.TestCase;
 
 public class TestProcessor extends TestCase {
 
+    private static final String PREFIX = "test/res/cz/pecina/bin/bitwriter";
+    
     protected PresetCrcModels presetCrcModels;
     protected Parameters parameters;
 
@@ -28,13 +31,12 @@ public class TestProcessor extends TestCase {
 	parameters = new Parameters();
     }
 
-    private boolean testFile(final String fileName) {
-	final String inPrefix = "input/";
-	final String outPrefix = "output/";
+    private boolean testFile(final Path inputPath) {
+	final String name = inputPath.getFileName().toString();
+	final Path outputPath = Paths.get(PREFIX + "/output/" +
+					 name.replace(".xml", ".hex"));
 	final List<Integer> outputBytes = new ArrayList<>();
-	try (InputStreamReader streamReader = new InputStreamReader(
-	     getClass().getResourceAsStream((outPrefix + fileName)
-	     .replace(".xml", ".hex")))) {
+	try (Reader streamReader = new FileReader(outputPath.toFile())) {
 	    final StreamTokenizer outputTokenizer =
 		new StreamTokenizer(streamReader);
 	    outputTokenizer.resetSyntax();
@@ -46,12 +48,12 @@ public class TestProcessor extends TestCase {
 		outputBytes.add(Integer.valueOf(outputTokenizer.sval, 16));
 	    }
 	} catch (IOException exception) {
-	    fail("Failed to tokenize file '" + (outPrefix + fileName) + "'");
+	    fail("Failed to tokenize hex file for '" + name + "'");
 	}
 	final int outputLength = outputBytes.size();
 	final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-	try (InputStream inputStream = getClass()
-	     .getResourceAsStream(inPrefix + fileName)) {
+	try (InputStream inputStream =
+	     new FileInputStream(inputPath.toFile())) {
 	    (new InputTreeProcessor(outputStream))
 		.process(parameters,
 			 inputStream,
@@ -72,10 +74,10 @@ public class TestProcessor extends TestCase {
 	return true;
     }
 
-    private int testFileFail(final String fileName) {
+    private int testFileFail(final Path path) {
 	final String prefix = "input/";
-	try (InputStream inputStream = getClass()
-	     .getResourceAsStream(prefix + fileName)) {
+	try (InputStream inputStream =
+	     new FileInputStream(path.toFile())) {
 	    (new InputTreeProcessor(new ByteArrayOutputStream()))
 		.process(parameters,
 			 inputStream,
@@ -88,14 +90,13 @@ public class TestProcessor extends TestCase {
     }
 
     public void testInputTreeProcessor() {
-    	final String prefix = "test/res/cz/pecina/bin/bitwriter/input";
-	final Path inputDirectory = Paths.get(prefix);
+	final Path inputDirectory = Paths.get(PREFIX + "/input");
 	try (DirectoryStream<Path> paths =
 	     Files.newDirectoryStream(inputDirectory, "*[0-9].xml")) {
 	    for (Path path: paths) {
     		assertTrue("Test file '" + path.getFileName() +
 			   "' failed",
-			   testFile(path.getFileName().toString()));
+			   testFile(path));
 	    }
 	} catch (IOException exception) {
 	    fail("Failed to process directory (1)");
@@ -103,7 +104,7 @@ public class TestProcessor extends TestCase {
 	try (DirectoryStream<Path> paths =
 	     Files.newDirectoryStream(inputDirectory, "*-fail.xml")) {
 	    for (Path path: paths) {
-    		final int r = testFileFail(path.getFileName().toString());
+    		final int r = testFileFail(path);
     		if (r == 1) {
     		    fail("Test file '" + path.getFileName() + "' did not fail");
     		} else if (r == 2) {
