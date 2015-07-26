@@ -44,26 +44,26 @@ public class RandomElement extends ParsedElement {
     private void process() throws ProcessorException, IOException {
 	log.fine("Processing <random> element");
 
-	final int width = extractIntAttribute(
+	final int width = extractIntegerAttribute(
 	    element,
 	    "width",
 	    1,
-	    Integer.MAX_VALUE,
+	    null,
 	    8,
 	    processor.getScriptProcessor());
-	final int length = extractIntAttribute(
+	final int length = extractIntegerAttribute(
 	    element,
 	    "length",
 	    0,
-	    Integer.MAX_VALUE,
+	    null,
 	    1,
 	    processor.getScriptProcessor());
 	final long seed = extractLongAttribute(
 	    element,
 	    "seed",
-	    Long.MIN_VALUE,
-	    Long.MAX_VALUE,
-	    0,
+	    null,
+	    null,
+	    0L,
 	    processor.getScriptProcessor());
 	Random random;
 	if (element.getAttribute("seed") != null) {

@@ -101,15 +101,13 @@ public abstract class ParsedElement {
     }
 
     /**
-     * Extracts integer value from an attribute, evaluating scripts.
+     * Extracts Integer value from an attribute, evaluating scripts.
      * These must be properly marked.
      *
      * @param     element            element to be processoed
      * @param     attributeName      name of the attribute
-     * @param     minValue           minimum value (posibly
-     *                               <code>Integer.MIN_VALUE</code>)
-     * @param     maxValue           maximum value
-     *                               (posibly <code>Integer.MAX_VALUE</code>)
+     * @param     minValue           minimum value or <code>null</code> if none
+     * @param     maxValue           maximum value or <code>null</code> if none
      * @param     defaultValue       default value if attribute not present
      *                               (empty attribute is an error)
      * @param     scriptProcessor    instance of the script processor
@@ -118,12 +116,12 @@ public abstract class ParsedElement {
      * @exception ProcessorException if the string does not represent a valid
      *                               integer value or on error in the script
      */
-    public static int extractIntAttribute(
+    public static Integer extractIntegerAttribute(
         final Element element,
 	final String attributeName,
-	final int minValue,
-	final int maxValue,
-	final int defaultValue,
+	final Integer minValue,
+	final Integer maxValue,
+	final Integer defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
 	if (!element.hasAttribute(attributeName)) {
@@ -136,7 +134,8 @@ public abstract class ParsedElement {
 	} else {
 	    r = Util.stringToInt(s);
 	}
-	if ((r < minValue) || (r > maxValue)) {
+	if (((minValue != null) && (r < minValue)) ||
+	    ((maxValue != null) && (r > maxValue))) {
 	    throw new ProcessorException(
 	        "Attribute '" + attributeName + "' out of range");
 	}
@@ -144,15 +143,13 @@ public abstract class ParsedElement {
     }
 
     /**
-     * Extracts long value from an attribute, evaluating scripts.
+     * Extracts Long value from an attribute, evaluating scripts.
      * These must be properly marked.
      *
      * @param     element            element to be processoed
      * @param     attributeName      name of the attribute
-     * @param     minValue           minimum value
-     *                               (posibly <code>Long.MIN_VALUE</code>)
-     * @param     maxValue           maximum value
-     *                               (posibly <code>Long.MAX_VALUE</code>)
+     * @param     minValue           minimum value or <code>null</code> if none
+     * @param     maxValue           maximum value or <code>null</code> if none
      * @param     defaultValue       default value if attribute not present
      *                               (empty attribute is an error)
      * @param     scriptProcessor    instance of the script processor
@@ -161,12 +158,12 @@ public abstract class ParsedElement {
      * @exception ProcessorException if the string does not represent a valid
      *                               long value or on error in the script
      */
-    public static long extractLongAttribute(
+    public static Long extractLongAttribute(
         final Element element,
 	final String attributeName,
-	final long minValue,
-	final long maxValue,
-	final long defaultValue,
+	final Long minValue,
+	final Long maxValue,
+	final Long defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
 	if (!element.hasAttribute(attributeName)) {
@@ -179,7 +176,8 @@ public abstract class ParsedElement {
 	} else {
 	    r = Util.stringToLong(s);
 	}
-	if ((r < minValue) || (r > maxValue)) {
+	if (((minValue != null) && (r < minValue)) ||
+	    ((maxValue != null) && (r > maxValue))) {
 	    throw new ProcessorException(
 	        "Attribute '" + attributeName + "' out of range");
 	    }
@@ -236,7 +234,7 @@ public abstract class ParsedElement {
     }
 
     /**
-     * Extracts boolean value from an attribute, evaluating scripts.
+     * Extracts Boolean value from an attribute, evaluating scripts.
      * These must be properly marked.
      *
      * @param     element            element to be processoed
@@ -249,10 +247,10 @@ public abstract class ParsedElement {
      * @exception ProcessorException if the string does not represent a valid
      *                               integer value or on error in the script
      */
-    public static boolean extractBooleanAttribute(
+    public static Boolean extractBooleanAttribute(
         final Element element,
 	final String attributeName,
-	final boolean defaultValue,
+	final Boolean defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
 	if (!element.hasAttribute(attributeName)) {
@@ -273,7 +271,7 @@ public abstract class ParsedElement {
     }
     
     /**
-     * Extracts boolean value from an attribute, evaluating scripts.
+     * Extracts Boolean value from an attribute, evaluating scripts.
      * These must be properly marked.
      *
      * @param     element            element to be processoed
@@ -290,12 +288,12 @@ public abstract class ParsedElement {
      *                               <code>trueString</code> or on error
      *                               in the script
      */
-    public static boolean extractBooleanAttribute(
+    public static Boolean extractBooleanAttribute(
         final Element element,
 	final String attributeName,
 	final String falseString,
 	final String trueString,
-	final boolean defaultValue,
+	final Boolean defaultValue,
 	final ScriptProcessor scriptProcessor
 	) throws ProcessorException {
 	if (!element.hasAttribute(attributeName)) {
@@ -318,7 +316,7 @@ public abstract class ParsedElement {
     }
     
     /**
-     * Extracts string value from an attribute according to options,
+     * Extracts String value from an attribute according to options,
      *  evaluating scripts. These must be properly marked.
      *
      * @param     element            element to be processoed
@@ -349,7 +347,7 @@ public abstract class ParsedElement {
     }
     
     /**
-     * Extracts string value from an attribute according to a list of options,
+     * Extracts String value from an attribute according to a list of options,
      * evaluating scripts. These must be properly marked.
      *
      * @param     element            element to be processoed

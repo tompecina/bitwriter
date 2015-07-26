@@ -45,10 +45,10 @@ public class FloatElement extends ParsedElement {
     private void process(final boolean isDouble
 			 ) throws ProcessorException, IOException {
 	log.fine("Processing floating-point element,");
-	final int count = extractIntAttribute(element,
+	final int count = extractIntegerAttribute(element,
 					      "repeat",
 					      0,
-					      Integer.MAX_VALUE,
+					      null,
 					      1,
 					      processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {

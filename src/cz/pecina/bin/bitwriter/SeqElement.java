@@ -51,17 +51,17 @@ public class SeqElement extends ParsedElement {
 				      false,
 				      processor.getScriptProcessor()));
 	    processor.getOutStream().setWidthOut(
-	        extractIntAttribute(element,
+	        extractIntegerAttribute(element,
 				    "width-out",
 				    1,
-				    Integer.MAX_VALUE,
+				    null,
 				    8,
 				    processor.getScriptProcessor()));
 	    processor.getOutAggregateStream().setWidthOutAggregate(
-	        extractIntAttribute(element,
+	        extractIntegerAttribute(element,
 				    "width-aggregate-out",
 				    1,
-				    Integer.MAX_VALUE,
+				    null,
 				    8,
 				    processor.getScriptProcessor()));
 	    processor.getOutAggregateStream().setEndiannessOut(
@@ -76,19 +76,19 @@ public class SeqElement extends ParsedElement {
 		"reflect-out",
 		false,
 		processor.getScriptProcessor()));
-	    final int widthIn = extractIntAttribute(
+	    final int widthIn = extractIntegerAttribute(
 	        element,
 		"width-in",
 		1,
-		Integer.MAX_VALUE,
+		null,
 		8,
 		processor.getScriptProcessor());
 	    processor.getInAggregateStream().setWidthInAggregate(
-	        extractIntAttribute(
+	        extractIntegerAttribute(
 		    element,
 		    "width-aggregate-in",
 		    1,
-		    Integer.MAX_VALUE,
+		    null,
 		    widthIn,
 		    processor.getScriptProcessor()));
 	    processor.getInStream().setWidthIn(widthIn);
@@ -105,11 +105,11 @@ public class SeqElement extends ParsedElement {
 		    "big",
 		    processor.getScriptProcessor()).toUpperCase()));
 	}
-	final int count = extractIntAttribute(
+	final int count = extractIntegerAttribute(
 	    element,
 	    "repeat",
 	    0,
-	    Integer.MAX_VALUE,
+	    null,
 	    1,
 	    processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {

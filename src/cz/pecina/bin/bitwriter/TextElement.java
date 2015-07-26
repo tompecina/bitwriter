@@ -44,11 +44,11 @@ public class TextElement extends ParsedElement {
     private void process() throws ProcessorException, IOException {
 	log.fine("Processing <text> element");
 
-	final int count = extractIntAttribute(
+	final int count = extractIntegerAttribute(
 	    element,
 	    "repeat",
 	    0,
-	    Integer.MAX_VALUE,
+	    null,
 	    1,
 	    processor.getScriptProcessor());
 	final boolean trim = extractBooleanAttribute(

@@ -40,11 +40,11 @@ public class ScriptElement extends ParsedElement {
     private void process() throws ProcessorException {
 	log.fine("Processing <script> element");
 
-	final int count = extractIntAttribute(
+	final int count = extractIntegerAttribute(
 	    element,
 	    "repeat",
 	    0,
-	    Integer.MAX_VALUE,
+	    null,
 	    1,
 	    processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {

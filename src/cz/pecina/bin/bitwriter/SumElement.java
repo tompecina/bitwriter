@@ -45,7 +45,7 @@ public class SumElement extends VariableElement {
 	final Variable variable = getOrCreateVariable(element);
 	variable.reset();
 	setVariableType(variable, element, "stream-out");
-	final int width = extractIntAttribute(element,
+	final int width = extractIntegerAttribute(element,
 					      "width",
 					      1,
 					      Integer.MAX_VALUE,

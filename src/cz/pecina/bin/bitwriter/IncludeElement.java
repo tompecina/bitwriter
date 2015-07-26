@@ -45,10 +45,10 @@ public class IncludeElement extends ParsedElement {
 	log.fine("Processing <include> element");
 
 	final int count =
-	    extractIntAttribute(element,
+	    extractIntegerAttribute(element,
 				"repeat",
 				0,
-				Integer.MAX_VALUE,
+				null,
 				1,
 				processor.getScriptProcessor());
 	final String location =
@@ -59,15 +59,15 @@ public class IncludeElement extends ParsedElement {
 	final long offset =
 	    extractLongAttribute(element,
 				 "offset",
-				 0,
-				 Long.MAX_VALUE,
-				 0,
+				 0L,
+				 null,
+				 0L,
 				 processor.getScriptProcessor());
 	final long length =
 	    extractLongAttribute(element,
 				 "length",
-				 0,
-				 Long.MAX_VALUE,
+				 0L,
+				 null,
 				 Long.MAX_VALUE,
 				 processor.getScriptProcessor());
 	if ((location == null) || location.trim().isEmpty()) {

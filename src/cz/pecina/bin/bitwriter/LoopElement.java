@@ -41,10 +41,10 @@ public class LoopElement extends ParsedElement {
     private void process() throws ProcessorException, IOException {
 	log.fine("Processing <loop> element");
 
-	final int count = extractIntAttribute(element,
+	final int count = extractIntegerAttribute(element,
 					      "repeat",
 					      0,
-					      Integer.MAX_VALUE,
+					      null,
 					      1,
 					      processor.getScriptProcessor());
 	for (int iter = 0; iter < count; iter++) {

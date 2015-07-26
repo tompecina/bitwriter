@@ -79,10 +79,10 @@ public class CrcElement extends VariableElement {
 		reflectOut,
 		Util.bigIntegerToString(xorOut)));
 	}
-	width = extractIntAttribute(element,
+	width = extractIntegerAttribute(element,
 				    "width",
 				    1,
-				    Integer.MAX_VALUE,
+				    null,
 				    width,
 				    processor.getScriptProcessor());
 	polynomial = extractBigIntegerAttribute(
