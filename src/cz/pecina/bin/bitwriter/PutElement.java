@@ -34,124 +34,123 @@ import java.util.logging.Logger;
  */
 public class PutElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(PutElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(PutElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <put> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <put> element");
 
-	final String variableName = element.getAttribute("name").trim();
-	Variable variable = null;
-	if (!variableName.isEmpty()) {
-	    try {		    
-		variable = getVariable(element);
-	    } catch (final ProcessorException exception) {
-		throw new ProcessorException(
-		    "Error in input file, variable '" +
-		    variableName + "' not allowed");
-	    }
-	    if (variable == null) {
-		throw new ProcessorException(
-		    "Error in input file, variable '" +
-		    variableName + "' does not exist");
-	    }			
-	}
-	BigInteger value = null;
-	final String stringValue = element.getAttribute("value").trim();
-	if (!stringValue.isEmpty()) {
-	    value = extractBigIntegerAttribute(element,
-					       "value",
-					       null,
-					       null,
-					       null,
+    final String variableName = element.getAttribute("name").trim();
+    Variable variable = null;
+    if (!variableName.isEmpty()) {
+      try {		    
+	variable = getVariable(element);
+      } catch (final ProcessorException exception) {
+	throw new ProcessorException("Error in input file, variable '" +
+				     variableName + "' not allowed");
+      }
+      if (variable == null) {
+	throw new ProcessorException("Error in input file, variable '" +
+				     variableName + "' does not exist");
+      }			
+    }
+    BigInteger value = null;
+    final String stringValue = element.getAttribute("value").trim();
+    if (!stringValue.isEmpty()) {
+      value = extractBigIntegerAttribute(element,
+					 "value",
+					 null,
+					 null,
+					 null,
+					 processor.getScriptProcessor());
+      if (value == null) {
+	throw new ProcessorException("Error in input file, illegal value '" +
+				     stringValue + "'");
+      }
+    }
+    if ((variable != null) && (value != null)) {
+      throw new ProcessorException(
+        "Error in input file, 'name' and 'value' are" +
+	" incompatible in <put> element");
+    }
+    if ((variable == null) && (value == null)) {
+      throw new ProcessorException(
+	"Error in input file, either 'name' or 'value' must" +
+	" be specified in <put> element");
+    }
+    if (variable != null) {
+      value = variable.getValue();
+    }
+    final String type = extractStringAttribute(element,
+					       "type",
+					       "stream-in",
 					       processor.getScriptProcessor());
-	    if (value == null) {
-		throw new ProcessorException(
-		    "Error in input file, illegal value '" +
-		    stringValue + "'");
-	    }
-	}
-	if ((variable != null) && (value != null)) {
-	    throw new ProcessorException(
-	        "Error in input file, 'name' and 'value' are" +
-		" incompatible in <put> element");
-	}
-	if ((variable == null) && (value == null)) {
-	    throw new ProcessorException(
-	        "Error in input file, either 'name' or 'value' must" +
-		" be specified in <put> element");
-	}
-	if (variable != null) {
-	    value = variable.getValue();
-	}
-	final String type = extractStringAttribute(
-	    element, "type", "stream-in", processor.getScriptProcessor());
-	if (variable != null ) {
-	    log.finest("Putting variable '" + variable.getName() +
-		       "', type '" + type + "', value: " +
-		       Util.bigIntegerToString(value));
-	    if (extractBooleanAttribute(element,
-					"reset",
-					true,
-					processor.getScriptProcessor())) {
-		variable.reset();
-	    }
-	} else {
-	    log.finest("Putting value: " + Util.bigIntegerToString(value));
-	}
-	switch (type) {
-	    case "stream-in":
-		processor.getInStream().write(value);
-		break;
-	    case "aggregate-stream-in":
-		processor.getInAggregateStream().write(value);
-		break;
-	    case "bitstream":
-		processor.getBitStream().write(value);
-		break;
-	    case "aggregate-stream-out":
-		processor.getOutAggregateStream().write(value);
-		break;
-	    case "stream-out":
-		processor.getOutStream().write(value);
-		break;
-	    case "output-stream":
-		processor.getControlledOutputStream().write(value);
-		break;
-	    default:
-		throw new ProcessorException(
-		    "Error in input file, <put> variable has wrong type: '" +
-		    type + "'");
-	}
-	
-	log.fine("<put> element processed");
+    if (variable != null ) {
+      log.finest("Putting variable '" + variable.getName() +
+		 "', type '" + type + "', value: " +
+		 Util.bigIntegerToString(value));
+      if (extractBooleanAttribute(element,
+				  "reset",
+				  true,
+				  processor.getScriptProcessor())) {
+	variable.reset();
+      }
+    } else {
+      log.finest("Putting value: " + Util.bigIntegerToString(value));
     }
+    switch (type) {
+      case "stream-in":
+	processor.getInStream().write(value);
+	break;
+      case "aggregate-stream-in":
+	processor.getInAggregateStream().write(value);
+	break;
+      case "bitstream":
+	processor.getBitStream().write(value);
+	break;
+      case "aggregate-stream-out":
+	processor.getOutAggregateStream().write(value);
+	break;
+      case "stream-out":
+	processor.getOutStream().write(value);
+	break;
+      case "output-stream":
+	processor.getControlledOutputStream().write(value);
+	break;
+      default:
+	throw new ProcessorException(
+          "Error in input file, <put> variable has wrong type: '" +
+	  type + "'");
+    }
+	
+    log.fine("<put> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "PutElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "PutElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public PutElement(final InputTreeProcessor processor,
-		      final Element element
-		      ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<put> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public PutElement(final InputTreeProcessor processor,
+		    final Element element
+		    ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<put> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<put> element set up");
-    }
+    log.fine("<put> element set up");
+  }
 }

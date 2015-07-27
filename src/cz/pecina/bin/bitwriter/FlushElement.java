@@ -33,42 +33,42 @@ import java.util.logging.Logger;
  */
 public class FlushElement extends ParsedElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(FlushElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(FlushElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <flush> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <flush> element");
 
-	processor.getInStream().flush();
+    processor.getInStream().flush();
 
-	log.fine("Flush <element> processed");
-    }
+    log.fine("Flush <element> processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "FlushElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "FlushElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public FlushElement(final InputTreeProcessor processor,
-			final Element element
-			) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<flush> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public FlushElement(final InputTreeProcessor processor,
+		      final Element element
+		      ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<flush> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<flush> element set up");
-    }
+    log.fine("<flush> element set up");
+  }
 }

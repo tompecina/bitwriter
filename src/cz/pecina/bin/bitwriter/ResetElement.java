@@ -33,43 +33,43 @@ import java.util.logging.Logger;
  */
 public class ResetElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(ResetElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(ResetElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <reset> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <reset> element");
 
-	final Variable variable = getOrCreateVariable(element);
-	variable.reset();
+    final Variable variable = getOrCreateVariable(element);
+    variable.reset();
 
-	log.fine("<reset> element processed");
-    }
+    log.fine("<reset> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "ResetElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "ResetElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public ResetElement(final InputTreeProcessor processor,
-			final Element element
-			) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<reset> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public ResetElement(final InputTreeProcessor processor,
+		      final Element element
+		      ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<reset> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<reset> element set up");
-    }
+    log.fine("<reset> element set up");
+  }
 }

@@ -34,51 +34,52 @@ import java.util.logging.Logger;
  */
 public class InputTree {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(InputTree.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(InputTree.class.getName());
 
-    // fields
-    protected Element rootElement;
+  // fields
+  protected Element rootElement;
     
-    /**
-     * Gets the root element of the parsed tree.
-     */
-    public Element getRootElement() {
-	log.finer("Getting root element");
-	return rootElement;
-    }
+  /**
+   * Gets the root element of the parsed tree.
+   */
+  public Element getRootElement() {
+    log.finer("Getting root element");
+    return rootElement;
+  }
 
-    // for description see Object
-    @Override
-    public String toString() {
-	return "InputTree";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "InputTree";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     inputStream        input stream containing the XML data
-     *                               to be parsed
-     * @exception ProcessorException on parsing error
-     */
-    public InputTree(final InputStream inputStream
-		     ) throws ProcessorException {
-	log.fine("Parsing input data");
+  /**
+   * Main constructor.
+   *
+   * @param     inputStream        input stream containing the XML data
+   *                               to be parsed
+   * @exception ProcessorException on parsing error
+   */
+  public InputTree(final InputStream inputStream
+		   ) throws ProcessorException {
+    log.fine("Parsing input data");
 
-	final Document doc = XmlParser.parse(inputStream,
-	    "bin-" + Constants.FILE_XML_FILE_VERSION + ".xsd",
-	    true);
-	rootElement = doc.getDocumentElement();
-	if (!rootElement.getTagName().equals("file")) {
-	    throw new ProcessorException(
-	        "Invalid input file, no <file> tag");
-	}
-	if (!Constants.FILE_XML_FILE_VERSION.equals(
-	        rootElement.getAttribute("version"))) {
-	    throw new ProcessorException(
-	        "Invalid input file, version mismatch");
-	}
-	log.fine("Parsing completed");
+    final Document doc = XmlParser.parse(
+      inputStream,
+      "bin-" + Constants.FILE_XML_FILE_VERSION + ".xsd",
+      true);
+    rootElement = doc.getDocumentElement();
+    if (!rootElement.getTagName().equals("file")) {
+      throw new ProcessorException(
+        "Invalid input file, no <file> tag");
     }
+    if (!Constants.FILE_XML_FILE_VERSION.equals(
+        rootElement.getAttribute("version"))) {
+      throw new ProcessorException(
+        "Invalid input file, version mismatch");
+    }
+    log.fine("Parsing completed");
+  }
 }

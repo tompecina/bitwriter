@@ -44,81 +44,79 @@ import java.util.logging.Logger;
  */
 public final class XmlParser {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(XmlParser.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(XmlParser.class.getName());
 
-    // validation error handler
-    private static class Handler implements ErrorHandler {
-	@Override
-	public void warning(final SAXParseException exception
-			    ) throws SAXException {
-	}
-	@Override
-	public void error(final SAXParseException exception
-			  ) throws SAXException {
-	    throw exception;
-	}
-	@Override
-	public void fatalError(final SAXParseException exception
-			       ) throws SAXException {
-	    throw exception;
-	}
+  // validation error handler
+  private static class Handler implements ErrorHandler {
+    @Override
+    public void warning(final SAXParseException exception
+			) throws SAXException {
     }
+    @Override
+    public void error(final SAXParseException exception
+		      ) throws SAXException {
+      throw exception;
+    }
+    @Override
+    public void fatalError(final SAXParseException exception
+			   ) throws SAXException {
+      throw exception;
+    }
+  }
     
-    /**
-     * Parses XML data.
-     *
-     * @param     inputStream        input stream containing the XML data
-     *                               to be parsed
-     * @param     schema             name of the XML Schema
-     * @param     validate           <code>false</code> turns off XML Schema
-     *                               validation (primarily for testing
-     *                               purposes)
-     * @return                       the parsed XML tree
-     * @exception ProcessorException on parsing error
-     */
-    public static Document parse(final InputStream inputStream,
-				 final String schema,
-				 final boolean validate
-				 ) throws ProcessorException {
-	log.fine("Parsing input data");
+  /**
+   * Parses XML data.
+   *
+   * @param     inputStream        input stream containing the XML data
+   *                               to be parsed
+   * @param     schema             name of the XML Schema
+   * @param     validate           <code>false</code> turns off XML Schema
+   *                               validation (primarily for testing
+   *                               purposes)
+   * @return                       the parsed XML tree
+   * @exception ProcessorException on parsing error
+   */
+  public static Document parse(final InputStream inputStream,
+			       final String schema,
+			       final boolean validate
+			       ) throws ProcessorException {
+    log.fine("Parsing input data");
 
-	if (inputStream == null) {
-	    throw new ProcessorException("Null data cannot be parsed");
-	}
-	try {
-	    final DocumentBuilderFactory builderFactory = DocumentBuilderFactory
-		.newInstance();
-	    builderFactory.setNamespaceAware(true);
-	    builderFactory.setCoalescing(true);
-	    builderFactory.setIgnoringComments(true);
-	    builderFactory.setIgnoringElementContentWhitespace(true);
-	    if (validate) {
-		builderFactory.setSchema(SchemaFactory.newInstance(
-		    XMLConstants.W3C_XML_SCHEMA_NS_URI)
-		    .newSchema(new StreamSource(XmlParser.class
-	 	    .getResourceAsStream(schema))));
-	    }
-	    final DocumentBuilder builder = builderFactory.newDocumentBuilder();
-	    builder.setErrorHandler(new Handler());
-	    final Document doc = builder.parse(inputStream);
-	    log.fine("Parsing completed");
-	    return doc;
-	} catch (final FactoryConfigurationError |
-		 ParserConfigurationException |
-		 SAXException |
-		 IllegalArgumentException exception) {
-	    throw new ProcessorException(
-	        "Invalid input file (1), exception: " +
-		exception.getMessage());
-	} catch (final IOException exception) {
-	    throw new ProcessorException(
-	        "Invalid input file (2), exception: " +
-		exception.getMessage());
-	}
+    if (inputStream == null) {
+      throw new ProcessorException("Null data cannot be parsed");
     }
+    try {
+      final DocumentBuilderFactory builderFactory = DocumentBuilderFactory
+	.newInstance();
+      builderFactory.setNamespaceAware(true);
+      builderFactory.setCoalescing(true);
+      builderFactory.setIgnoringComments(true);
+      builderFactory.setIgnoringElementContentWhitespace(true);
+      if (validate) {
+	builderFactory.setSchema(SchemaFactory.newInstance(
+	XMLConstants.W3C_XML_SCHEMA_NS_URI)
+	.newSchema(new StreamSource(XmlParser.class
+	.getResourceAsStream(schema))));
+      }
+      final DocumentBuilder builder = builderFactory.newDocumentBuilder();
+      builder.setErrorHandler(new Handler());
+      final Document doc = builder.parse(inputStream);
+      log.fine("Parsing completed");
+      return doc;
+    } catch (final FactoryConfigurationError |
+	     ParserConfigurationException |
+	     SAXException |
+	     IllegalArgumentException exception) {
+      throw new ProcessorException("Invalid input file (1), exception: " +
+				   exception.getMessage());
+    } catch (final IOException exception) {
+      throw new ProcessorException("Invalid input file (2), exception: " +
+				   exception.getMessage());
+    }
+  }
 
-    // default constructor disabled
-    private XmlParser() {};
+  // default constructor disabled
+  private XmlParser() {};
 }

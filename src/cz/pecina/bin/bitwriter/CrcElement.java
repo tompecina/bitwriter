@@ -34,140 +34,139 @@ import java.util.logging.Logger;
  */
 public class CrcElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(CrcElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(CrcElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <crc> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <crc> element");
 
-	final Variable variable = getOrCreateVariable(element);
-	variable.reset();
-	setVariableType(variable, element, "stream-out");
-	int width = 0;
-	BigInteger polynomial = null;
-	boolean reflectIn = true;
-	BigInteger xorIn = BigInteger.ONE.negate();
-	boolean reflectOut = true;
-	BigInteger xorOut = BigInteger.ZERO;
-	if (element.hasAttribute("model")) {
-	    final String modelName = processor.getScriptProcessor()
-		.evalAsString(element.getAttribute("model"));
-	    log.fine("CRC model attribute found, loading model for: " +
-		     modelName);
-	    final CrcModel crcModel =
-		processor.getPresetCrcModels().getExtended(modelName);
-	    if (crcModel == null) {
-		throw new ProcessorException("Undefined CRC model '" +
-					     modelName + "'");
-	    }
-	    width = crcModel.getPolynomial().getWidth();
-	    polynomial = crcModel.getPolynomial().getPolynomial();
-	    reflectIn = crcModel.getReflectIn();
-	    xorIn = crcModel.getXorIn();
-	    reflectOut = crcModel.getReflectOut();
-	    xorOut = crcModel.getXorOut();
-	    log.fine(String.format(
-	        "CRC model parameters copied from preset, width:" +
-		" %d, poly: %s, reflectIn: %s, xorIn: %s, reflectOut:" +
-		" %s, xorOut: %s",
-		width,
-		Util.bigIntegerToString(polynomial),
-		reflectIn,
-		Util.bigIntegerToString(xorIn),
-		reflectOut,
-		Util.bigIntegerToString(xorOut)));
-	}
-	width = extractIntegerAttribute(element,
+    final Variable variable = getOrCreateVariable(element);
+    variable.reset();
+    setVariableType(variable, element, "stream-out");
+    int width = 0;
+    BigInteger polynomial = null;
+    boolean reflectIn = true;
+    BigInteger xorIn = BigInteger.ONE.negate();
+    boolean reflectOut = true;
+    BigInteger xorOut = BigInteger.ZERO;
+    if (element.hasAttribute("model")) {
+      final String modelName = processor.getScriptProcessor()
+	.evalAsString(element.getAttribute("model"));
+      log.fine("CRC model attribute found, loading model for: " +
+	       modelName);
+      final CrcModel crcModel =
+	processor.getPresetCrcModels().getExtended(modelName);
+      if (crcModel == null) {
+	throw new ProcessorException("Undefined CRC model '" +
+				     modelName + "'");
+      }
+      width = crcModel.getPolynomial().getWidth();
+      polynomial = crcModel.getPolynomial().getPolynomial();
+      reflectIn = crcModel.getReflectIn();
+      xorIn = crcModel.getXorIn();
+      reflectOut = crcModel.getReflectOut();
+      xorOut = crcModel.getXorOut();
+      log.fine(String.format(
+        "CRC model parameters copied from preset, width:" +
+	" %d, poly: %s, reflectIn: %s, xorIn: %s, reflectOut:" +
+	" %s, xorOut: %s",
+	width,
+	Util.bigIntegerToString(polynomial),
+	reflectIn,
+	Util.bigIntegerToString(xorIn),
+	reflectOut,
+	Util.bigIntegerToString(xorOut)));
+    }
+    width = extractIntegerAttribute(element,
 				    "width",
 				    1,
 				    null,
 				    width,
 				    processor.getScriptProcessor());
-	polynomial = extractBigIntegerAttribute(
-	    element,
-	    "polynomial",
-	    BigInteger.valueOf(2),
-	    null, polynomial,
-	    processor.getScriptProcessor());
-	final Polynomial.Notation notation =
-	    Polynomial.Notation.valueOf(extractStringArrayAttribute(
-	        element,
-		"notation",
-		POLYNOMIAL_NOTATIONS,
-		"normal",
-		processor.getScriptProcessor()).toUpperCase());
-	Polynomial polynomialObject;
-	try {
-	    polynomialObject = new Polynomial(polynomial, notation, width);
-	} catch (final PolynomialException exception) {
-	    throw new ProcessorException(
-	        "Bad polynomial, exception: " + exception.getMessage());
-	}
-	reflectIn = extractBooleanAttribute(element,
-					    "reflect-in",
-					    reflectIn,
+    polynomial = extractBigIntegerAttribute( element,
+					    "polynomial",
+					    BigInteger.valueOf(2),
+					    null, polynomial,
 					    processor.getScriptProcessor());
-	reflectOut = extractBooleanAttribute(element,
-					     "reflect-out",
-					     reflectOut,
-					     processor.getScriptProcessor());
-	xorIn = extractBigIntegerAttribute(element,
-					   "xor-in",
-					   null,
-					   null,
-					   xorIn,
-					   processor.getScriptProcessor());
-	xorOut = extractBigIntegerAttribute(element,
-					    "xor-out",
-					    null,
-					    null,
-					    xorOut,
-					    processor.getScriptProcessor());
-	log.fine(String.format(
-	    "CRC model parameters as updated from input file:" +
-	    " width: %d, poly: %s, reflectIn: %s, xorIn: %s," +
-	    " reflectOut: %s, xorOut: %s",
-	    width,
-	    Util.bigIntegerToString(polynomial),
-	    reflectIn,
-	    Util.bigIntegerToString(xorIn),
-	    reflectOut,
-	    Util.bigIntegerToString(xorOut)));
-	try {
-	    variable.setCalculator(new Crc(new CrcModel(
-	        polynomialObject, reflectIn, xorIn, reflectOut, xorOut)));
-	} catch (final NumberFormatException | NullPointerException exception) {
-	    throw new ProcessorException("Illegal value in CRC model");
-	}
-	
-	log.fine("<crc> element processed");
+    final Polynomial.Notation notation =
+      Polynomial.Notation.valueOf(extractStringArrayAttribute(
+        element,
+	"notation",
+	POLYNOMIAL_NOTATIONS,
+	"normal",
+	processor.getScriptProcessor()).toUpperCase());
+    Polynomial polynomialObject;
+    try {
+      polynomialObject = new Polynomial(polynomial, notation, width);
+    } catch (final PolynomialException exception) {
+      throw new ProcessorException(
+        "Bad polynomial, exception: " + exception.getMessage());
     }
+    reflectIn = extractBooleanAttribute(element,
+					"reflect-in",
+					reflectIn,
+					processor.getScriptProcessor());
+    reflectOut = extractBooleanAttribute(element,
+					 "reflect-out",
+					 reflectOut,
+					 processor.getScriptProcessor());
+    xorIn = extractBigIntegerAttribute(element,
+				       "xor-in",
+				       null,
+				       null,
+				       xorIn,
+				       processor.getScriptProcessor());
+    xorOut = extractBigIntegerAttribute(element,
+					"xor-out",
+					null,
+					null,
+					xorOut,
+					processor.getScriptProcessor());
+    log.fine(String.format(
+      "CRC model parameters as updated from input file:" +
+      " width: %d, poly: %s, reflectIn: %s, xorIn: %s," +
+      " reflectOut: %s, xorOut: %s",
+      width,
+      Util.bigIntegerToString(polynomial),
+      reflectIn,
+      Util.bigIntegerToString(xorIn),
+      reflectOut,
+      Util.bigIntegerToString(xorOut)));
+    try {
+      variable.setCalculator(new Crc(new CrcModel(
+        polynomialObject, reflectIn, xorIn, reflectOut, xorOut)));
+    } catch (final NumberFormatException | NullPointerException exception) {
+      throw new ProcessorException("Illegal value in CRC model");
+    }
+	
+    log.fine("<crc> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "CrcElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "CrcElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public CrcElement(final InputTreeProcessor processor,
-		      final Element element
-		      ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<crc> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public CrcElement(final InputTreeProcessor processor,
+		    final Element element
+		    ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<crc> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<crc> element set up");
-    }
+    log.fine("<crc> element set up");
+  }
 }

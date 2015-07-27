@@ -36,77 +36,74 @@ import java.util.logging.Logger;
  */
 public class RandomElement extends ParsedElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(RandomElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(RandomElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <random> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <random> element");
 
-	final int width = extractIntegerAttribute(
-	    element,
-	    "width",
-	    1,
-	    null,
-	    8,
-	    processor.getScriptProcessor());
-	final int length = extractIntegerAttribute(
-	    element,
-	    "length",
-	    0,
-	    null,
-	    1,
-	    processor.getScriptProcessor());
-	final long seed = extractLongAttribute(
-	    element,
-	    "seed",
-	    null,
-	    null,
-	    0L,
-	    processor.getScriptProcessor());
-	Random random;
-	if (element.getAttribute("seed") != null) {
-	    random = new Random(seed);
-	} else {
-	    random = new Random();
-	}
-	final byte[] buffer = new byte[1];
-	final BigInteger mask = Util.makeMask(width);
-	for (int iter = 0; iter < length; iter++) {
-	    BigInteger r = BigInteger.ZERO;
-	    for (int i = 0; i < width; i += 8) {
-		random.nextBytes(buffer);
-		r = r.shiftLeft(8).or(BigInteger.valueOf(buffer[0] & 0xff));
-	    }
-	    write(r.and(mask));
-	}
-	log.fine("<random> element processed");
+    final int width = extractIntegerAttribute(element,
+					      "width",
+					      1,
+					      null,
+					      8,
+					      processor.getScriptProcessor());
+    final int length = extractIntegerAttribute(element,
+					       "length",
+					       0,
+					       null,
+					       1,
+					       processor.getScriptProcessor());
+    final long seed = extractLongAttribute(element,
+					   "seed",
+					   null,
+					   null,
+					   0L,
+					   processor.getScriptProcessor());
+    Random random;
+    if (element.getAttribute("seed") != null) {
+      random = new Random(seed);
+    } else {
+      random = new Random();
     }
+    final byte[] buffer = new byte[1];
+    final BigInteger mask = Util.makeMask(width);
+    for (int iter = 0; iter < length; iter++) {
+      BigInteger r = BigInteger.ZERO;
+      for (int i = 0; i < width; i += 8) {
+	random.nextBytes(buffer);
+	r = r.shiftLeft(8).or(BigInteger.valueOf(buffer[0] & 0xff));
+      }
+      write(r.and(mask));
+    }
+    log.fine("<random> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "RandomElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "RandomElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public RandomElement(final InputTreeProcessor processor,
-			 final Element element
-			 ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<random> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public RandomElement(final InputTreeProcessor processor,
+		       final Element element
+		       ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<random> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<random> element set up");
-    }
+    log.fine("<random> element set up");
+  }
 }

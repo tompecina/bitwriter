@@ -31,23 +31,23 @@ import java.util.logging.Logger;
  */
 public class PolynomialException extends Exception {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(PolynomialException.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(PolynomialException.class.getName());
 
-    // for description see Object
-    @Override
-    public String toString() {
-	return "PolynomialException";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "PolynomialException";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param message description of the reason
-     */
-    public PolynomialException(final String message) {
-	super(message);
-	log.fine("PolynomialException created: " + message);
-    }
+  /**
+   * Main constructor.
+   *
+   * @param message description of the reason
+   */
+  public PolynomialException(final String message) {
+    super(message);
+    log.fine("PolynomialException created: " + message);
+  }
 }

@@ -33,71 +33,71 @@ import java.util.logging.Logger;
  */
 public abstract class Calculator {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(Calculator.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(Calculator.class.getName());
 
-    // fields
-    protected BigInteger register = BigInteger.ZERO;
+  // fields
+  protected BigInteger register = BigInteger.ZERO;
     
-    /**
-     * Sets the register.
-     *
-     * @param value the new value of the register
-     */
-    public void setRegister(final BigInteger value) {
-	log.finer("Setting register to: " + Util.bigIntegerToString(value));
-	register = value;
-    }
+  /**
+   * Sets the register.
+   *
+   * @param value the new value of the register
+   */
+  public void setRegister(final BigInteger value) {
+    log.finer("Setting register to: " + Util.bigIntegerToString(value));
+    register = value;
+  }
 
-    /**
-     * Gets the register.
-     *
-     * @return the current value of the register
-     */
-    public BigInteger getRegister() {
-	log.finer("Getting register: " + Util.bigIntegerToString(register));
-	return register;
-    }
+  /**
+   * Gets the register.
+   *
+   * @return the current value of the register
+   */
+  public BigInteger getRegister() {
+    log.finer("Getting register: " + Util.bigIntegerToString(register));
+    return register;
+  }
 
-    /**
-     * Updates the register from a one-bit source.
-     *
-     * @param b the input value
-     */
-    public abstract void updateBit(final int b);
+  /**
+   * Updates the register from a one-bit source.
+   *
+   * @param b the input value
+   */
+  public abstract void updateBit(final int b);
 
-    /**
-     * Updates the register from a one-bit source.
-     *
-     * @param b the input value
-     */
-    public abstract void updateBit(final boolean b);
+  /**
+   * Updates the register from a one-bit source.
+   *
+   * @param b the input value
+   */
+  public abstract void updateBit(final boolean b);
 
-    /**
-     * Updates the register.
-     *
-     * @param d the array of input values
-     */
-    public abstract void update(final byte[] d);
+  /**
+   * Updates the register.
+   *
+   * @param d the array of input values
+   */
+  public abstract void update(final byte[] d);
 
-    /**
-     * Updates the register.
-     *
-     * @param b the input value
-     */
-    public abstract void update(final int b);
+  /**
+   * Updates the register.
+   *
+   * @param b the input value
+   */
+  public abstract void update(final int b);
 
-    /**
-     * Updates the register.
-     *
-     * @param b the input value
-     */
-    public abstract void update(final BigInteger b);
+  /**
+   * Updates the register.
+   *
+   * @param b the input value
+   */
+  public abstract void update(final BigInteger b);
 
-    // for description see Object
-    @Override
-    public String toString() {
-	return "Calculator";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "Calculator";
+  }
 }

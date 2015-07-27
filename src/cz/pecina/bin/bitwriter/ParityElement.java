@@ -34,51 +34,51 @@ import java.util.logging.Logger;
  */
 public class ParityElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(ParityElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(ParityElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <parity> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <parity> element");
 
-	final Variable variable = getOrCreateVariable(element);
-	variable.reset();
-	setVariableType(variable, element, "bitstream");
-	variable.setCalculator(new Parity(Parity.ParityModel.valueOf(
-	    extractStringArrayAttribute(
-	        element,
-		"model",
-		PARITY_MODELS,
-		"odd",
-		processor.getScriptProcessor()).toUpperCase())));
+    final Variable variable = getOrCreateVariable(element);
+    variable.reset();
+    setVariableType(variable, element, "bitstream");
+    variable.setCalculator(new Parity(Parity.ParityModel.valueOf(
+      extractStringArrayAttribute(
+        element,
+	"model",
+	PARITY_MODELS,
+	"odd",
+	processor.getScriptProcessor()).toUpperCase())));
 	
-	log.fine("<parity> element processed");
-    }
+    log.fine("<parity> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "ParityElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "ParityElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public ParityElement(final InputTreeProcessor processor,
-			 final Element element
-			 ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("Parity element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public ParityElement(final InputTreeProcessor processor,
+		       final Element element
+		       ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("Parity element creation started");
 
-	process();
+    process();
 	
-	log.fine("Parity element set up");
-    }
+    log.fine("Parity element set up");
+  }
 }

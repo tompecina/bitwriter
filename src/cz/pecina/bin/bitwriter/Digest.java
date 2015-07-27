@@ -34,93 +34,93 @@ import java.util.logging.Logger;
  */
 public class Digest extends Calculator {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(Digest.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(Digest.class.getName());
 
-    // fields
-    protected MessageDigest digest;
+  // fields
+  protected MessageDigest digest;
 
-    // for description see Calculator
-    @Override
-    public BigInteger getRegister() {
-	byte[] buffer;
-	try {
-	    buffer = ((MessageDigest)(digest.clone())).digest();
-	} catch (final CloneNotSupportedException exception) {
-	    buffer = new byte[1];
-	}
-	BigInteger r = BigInteger.ZERO;
-	for (int i = 0; i < buffer.length; i++) {
-	    r = r.shiftLeft(8).or(BigInteger
-				  .valueOf(buffer[i] & 0xff));
-	}
-	log.finer("Getting register: " + Util.bigIntegerToString(r));
-	return r;
+  // for description see Calculator
+  @Override
+  public BigInteger getRegister() {
+    byte[] buffer;
+    try {
+      buffer = ((MessageDigest)(digest.clone())).digest();
+    } catch (final CloneNotSupportedException exception) {
+      buffer = new byte[1];
     }
-
-    // for description see Calculator
-    @Override
-    public void updateBit(final int b) {
-	log.finest("Updating digest with bit: " + (b & 1));
-	digest.update((byte)(b & 1));
+    BigInteger r = BigInteger.ZERO;
+    for (int i = 0; i < buffer.length; i++) {
+      r = r.shiftLeft(8).or(BigInteger
+			    .valueOf(buffer[i] & 0xff));
     }
+    log.finer("Getting register: " + Util.bigIntegerToString(r));
+    return r;
+  }
 
-    // for description see Calculator
-    @Override
-    public void updateBit(final boolean b) {
-	log.finest("Updating Digest with bit: " + b);
-	digest.update((byte)(b ? 1 : 0));
-    }
+  // for description see Calculator
+  @Override
+  public void updateBit(final int b) {
+    log.finest("Updating digest with bit: " + (b & 1));
+    digest.update((byte)(b & 1));
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final byte[] d) {
-	log.finest("Updating Digest with an array of length: " + d.length);
-	digest.update(d);
-    }
+  // for description see Calculator
+  @Override
+  public void updateBit(final boolean b) {
+    log.finest("Updating Digest with bit: " + b);
+    digest.update((byte)(b ? 1 : 0));
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final int b) {
-	log.finest("Updating Digest with: " + b);
-	digest.update((byte)b);
-    }
+  // for description see Calculator
+  @Override
+  public void update(final byte[] d) {
+    log.finest("Updating Digest with an array of length: " + d.length);
+    digest.update(d);
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final BigInteger b) {
-	log.finest("Updating Digest with: " + Util.bigIntegerToString(b));
-	digest.update((byte)(b.and(Constants.FF).intValue()));
-    }
+  // for description see Calculator
+  @Override
+  public void update(final int b) {
+    log.finest("Updating Digest with: " + b);
+    digest.update((byte)b);
+  }
 
-    // for description see Object
-    @Override
-    public String toString() {
-	return "Digest";
-    }
+  // for description see Calculator
+  @Override
+  public void update(final BigInteger b) {
+    log.finest("Updating Digest with: " + Util.bigIntegerToString(b));
+    digest.update((byte)(b.and(Constants.FF).intValue()));
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     model              model to be used for the calculator
-     * @exception ProcessorException on error in parameters
-     */
-    public Digest(final String model) throws ProcessorException {
-	log.fine("Creation of new Digest started");
+  // for description see Object
+  @Override
+  public String toString() {
+    return "Digest";
+  }
+
+  /**
+   * Main constructor.
+   *
+   * @param     model              model to be used for the calculator
+   * @exception ProcessorException on error in parameters
+   */
+  public Digest(final String model) throws ProcessorException {
+    log.fine("Creation of new Digest started");
 	
-	try {
-	    digest = MessageDigest.getInstance(model);
-	} catch (final NoSuchAlgorithmException exception) {
-	    throw new ProcessorException("No such message digest algorithm");
-	}
-	try {
-	    digest.clone();
-	} catch (final CloneNotSupportedException exception) {
-	    throw new ProcessorException("Algorithm '" + model +
-	        "' cannot be used, no support for cloning");
-	}
-	
-    	log.fine("Creation of new Digest completed");
+    try {
+      digest = MessageDigest.getInstance(model);
+    } catch (final NoSuchAlgorithmException exception) {
+      throw new ProcessorException("No such message digest algorithm");
     }
+    try {
+      digest.clone();
+    } catch (final CloneNotSupportedException exception) {
+      throw new ProcessorException("Algorithm '" + model +
+				   "' cannot be used, no support for cloning");
+    }
+	
+    log.fine("Creation of new Digest completed");
+  }
 }

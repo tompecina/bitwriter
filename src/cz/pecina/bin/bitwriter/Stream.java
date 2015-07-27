@@ -32,44 +32,44 @@ import java.io.IOException;
  */
 public interface Stream extends AutoCloseable {
 
-    /**
-     * Endianness values.
-     */
-    public enum Endianness {BIG, LITTLE};
+  /**
+   * Endianness values.
+   */
+  public enum Endianness {BIG, LITTLE};
 
-    /**
-     * Sets the default values for the stream.
-     *
-     * @exception IOException on I/O error
-     */
-    public void setDefaults();
+  /**
+   * Sets the default values for the stream.
+   *
+   * @exception IOException on I/O error
+   */
+  public void setDefaults();
 
-    /**
-     * Resets the stream.
-     */
-    public void reset();
+  /**
+   * Resets the stream.
+   */
+  public void reset();
     
 
-    /**
-     * Write a <code>BigInteger</code> value to the stream,
-     * regardless of the width.
-     *
-     * @param     value       data to be written
-     * @exception IOException on I/O error
-     */
-    public void write(final BigInteger value) throws IOException;
+  /**
+   * Write a <code>BigInteger</code> value to the stream,
+   * regardless of the width.
+   *
+   * @param     value       data to be written
+   * @exception IOException on I/O error
+   */
+  public void write(final BigInteger value) throws IOException;
 
-    /**
-     * Flushes the stream.
-     *
-     * @exception IOException on I/O error
-     */
-    public void flush() throws IOException;
+  /**
+   * Flushes the stream.
+   *
+   * @exception IOException on I/O error
+   */
+  public void flush() throws IOException;
     
-    /**
-     * Closes the stream.
-     *
-     * @exception IOException on I/O error
-     */
-    public void close() throws IOException;
+  /**
+   * Closes the stream.
+   *
+   * @exception IOException on I/O error
+   */
+  public void close() throws IOException;
 }

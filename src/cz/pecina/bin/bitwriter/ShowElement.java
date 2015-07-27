@@ -34,98 +34,92 @@ import java.util.logging.Logger;
  */
 public class ShowElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(ShowElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(ShowElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <show> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <show> element");
 
-	final String variableName = element.getAttribute("name").trim();
-	Variable variable = null;
-	if (!variableName.isEmpty()) {
-	    try {		    
-		variable = getVariable(element);
-	    } catch (final ProcessorException exception) {
-		throw new ProcessorException(
-		    "Error in input file, variable '" + variableName +
-		    "' not allowed");
-	    }
-	    if (variable == null) {
-		throw new ProcessorException(
-		    "Error in input file, variable '" + variableName +
-		    "' does not exist");
-	    }			
-	}
-	BigInteger value = null;
-	final String stringValue = element.getAttribute("value").trim();
-	if (!stringValue.isEmpty()) {
-	    value = extractBigIntegerAttribute(
-	        element,
-		"value",
-		null,
-		null,
-		null,
-		processor.getScriptProcessor());
-	    if (value == null) {
-		throw new ProcessorException(
-		    "Error in input file, illegal value '" +
-		    stringValue + "'");
-	    }
-	}
-	if ((variable != null) && (value != null)) {
-	    throw new ProcessorException(
-	        "Error in input file," +
-		" 'name' and 'value' are incompatible in <show> element");
-	}
-	if ((variable == null) && (value == null)) {
-	    throw new ProcessorException(
-	        "Error in input file, either 'name' or 'value'" +
-		" must be specified in <show> element");
-	}
-	if (variable != null) {
-	    value = variable.getValue();
-	}
-	if (variable != null) {
-	    processor.getStderr().println(
-	        String.format("%s: %s (%s)",
-			      variable.getName(),
-			      value.toString(),
-			      Util.bigIntegerToString(value)));
-	} else {
-	    processor.getStderr().println(
-	        String.format("%s (%s)",
-			      value.toString(),
-			      Util.bigIntegerToString(value)));
-	}
-	
-	log.fine("<show> element processed");
+    final String variableName = element.getAttribute("name").trim();
+    Variable variable = null;
+    if (!variableName.isEmpty()) {
+      try {		    
+	variable = getVariable(element);
+      } catch (final ProcessorException exception) {
+	throw new ProcessorException("Error in input file, variable '" +
+				     variableName + "' not allowed");
+      }
+      if (variable == null) {
+	throw new ProcessorException("Error in input file, variable '" +
+				     variableName + "' does not exist");
+      }			
     }
+    BigInteger value = null;
+    final String stringValue = element.getAttribute("value").trim();
+    if (!stringValue.isEmpty()) {
+      value = extractBigIntegerAttribute(element,
+					 "value",
+					 null,
+					 null,
+					 null,
+					 processor.getScriptProcessor());
+      if (value == null) {
+	throw new ProcessorException("Error in input file, illegal value '" +
+				     stringValue + "'");
+      }
+    }
+    if ((variable != null) && (value != null)) {
+      throw new ProcessorException("Error in input file, 'name' and 'value'" +
+				   " are incompatible in <show> element");
+    }
+    if ((variable == null) && (value == null)) {
+      throw new ProcessorException("Error in input file, either 'name' or" +
+        " 'value' must be specified in <show> element");
+    }
+    if (variable != null) {
+      value = variable.getValue();
+    }
+    if (variable != null) {
+      processor.getStderr().println(String.format(
+        "%s: %s (%s)",
+	variable.getName(),
+	value.toString(),
+	Util.bigIntegerToString(value)));
+    } else {
+      processor.getStderr().println(String.format(
+        "%s (%s)",
+	value.toString(),
+	Util.bigIntegerToString(value)));
+    }
+	
+    log.fine("<show> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "ShowElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "ShowElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public ShowElement(final InputTreeProcessor processor,
-		       final Element element
-		       ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<show> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public ShowElement(final InputTreeProcessor processor,
+		     final Element element
+		     ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<show> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<show> element set up");
-    }
+    log.fine("<show> element set up");
+  }
 }

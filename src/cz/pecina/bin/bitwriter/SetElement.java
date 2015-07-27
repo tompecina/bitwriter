@@ -34,106 +34,106 @@ import java.util.logging.Logger;
  */
 public class SetElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(SetElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(SetElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <set> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <set> element");
 
-	final Variable variable = getOrCreateVariable(element);
-	final BigInteger value =
-	    extractBigIntegerAttribute(element,
-				       "value",
-				       null,
-				       null,
-				       null,
-				       processor.getScriptProcessor());
-	if (value != null) {
-	    variable.setValue(value);
-	}
-	if (element.hasAttribute("on-stream-in")) {
-	    final String onStreamIn =
-		element.getAttribute("on-stream-in");
-	    if (onStreamIn.isEmpty()) {
-		variable.setOnStreamIn(null);
-	    } else {
-		variable.setOnStreamIn(onStreamIn);
-	    }
-	}
-	if (element.hasAttribute("on-aggregate-stream-in")) {
-	    final String onAggregateStreamIn =
-		element.getAttribute("on-aggregate-stream-in");
-	    if (onAggregateStreamIn.isEmpty()) {
-		variable.setOnAggregateStreamIn(null);
-	    } else {
-		variable.setOnAggregateStreamIn(onAggregateStreamIn);
-	    }
-	}
-	if (element.hasAttribute("on-bitstream")) {
-	    final String onBitStream =
-		element.getAttribute("on-bitstream");
-	    if (onBitStream.isEmpty()) {
-		variable.setOnBitStream(null);
-	    } else {
-		variable.setOnBitStream(onBitStream);
-	    }
-	}
-	if (element.hasAttribute("on-aggregate-stream-out")) {
-	    final String onAggregateStreamOut =
-		element.getAttribute("on-aggregate-stream-out");
-	    if (onAggregateStreamOut.isEmpty()) {
-		variable.setOnAggregateStreamOut(null);
-	    } else {
-		variable.setOnAggregateStreamOut(onAggregateStreamOut);
-	    }
-	}
-	if (element.hasAttribute("on-stream-out")) {
-	    final String onStreamOut =
-		element.getAttribute("on-stream-out");
-	    if (onStreamOut.isEmpty()) {
-		variable.setOnStreamOut(null);
-	    } else {
-		variable.setOnStreamOut(onStreamOut);
-	    }
-	}
-	if (element.hasAttribute("on-output-stream")) {
-	    final String onOutputStream =
-		element.getAttribute("on-output-stream");
-	    if (onOutputStream.isEmpty()) {
-		variable.setOnOutputStream(null);
-	    } else {
-		variable.setOnOutputStream(onOutputStream);
-	    }
-	}
-	
-	log.fine("<set> element processed");
+    final Variable variable = getOrCreateVariable(element);
+    final BigInteger value =
+      extractBigIntegerAttribute(element,
+				 "value",
+				 null,
+				 null,
+				 null,
+				 processor.getScriptProcessor());
+    if (value != null) {
+      variable.setValue(value);
     }
+    if (element.hasAttribute("on-stream-in")) {
+      final String onStreamIn =
+	element.getAttribute("on-stream-in");
+      if (onStreamIn.isEmpty()) {
+	variable.setOnStreamIn(null);
+      } else {
+	variable.setOnStreamIn(onStreamIn);
+      }
+    }
+    if (element.hasAttribute("on-aggregate-stream-in")) {
+      final String onAggregateStreamIn =
+	element.getAttribute("on-aggregate-stream-in");
+      if (onAggregateStreamIn.isEmpty()) {
+	variable.setOnAggregateStreamIn(null);
+      } else {
+	variable.setOnAggregateStreamIn(onAggregateStreamIn);
+      }
+    }
+    if (element.hasAttribute("on-bitstream")) {
+      final String onBitStream =
+	element.getAttribute("on-bitstream");
+      if (onBitStream.isEmpty()) {
+	variable.setOnBitStream(null);
+      } else {
+	variable.setOnBitStream(onBitStream);
+      }
+    }
+    if (element.hasAttribute("on-aggregate-stream-out")) {
+      final String onAggregateStreamOut =
+	element.getAttribute("on-aggregate-stream-out");
+      if (onAggregateStreamOut.isEmpty()) {
+	variable.setOnAggregateStreamOut(null);
+      } else {
+	variable.setOnAggregateStreamOut(onAggregateStreamOut);
+      }
+    }
+    if (element.hasAttribute("on-stream-out")) {
+      final String onStreamOut =
+	element.getAttribute("on-stream-out");
+      if (onStreamOut.isEmpty()) {
+	variable.setOnStreamOut(null);
+      } else {
+	variable.setOnStreamOut(onStreamOut);
+      }
+    }
+    if (element.hasAttribute("on-output-stream")) {
+      final String onOutputStream =
+	element.getAttribute("on-output-stream");
+      if (onOutputStream.isEmpty()) {
+	variable.setOnOutputStream(null);
+      } else {
+	variable.setOnOutputStream(onOutputStream);
+      }
+    }
+	
+    log.fine("<set> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "SetElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "SetElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public SetElement(final InputTreeProcessor processor,
-		      final Element element
-		      ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<set> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public SetElement(final InputTreeProcessor processor,
+		    final Element element
+		    ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<set> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<set> element set up");
-    }
+    log.fine("<set> element set up");
+  }
 }

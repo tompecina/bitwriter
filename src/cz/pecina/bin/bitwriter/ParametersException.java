@@ -31,23 +31,23 @@ import java.util.logging.Logger;
  */
 public class ParametersException extends Exception {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(ParametersException.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(ParametersException.class.getName());
 
-    // for description see Object
-    @Override
-    public String toString() {
-	return "ParametersException";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "ParametersException";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param message description of the reason
-     */
-    public ParametersException(final String message) {
-	super(message);
-	log.fine("ParametersException created: " + message);
-    }
+  /**
+   * Main constructor.
+   *
+   * @param message description of the reason
+   */
+  public ParametersException(final String message) {
+    super(message);
+    log.fine("ParametersException created: " + message);
+  }
 }

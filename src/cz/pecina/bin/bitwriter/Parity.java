@@ -32,99 +32,99 @@ import java.util.logging.Logger;
  */
 public class Parity extends Calculator {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(Parity.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(Parity.class.getName());
     
-    /**
-     * Parity models
-     */
-    public enum ParityModel {EVEN, ODD};
+  /**
+   * Parity models
+   */
+  public enum ParityModel {EVEN, ODD};
 
-    // fields
-    protected ParityModel model;
+  // fields
+  protected ParityModel model;
 
-    // for description see Calculator
-    @Override
-    public void setRegister(final BigInteger value) {
-	log.finer("Setting register to: " +
-		  Util.bigIntegerToString(value));
-	register = value.and(BigInteger.ONE);
+  // for description see Calculator
+  @Override
+  public void setRegister(final BigInteger value) {
+    log.finer("Setting register to: " +
+	      Util.bigIntegerToString(value));
+    register = value.and(BigInteger.ONE);
+  }
+
+  // for description see Calculator
+  @Override
+  public void updateBit(final int b) {
+    log.finest("Updating Parity with: " + b);
+    if ((b & 1) == 1) {
+      register = register.flipBit(0);
     }
+  }
 
-    // for description see Calculator
-    @Override
-    public void updateBit(final int b) {
-	log.finest("Updating Parity with: " + b);
-	if ((b & 1) == 1) {
-	    register = register.flipBit(0);
-	}
+  // for description see Calculator
+  @Override
+  public void updateBit(final boolean b) {
+    log.finest("Updating Parity with: " + b);
+    if (b) {
+      register = register.flipBit(0);
     }
+  }
 
-    // for description see Calculator
-    @Override
-    public void updateBit(final boolean b) {
-	log.finest("Updating Parity with: " + b);
-	if (b) {
-	    register = register.flipBit(0);
-	}
+  // for description see Calculator
+  @Override
+  public void update(final byte[] d) {
+    log.finest("Updating Parity with an array of length: " + d.length);
+    for (byte b: d) {
+      update(b);
     }
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final byte[] d) {
-	log.finest("Updating Parity with an array of length: " + d.length);
-	for (byte b: d) {
-	    update(b);
-	}
+  // for description see Calculator
+  @Override
+  public void update(final int b) {
+    log.finest("Updating Parity with: " + b);
+    if ((((((b ^ ((b << 4) | (b >> 4))) + 0x41) | 0x7c) + 2) >> 7) == 1) {
+      register = register.flipBit(0);
     }
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final int b) {
-	log.finest("Updating Parity with: " + b);
-	if ((((((b ^ ((b << 4) | (b >> 4))) + 0x41) | 0x7c) + 2) >> 7) == 1) {
-	    register = register.flipBit(0);
-	}
+  // for description see Calculator
+  @Override
+  public void update(final BigInteger b) {
+    log.finest("Updating Parity with: " + Util.bigIntegerToString(b));
+    for (int i = b.bitLength() - 1; i >= 0; i--) {
+      if (b.testBit(i)) {
+	register = register.flipBit(0);
+      }
     }
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final BigInteger b) {
-	log.finest("Updating Parity with: " + Util.bigIntegerToString(b));
-	for (int i = b.bitLength() - 1; i >= 0; i--) {
-	    if (b.testBit(i)) {
-		register = register.flipBit(0);
-	    }
-	}
-    }
+  // for description see Calculator
+  @Override
+  public BigInteger getRegister() {
+    final BigInteger r =
+      ((register.testBit(0) == (model == ParityModel.ODD)) ?
+       BigInteger.ZERO : BigInteger.ONE);
+    log.finer("Getting register: " + Util.bigIntegerToString(r));
+    return r;
+  }
 
-    // for description see Calculator
-    @Override
-    public BigInteger getRegister() {
-	final BigInteger r =
-	    ((register.testBit(0) == (model == ParityModel.ODD)) ?
-	     BigInteger.ZERO : BigInteger.ONE);
-	log.finer("Getting register: " + Util.bigIntegerToString(r));
-	return r;
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "Parity";
+  }
 
-    // for description see Object
-    @Override
-    public String toString() {
-	return "Parity";
-    }
-
-    /**
-     * Main constructor.
-     *
-     * @param model model to be used for the calculator
-     */
-    public Parity(final ParityModel model) {
-	log.fine("Creation of new Parity started");
+  /**
+   * Main constructor.
+   *
+   * @param model model to be used for the calculator
+   */
+  public Parity(final ParityModel model) {
+    log.fine("Creation of new Parity started");
 	
-	this.model = model;
+    this.model = model;
 
-    	log.fine("Creation of new Parity completed");
-    }
+    log.fine("Creation of new Parity completed");
+  }
 }

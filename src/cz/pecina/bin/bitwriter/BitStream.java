@@ -32,129 +32,128 @@ import java.util.logging.Logger;
  * @version @VERSION@
  */
 public class BitStream implements Stream {
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(BitStream.class.getName());
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(BitStream.class.getName());
-
-    // fields
-    protected InputTreeProcessor processor;
-    protected OutAggregateStream outAggregateStream;
-    protected boolean reflectOut;
-    protected BigInteger buffer;
-    protected int counter;
-    protected int offset;
-    protected int step;
-    protected static final BigInteger mask = BigInteger.ONE;
-
-    /**
-     * Sets output reflection.
-     *
-     * @param reflectOut output reflection
-     */
-    public void setReflectOut(final boolean reflectOut) {
-	log.finer("Setting output reflection to: " + reflectOut);
-	this.reflectOut = reflectOut;
-	reset();
-    }
+  // fields
+  protected InputTreeProcessor processor;
+  protected OutAggregateStream outAggregateStream;
+  protected boolean reflectOut;
+  protected BigInteger buffer;
+  protected int counter;
+  protected int offset;
+  protected int step;
+  protected static final BigInteger mask = BigInteger.ONE;
+  
+  /**
+   * Sets output reflection.
+   *
+   * @param reflectOut output reflection
+   */
+  public void setReflectOut(final boolean reflectOut) {
+    log.finer("Setting output reflection to: " + reflectOut);
+    this.reflectOut = reflectOut;
+    reset();
+  }
     
-    /**
-     * Gets output reflection.
-     *
-     * @return output reflection
-     */
-    public boolean getReflectOut() {
-	log.finer("Getting input reflection: " + reflectOut);
-	return reflectOut;
-    }
+  /**
+   * Gets output reflection.
+   *
+   * @return output reflection
+   */
+  public boolean getReflectOut() {
+    log.finer("Getting input reflection: " + reflectOut);
+    return reflectOut;
+  }
     
-    // for description see Stream
-    @Override
-    public void setDefaults() {
-	log.fine("Setting defaults on BitStream");
-	reflectOut = false;
-	reset();
+  // for description see Stream
+  @Override
+  public void setDefaults() {
+    log.fine("Setting defaults on BitStream");
+    reflectOut = false;
+    reset();
+  }
+  
+  // for description see Stream
+  @Override
+  public void reset() {
+    log.fine("Resetting BitStream");
+    buffer = BigInteger.ZERO;
+    counter = outAggregateStream.getWidthOutAggregate();
+    if (reflectOut) {
+      offset = 0;
+      step = 1;
+    } else {
+      offset = counter - 1;
+      step = -1;
     }
+  }
 
-    // for description see Stream
-    @Override
-    public void reset() {
-	log.fine("Resetting BitStream");
-	buffer = BigInteger.ZERO;
-	counter = outAggregateStream.getWidthOutAggregate();
-	if (reflectOut) {
-	    offset = 0;
-	    step = 1;
-	} else {
-	    offset = counter - 1;
-	    step = -1;
-	}
+  // for description see Stream
+  @Override
+  public void write(BigInteger value) throws IOException {
+    log.finest("Writing BigInteger to BitStream: " +
+	       Util.bigIntegerToString(value));
+    value = value.and(mask);
+    try {
+      processor.trigger(Variable.Type.BITSTREAM, value);
+    } catch (final ProcessorException exception) {
+      throw new IOException(exception.getMessage());
     }
-
-    // for description see Stream
-    @Override
-    public void write(BigInteger value) throws IOException {
-	log.finest("Writing BigInteger to BitStream: " +
-		   Util.bigIntegerToString(value));
-	value = value.and(mask);
-	try {
-	    processor.trigger(Variable.Type.BITSTREAM, value);
-	} catch (final ProcessorException exception) {
-	    throw new IOException(exception.getMessage());
-	}
-	if (value.testBit(0)) {
-	    buffer = buffer.setBit(offset);
-	} else {
-	    buffer = buffer.clearBit(offset);
-	}
-	offset += step;
-	if ((--counter) == 0) {
-	    outAggregateStream.write(buffer);
-	    reset();
-	}
+    if (value.testBit(0)) {
+      buffer = buffer.setBit(offset);
+    } else {
+      buffer = buffer.clearBit(offset);
     }
+    offset += step;
+    if ((--counter) == 0) {
+      outAggregateStream.write(buffer);
+      reset();
+    }
+  }
     
-    // for description see Stream
-    @Override
-    public void flush() throws IOException {
-	log.finer("Flushing BitStream");
-	if (counter != outAggregateStream.getWidthOutAggregate()) {
-	    if (!reflectOut) {
-		buffer = buffer.shiftRight(counter);
-	    }
-	    outAggregateStream.write(buffer);
-	    reset();
-	}
-	outAggregateStream.flush();
+  // for description see Stream
+  @Override
+  public void flush() throws IOException {
+    log.finer("Flushing BitStream");
+    if (counter != outAggregateStream.getWidthOutAggregate()) {
+      if (!reflectOut) {
+	buffer = buffer.shiftRight(counter);
+      }
+      outAggregateStream.write(buffer);
+      reset();
     }
+    outAggregateStream.flush();
+  }
+  
+  // for description see Stream
+  @Override
+  public void close() throws IOException {
+    log.fine("Closing BitStream");
+    outAggregateStream.close();
+  }	
+  
+  // for description see Object
+  @Override
+  public String toString() {
+    return "BitStream";
+  }
+
+  /**
+   * Main constructor.
+   *
+   * @param processor          input tree processor object
+   * @param outAggregateStream downstream output aggregate stream
+   */
+  public BitStream(final InputTreeProcessor processor,
+		   final OutAggregateStream outAggregateStream) {
+    log.fine("BitStream creation started");
     
-    // for description see Stream
-    @Override
-    public void close() throws IOException {
-	log.fine("Closing BitStream");
-	outAggregateStream.close();
-    }	
-
-    // for description see Object
-    @Override
-    public String toString() {
-	return "BitStream";
-    }
-
-    /**
-     * Main constructor.
-     *
-     * @param processor          input tree processor object
-     * @param outAggregateStream downstream output aggregate stream
-     */
-    public BitStream(final InputTreeProcessor processor,
-		     final OutAggregateStream outAggregateStream) {
-	log.fine("BitStream creation started");
-
-	this.processor = processor;
-	this.outAggregateStream = outAggregateStream;
-	setDefaults();
-	
-	log.fine("BitStream creation completed");
-    }
+    this.processor = processor;
+    this.outAggregateStream = outAggregateStream;
+    setDefaults();
+    
+    log.fine("BitStream creation completed");
+  }
 }

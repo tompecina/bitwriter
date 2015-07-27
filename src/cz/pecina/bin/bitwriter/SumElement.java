@@ -34,69 +34,69 @@ import java.util.logging.Logger;
  */
 public class SumElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(SumElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(SumElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <sum> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <sum> element");
 
-	final Variable variable = getOrCreateVariable(element);
-	variable.reset();
-	setVariableType(variable, element, "stream-out");
-	final int width = extractIntegerAttribute(element,
+    final Variable variable = getOrCreateVariable(element);
+    variable.reset();
+    setVariableType(variable, element, "stream-out");
+    final int width = extractIntegerAttribute(element,
 					      "width",
 					      1,
 					      Integer.MAX_VALUE,
 					      8,
 					      processor.getScriptProcessor());
-	if (width < 1) {
-	    throw new ProcessorException("Illegal checksum width: " + width);
-	}
-	final BigInteger xorIn = extractBigIntegerAttribute(
-	    element,
-	    "xor-in",
-	    null,
-	    null,
-	    BigInteger.ZERO,
-	    processor.getScriptProcessor());
-	final BigInteger xorOut = extractBigIntegerAttribute(
-	    element,
-	    "xor-out",
-	    null,
-	    null,
-	    BigInteger.ZERO,
-	    processor.getScriptProcessor());
-	variable.setCalculator(new CheckSum(
-	    new CheckSumModel(width, xorIn, xorOut)));
-	
-	log.fine("<sum> element processed");
+    if (width < 1) {
+      throw new ProcessorException("Illegal checksum width: " + width);
     }
+    final BigInteger xorIn = extractBigIntegerAttribute(
+      element,
+      "xor-in",
+      null,
+      null,
+      BigInteger.ZERO,
+      processor.getScriptProcessor());
+    final BigInteger xorOut = extractBigIntegerAttribute(
+      element,
+      "xor-out",
+      null,
+      null,
+      BigInteger.ZERO,
+      processor.getScriptProcessor());
+    variable.setCalculator(new CheckSum(
+      new CheckSumModel(width, xorIn, xorOut)));
+	
+    log.fine("<sum> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "SumElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "SumElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public SumElement(final InputTreeProcessor processor,
-		      final Element element
-		      ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<sum> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public SumElement(final InputTreeProcessor processor,
+		    final Element element
+		    ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<sum> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<sum> element set up");
-    }
+    log.fine("<sum> element set up");
+  }
 }

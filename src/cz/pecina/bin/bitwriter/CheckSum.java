@@ -32,81 +32,81 @@ import java.util.logging.Logger;
  */
 public class CheckSum extends Calculator {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(CheckSum.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(CheckSum.class.getName());
 
-    // fields
-    protected CheckSumModel model;
-    protected BigInteger mask;
+  // fields
+  protected CheckSumModel model;
+  protected BigInteger mask;
 
-    // for description see Calculator
-    @Override
-    public BigInteger getRegister() {
-	final BigInteger r = register.xor(model.getXorOut());
-	log.finer("Getting register: " + Util.bigIntegerToString(r));
-	return r;
+  // for description see Calculator
+  @Override
+  public BigInteger getRegister() {
+    final BigInteger r = register.xor(model.getXorOut());
+    log.finer("Getting register: " + Util.bigIntegerToString(r));
+    return r;
+  }
+
+  // for description see Calculator
+  @Override
+  public void updateBit(final int b) {
+    log.finest("Updating CheckSum with: " + b);
+    if ((b & 1) == 1) {
+      update(BigInteger.ONE);
     }
+  }
 
-    // for description see Calculator
-    @Override
-    public void updateBit(final int b) {
-	log.finest("Updating CheckSum with: " + b);
-	if ((b & 1) == 1) {
-	    update(BigInteger.ONE);
-	}
+  // for description see Calculator
+  @Override
+  public void updateBit(final boolean b) {
+    log.finest("Updating CheckSum with: " + b);
+    if (b) {
+      update(BigInteger.ONE);
     }
+  }
 
-    // for description see Calculator
-    @Override
-    public void updateBit(final boolean b) {
-	log.finest("Updating CheckSum with: " + b);
-	if (b) {
-	    update(BigInteger.ONE);
-	}
+  // for description see Calculator
+  @Override
+  public void update(final byte[] d) {
+    log.finest("Updating CheckSum with an array of length: " + d.length);
+    for (byte b: d) {
+      update(BigInteger.valueOf(b));
     }
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final byte[] d) {
-	log.finest("Updating CheckSum with an array of length: " + d.length);
-	for (byte b: d) {
-	    update(BigInteger.valueOf(b));
-	}
-    }
+  // for description see Calculator
+  @Override
+  public void update(final int b) {
+    log.finest("Updating CheckSum with: " + b);
+    update(BigInteger.valueOf(b));
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final int b) {
-	log.finest("Updating CheckSum with: " + b);
-	update(BigInteger.valueOf(b));
-    }
+  // for description see Calculator
+  @Override
+  public void update(final BigInteger b) {
+    log.finest("Updating CheckSum with: " + Util.bigIntegerToString(b));
+    register = register.add(b.and(mask)).and(mask);
+  }
 
-    // for description see Calculator
-    @Override
-    public void update(final BigInteger b) {
-	log.finest("Updating CheckSum with: " + Util.bigIntegerToString(b));
-	register = register.add(b.and(mask)).and(mask);
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "CheckSum";
+  }
 
-    // for description see Object
-    @Override
-    public String toString() {
-	return "CheckSum";
-    }
-
-    /**
-     * Main constructor.
-     *
-     * @param model model to be used for the calculator
-     */
-    public CheckSum(final CheckSumModel model) {
-	log.fine("Creation of new CheckSum started");
+  /**
+   * Main constructor.
+   *
+   * @param model model to be used for the calculator
+   */
+  public CheckSum(final CheckSumModel model) {
+    log.fine("Creation of new CheckSum started");
 	
-	this.model = model;
-	mask = Util.makeMask(model.getWidth());
-	register = model.getXorIn().and(mask);
+    this.model = model;
+    mask = Util.makeMask(model.getWidth());
+    register = model.getXorIn().and(mask);
 
-    	log.fine("Creation of new CheckSum completed");
-    }
+    log.fine("Creation of new CheckSum completed");
+  }
 }

@@ -33,103 +33,103 @@ import java.util.logging.Logger;
  */
 public class OutStream implements Stream {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(OutStream.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(OutStream.class.getName());
 
-    // fields
-    protected InputTreeProcessor processor;
-    protected ControlledOutputStream controlledOutputStream;
-    protected int widthOut;
-    protected static final BigInteger mask = Constants.FF;
+  // fields
+  protected InputTreeProcessor processor;
+  protected ControlledOutputStream controlledOutputStream;
+  protected int widthOut;
+  protected static final BigInteger mask = Constants.FF;
 
-    /**
-     * Sets output width.
-     *
-     * @param     widthOut           output width
-     * @exception ProcessorException on illegal output width
-     */
-    public void setWidthOut(final int widthOut) throws ProcessorException {
-	log.finer("Setting widthOut to: " + widthOut);
-	if (widthOut != 8) {
-	    throw new ProcessorException(
-	       "Output width must be 8 bits on this architecture");
-	}
-	this.widthOut = widthOut;
-	reset();
+  /**
+   * Sets output width.
+   *
+   * @param     widthOut           output width
+   * @exception ProcessorException on illegal output width
+   */
+  public void setWidthOut(final int widthOut) throws ProcessorException {
+    log.finer("Setting widthOut to: " + widthOut);
+    if (widthOut != 8) {
+      throw new ProcessorException(
+        "Output width must be 8 bits on this architecture");
     }
+    this.widthOut = widthOut;
+    reset();
+  }
 
-    /**
-     * Gets output width.
-     *
-     * @return output width
-     */
-    public int getWidthOut() {
-	log.finer("Getting widthOut: " + widthOut);
-	return widthOut;
-    }
+  /**
+   * Gets output width.
+   *
+   * @return output width
+   */
+  public int getWidthOut() {
+    log.finer("Getting widthOut: " + widthOut);
+    return widthOut;
+  }
     
-    // for description see Stream
-    @Override
-    public void setDefaults() {
-	log.fine("Setting defaults on OutStream");
-	widthOut = 8;
-	reset();
-    }
+  // for description see Stream
+  @Override
+  public void setDefaults() {
+    log.fine("Setting defaults on OutStream");
+    widthOut = 8;
+    reset();
+  }
 
-    // for description see Stream
-    @Override
-    public void reset() {
-	log.fine("Resetting OutStream");
-    };
+  // for description see Stream
+  @Override
+  public void reset() {
+    log.fine("Resetting OutStream");
+  };
     
-    // for description see Stream
-    @Override
-    public void write(BigInteger value) throws IOException {
-	log.finest("Writing to OutStream: " + Util.bigIntegerToString(value));
-	value = value.and(mask);
-	try {
-	    processor.trigger(Variable.Type.STREAM_OUT, value);
-	} catch (final ProcessorException exception) {
-	    throw new IOException(exception.getMessage());
-	}
-	controlledOutputStream.write(value);
+  // for description see Stream
+  @Override
+  public void write(BigInteger value) throws IOException {
+    log.finest("Writing to OutStream: " + Util.bigIntegerToString(value));
+    value = value.and(mask);
+    try {
+      processor.trigger(Variable.Type.STREAM_OUT, value);
+    } catch (final ProcessorException exception) {
+      throw new IOException(exception.getMessage());
     }
+    controlledOutputStream.write(value);
+  }
     
-    // for description see Stream
-    @Override
-    public void flush() throws IOException {
-	log.finer("Flushing OutStream");
-	controlledOutputStream.flush();
-    }	
+  // for description see Stream
+  @Override
+  public void flush() throws IOException {
+    log.finer("Flushing OutStream");
+    controlledOutputStream.flush();
+  }	
 
-    // for description see Stream
-    @Override
-    public void close() throws IOException {
-	log.fine("Closing OutStream");
-	controlledOutputStream.close();
-    }
+  // for description see Stream
+  @Override
+  public void close() throws IOException {
+    log.fine("Closing OutStream");
+    controlledOutputStream.close();
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "OutStream";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "OutStream";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param processor              input tree processor object
-     * @param controlledOutputStream downstream controlled output stream
-     */
-    public OutStream(final InputTreeProcessor processor,
-		     final ControlledOutputStream controlledOutputStream) {
-	log.fine("OutStream creation started");
+  /**
+   * Main constructor.
+   *
+   * @param processor              input tree processor object
+   * @param controlledOutputStream downstream controlled output stream
+   */
+  public OutStream(final InputTreeProcessor processor,
+		   final ControlledOutputStream controlledOutputStream) {
+    log.fine("OutStream creation started");
 
-	this.processor = processor;
-	this.controlledOutputStream = controlledOutputStream;
-	setDefaults();
+    this.processor = processor;
+    this.controlledOutputStream = controlledOutputStream;
+    setDefaults();
 	
-	log.fine("OutStream creation completed");
-    }
+    log.fine("OutStream creation completed");
+  }
 }

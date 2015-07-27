@@ -36,94 +36,92 @@ import java.util.logging.Logger;
  */
 public class TextElement extends ParsedElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(TextElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(TextElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <text> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <text> element");
 
-	final int count = extractIntegerAttribute(
-	    element,
-	    "repeat",
-	    0,
-	    null,
-	    1,
-	    processor.getScriptProcessor());
-	final boolean trim = extractBooleanAttribute(
-	    element,
-	    "trim",
-	    true,
-	    processor.getScriptProcessor());
-	final String charset = extractStringAttribute(
-	    element,
-	    "charset",
-	    Constants.DEFAULT_CHARSET,
-	    processor.getScriptProcessor());
-	for (int iter = 0; iter < count; iter++) {
-	    for (Node content: children(element)) {
-		if (content instanceof Text) {
-		    String text;
-		    if (trim) {
-			text = ((Text)content).getTextContent().trim();
-		    } else {
-			text = ((Text)content).getTextContent();
-		    }
-		    if (charset.equals("raw")) {
-			for (int i = 0; i < text.length(); i++) {
-			    write(BigInteger.valueOf(text.codePointAt(i)));
-			}
-		    } else {
-			final byte[] bytes = text.getBytes(charset);
-			for (byte b: bytes) {
-			    write(BigInteger.valueOf(b & 0xff));
-			}
-		    }
-		} else if (content instanceof Element) {
-		    final Element innerElement = (Element)content;
-		    switch (innerElement.getTagName()) {
-			case "flush":
-			    new FlushElement(processor, innerElement);
-			    break;
-			case "script":
-			    new ScriptElement(processor, innerElement);
-			    break;
-			default:
-			    VariableElement.create(processor,
-						   innerElement,
-						   false);
-			    break;
-		    }
-		}
+    final int count = extractIntegerAttribute(
+      element,
+      "repeat",
+      0,
+      null,
+      1,
+      processor.getScriptProcessor());
+    final boolean trim = extractBooleanAttribute(
+      element,
+      "trim",
+      true,
+      processor.getScriptProcessor());
+    final String charset = extractStringAttribute(
+      element,
+      "charset",
+      Constants.DEFAULT_CHARSET,
+      processor.getScriptProcessor());
+    for (int iter = 0; iter < count; iter++) {
+      for (Node content: children(element)) {
+	if (content instanceof Text) {
+	  String text;
+	  if (trim) {
+	    text = ((Text)content).getTextContent().trim();
+	  } else {
+	    text = ((Text)content).getTextContent();
+	  }
+	  if (charset.equals("raw")) {
+	    for (int i = 0; i < text.length(); i++) {
+	      write(BigInteger.valueOf(text.codePointAt(i)));
 	    }
+	  } else {
+	    final byte[] bytes = text.getBytes(charset);
+	    for (byte b: bytes) {
+	      write(BigInteger.valueOf(b & 0xff));
+	    }
+	  }
+	} else if (content instanceof Element) {
+	  final Element innerElement = (Element)content;
+	  switch (innerElement.getTagName()) {
+	    case "flush":
+	      new FlushElement(processor, innerElement);
+	      break;
+	    case "script":
+	      new ScriptElement(processor, innerElement);
+	      break;
+	    default:
+	      VariableElement.create(processor, innerElement, false);
+	      break;
+	  }
 	}
-	log.fine("<text> element processed");
+      }
     }
+    log.fine("<text> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "TextElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "TextElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public TextElement(final InputTreeProcessor processor,
-		       final Element element
-		       ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<text> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public TextElement(final InputTreeProcessor processor,
+		     final Element element
+		     ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<text> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<text> element set up");
-    }
+    log.fine("<text> element set up");
+  }
 }

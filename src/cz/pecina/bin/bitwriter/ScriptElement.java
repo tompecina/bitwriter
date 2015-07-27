@@ -32,50 +32,49 @@ import java.util.logging.Logger;
  */
 public class ScriptElement extends ParsedElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(ScriptElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(ScriptElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException {
-	log.fine("Processing <script> element");
-
-	final int count = extractIntegerAttribute(
-	    element,
-	    "repeat",
-	    0,
-	    null,
-	    1,
-	    processor.getScriptProcessor());
-	for (int iter = 0; iter < count; iter++) {
-	    processor.getScriptProcessor().eval(element
-	        .getTextContent().trim());
-	}
-	log.fine("<script> element processed");
-    }
+  // processes the element
+  private void process() throws ProcessorException {
+    log.fine("Processing <script> element");
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "ScriptElement";
+    final int count = extractIntegerAttribute(element,
+					      "repeat",
+					      0,
+					      null,
+					      1,
+					      processor.getScriptProcessor());
+    for (int iter = 0; iter < count; iter++) {
+      processor.getScriptProcessor().eval(element
+					  .getTextContent().trim());
     }
+    log.fine("<script> element processed");
+  }
+    
+  // for description see Object
+  @Override
+  public String toString() {
+    return "ScriptElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     */
-    public ScriptElement(final InputTreeProcessor processor,
-			 final Element element
-			 ) throws ProcessorException {
-	super(processor, element);
-	log.fine("<script> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   */
+  public ScriptElement(final InputTreeProcessor processor,
+		       final Element element
+		       ) throws ProcessorException {
+    super(processor, element);
+    log.fine("<script> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<script> element set up");
-    }
+    log.fine("<script> element set up");
+  }
 }

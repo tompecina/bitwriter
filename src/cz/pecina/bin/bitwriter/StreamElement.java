@@ -34,29 +34,29 @@ import java.util.logging.Logger;
  */
 public class StreamElement extends SeqElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(StreamElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(StreamElement.class.getName());
 
-    // for description see Object
-    @Override
-    public String toString() {
-	return "StreamElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "StreamElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public StreamElement(final InputTreeProcessor processor,
-			 final Element element
-			 ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<stream> element set up");
-    }
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public StreamElement(final InputTreeProcessor processor,
+		       final Element element
+		       ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<stream> element set up");
+  }
 }

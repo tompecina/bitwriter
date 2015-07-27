@@ -34,50 +34,50 @@ import java.util.logging.Logger;
  */
 public class ReleaseElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(ReleaseElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(ReleaseElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <release> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <release> element");
 
-	final Variable variable = getVariable(element);
-	if (variable == null) {
-	    throw new ProcessorException("Error in input file, variable '" +
-					 getVariableName(element) +
-					 "' to be released does not exist");
-	}
-	final BigInteger oldValue = variable.getValue();
-	variable.reset();
-	variable.setValue(oldValue);
-	
-	log.fine("<release> element processed");
+    final Variable variable = getVariable(element);
+    if (variable == null) {
+      throw new ProcessorException("Error in input file, variable '" +
+				   getVariableName(element) +
+				   "' to be released does not exist");
     }
+    final BigInteger oldValue = variable.getValue();
+    variable.reset();
+    variable.setValue(oldValue);
+	
+    log.fine("<release> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "ReleaseElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "ReleaseElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public ReleaseElement(final InputTreeProcessor processor,
-			  final Element element
-			  ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<release> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public ReleaseElement(final InputTreeProcessor processor,
+			final Element element
+			) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<release> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<release> element set up");
-    }
+    log.fine("<release> element set up");
+  }
 }

@@ -33,65 +33,65 @@ import java.util.logging.Logger;
  */
 public class LoopElement extends ParsedElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(LoopElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(LoopElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <loop> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <loop> element");
 
-	final int count = extractIntegerAttribute(element,
+    final int count = extractIntegerAttribute(element,
 					      "repeat",
 					      0,
 					      null,
 					      1,
 					      processor.getScriptProcessor());
-	for (int iter = 0; iter < count; iter++) {
-	    for (Element innerElement: getChildren(element)) {
-		switch (innerElement.getTagName()) {
-		    case "stream":
-			new StreamElement(processor, innerElement);
-			break;
-		    case "loop":
-			new LoopElement(processor, innerElement);
-			break;
-		    case "script":
-			new ScriptElement(processor, innerElement);
-			break;
-		    default:
-			VariableElement.create(processor, innerElement, true);
-			break;
-		}
-	    }
+    for (int iter = 0; iter < count; iter++) {
+      for (Element innerElement: getChildren(element)) {
+	switch (innerElement.getTagName()) {
+	  case "stream":
+	    new StreamElement(processor, innerElement);
+	    break;
+	  case "loop":
+	    new LoopElement(processor, innerElement);
+	    break;
+	  case "script":
+	    new ScriptElement(processor, innerElement);
+	    break;
+	  default:
+	    VariableElement.create(processor, innerElement, true);
+	    break;
 	}
-
-	log.fine("<loop> element processed");
+      }
     }
+
+    log.fine("<loop> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "LoopElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "LoopElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public LoopElement(final InputTreeProcessor processor,
-		       final Element element
-		       ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<loop> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public LoopElement(final InputTreeProcessor processor,
+		     final Element element
+		     ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<loop> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<loop> element set up");
-    }
+    log.fine("<loop> element set up");
+  }
 }

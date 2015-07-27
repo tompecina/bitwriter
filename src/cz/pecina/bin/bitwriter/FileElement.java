@@ -33,57 +33,57 @@ import java.util.logging.Logger;
  */
 public class FileElement extends ParsedElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(FileElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(FileElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <file> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <file> element");
 
-	for (Element innerElement: getChildren(element)) {
-	    switch (innerElement.getTagName()) {
-		case "stream":
-		    new StreamElement(processor, innerElement);
-		    break;
-		case "loop":
-		    new LoopElement(processor, innerElement);
-		    break;
-		case "script":
-		    new ScriptElement(processor, innerElement);
-		    break;
-		default:
-		    VariableElement.create(processor, innerElement, true);
-		    break;
-	    }
-	}
-
-	log.fine("<file> element processed");
+    for (Element innerElement: getChildren(element)) {
+      switch (innerElement.getTagName()) {
+	case "stream":
+	  new StreamElement(processor, innerElement);
+	  break;
+	case "loop":
+	  new LoopElement(processor, innerElement);
+	  break;
+	case "script":
+	  new ScriptElement(processor, innerElement);
+	  break;
+	default:
+	  VariableElement.create(processor, innerElement, true);
+	  break;
+      }
     }
+
+    log.fine("<file> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "FileElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "FileElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public FileElement(final InputTreeProcessor processor,
-		       final Element element
-		       ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<file> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public FileElement(final InputTreeProcessor processor,
+		     final Element element
+		     ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<file> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<file> element set up");
-    }
+    log.fine("<file> element set up");
+  }
 }

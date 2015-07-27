@@ -33,131 +33,131 @@ import java.util.logging.Logger;
  */
 public class InAggregateStream implements Stream {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(InAggregateStream.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(InAggregateStream.class.getName());
 
-    // fields
-    protected InputTreeProcessor processor;
-    protected BitStream bitStream;
-    protected int widthInAggregate;
-    protected boolean reflectIn;
-    protected BigInteger mask;
+  // fields
+  protected InputTreeProcessor processor;
+  protected BitStream bitStream;
+  protected int widthInAggregate;
+  protected boolean reflectIn;
+  protected BigInteger mask;
 
-    /**
-     * Sets input aggregate width.
-     *
-     * @param widthInAggregate input aggregate width
-     */
-    public void setWidthInAggregate(final int widthInAggregate) {
-	log.finer("Setting widthInAggregate to: " + widthInAggregate);
-	this.widthInAggregate = widthInAggregate;
-	mask = Util.makeMask(widthInAggregate);
-	reset();
-    }
+  /**
+   * Sets input aggregate width.
+   *
+   * @param widthInAggregate input aggregate width
+   */
+  public void setWidthInAggregate(final int widthInAggregate) {
+    log.finer("Setting widthInAggregate to: " + widthInAggregate);
+    this.widthInAggregate = widthInAggregate;
+    mask = Util.makeMask(widthInAggregate);
+    reset();
+  }
 
-    /**
-     * Gets input aggregate width.
-     *
-     * @return input aggregate width
-     */
-    public int getWidthInAggregate() {
-	log.finer("Getting widthInAggregate: " + widthInAggregate);
-	return widthInAggregate;
-    }
+  /**
+   * Gets input aggregate width.
+   *
+   * @return input aggregate width
+   */
+  public int getWidthInAggregate() {
+    log.finer("Getting widthInAggregate: " + widthInAggregate);
+    return widthInAggregate;
+  }
     
-    /**
-     * Sets input reflection.
-     *
-     * @param reflectIn input reflection
-     */
-    public void setReflectIn(final boolean reflectIn) {
-	log.finer("Setting input reflection to: " + reflectIn);
-	this.reflectIn = reflectIn;
-	reset();
-    }
+  /**
+   * Sets input reflection.
+   *
+   * @param reflectIn input reflection
+   */
+  public void setReflectIn(final boolean reflectIn) {
+    log.finer("Setting input reflection to: " + reflectIn);
+    this.reflectIn = reflectIn;
+    reset();
+  }
     
-    /**
-     * Gets input reflection.
-     *
-     * @return input reflection
-     */
-    public boolean getReflectIn() {
-	log.finer("Getting input reflection: " + reflectIn);
-	return reflectIn;
-    }
+  /**
+   * Gets input reflection.
+   *
+   * @return input reflection
+   */
+  public boolean getReflectIn() {
+    log.finer("Getting input reflection: " + reflectIn);
+    return reflectIn;
+  }
 
-    // for description see Stream
-    @Override
-    public void setDefaults() {
-	log.fine("Setting defaults on InAggregateStream");
-	widthInAggregate = 8;
-	mask = Constants.FF;
-	reflectIn = false;
-	reset();
-    }
+  // for description see Stream
+  @Override
+  public void setDefaults() {
+    log.fine("Setting defaults on InAggregateStream");
+    widthInAggregate = 8;
+    mask = Constants.FF;
+    reflectIn = false;
+    reset();
+  }
 
-    // for description see Stream
-    @Override
-    public void reset() {
-	log.fine("Resetting InAggregateStream");
-    };
+  // for description see Stream
+  @Override
+  public void reset() {
+    log.fine("Resetting InAggregateStream");
+  };
     
-    // for description see Stream
-    @Override
-    public void write(BigInteger value) throws IOException {
-	log.finest("Writing BigInteger to InAggregateStream: " +
-		   Util.bigIntegerToString(value));
-	value = value.and(mask);
-	try {
-	    processor.trigger(Variable.Type.AGGREGATE_STREAM_IN, value);
-	} catch (final ProcessorException exception) {
-	    throw new IOException(exception.getMessage());
-	}
-	final int offset = (reflectIn ? 0 : (widthInAggregate - 1));
-	final int step = (reflectIn ? 1 : -1);
-	for (int i = offset;
-	     (reflectIn ? (i < widthInAggregate) : (i >= 0));
-	     i += step) {
-	    bitStream.write(
-	      value.testBit(i) ? BigInteger.ONE : BigInteger.ZERO);
-	}
+  // for description see Stream
+  @Override
+  public void write(BigInteger value) throws IOException {
+    log.finest("Writing BigInteger to InAggregateStream: " +
+	       Util.bigIntegerToString(value));
+    value = value.and(mask);
+    try {
+      processor.trigger(Variable.Type.AGGREGATE_STREAM_IN, value);
+    } catch (final ProcessorException exception) {
+      throw new IOException(exception.getMessage());
     }
+    final int offset = (reflectIn ? 0 : (widthInAggregate - 1));
+    final int step = (reflectIn ? 1 : -1);
+    for (int i = offset;
+	 (reflectIn ? (i < widthInAggregate) : (i >= 0));
+	 i += step) {
+      bitStream.write(
+        value.testBit(i) ? BigInteger.ONE : BigInteger.ZERO);
+    }
+  }
     
-    // for description see Stream
-    @Override
-    public void flush() throws IOException {
-	log.finer("Flushing InAgregateStream");
-	bitStream.flush();
-    }
+  // for description see Stream
+  @Override
+  public void flush() throws IOException {
+    log.finer("Flushing InAgregateStream");
+    bitStream.flush();
+  }
 
-    // for description see Stream
-    @Override
-    public void close() throws IOException {
-	log.fine("Closing InAgregateStream");
-	bitStream.close();
-    }
+  // for description see Stream
+  @Override
+  public void close() throws IOException {
+    log.fine("Closing InAgregateStream");
+    bitStream.close();
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "InAggregateStream";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "InAggregateStream";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param processor input tree processor object
-     * @param bitStream downstream bit stream
-     */
-    public InAggregateStream(final InputTreeProcessor processor,
-			     final BitStream bitStream) {
-	log.fine("InAggregateStream creation started");
+  /**
+   * Main constructor.
+   *
+   * @param processor input tree processor object
+   * @param bitStream downstream bit stream
+   */
+  public InAggregateStream(final InputTreeProcessor processor,
+			   final BitStream bitStream) {
+    log.fine("InAggregateStream creation started");
 
-	this.processor = processor;
-	this.bitStream = bitStream;
-	setDefaults();
+    this.processor = processor;
+    this.bitStream = bitStream;
+    setDefaults();
 	
-	log.fine("InAggregateStream creation completed");
-    }
+    log.fine("InAggregateStream creation completed");
+  }
 }

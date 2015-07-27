@@ -37,109 +37,105 @@ import java.util.logging.Logger;
  */
 public class FloatElement extends ParsedElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(FloatElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(FloatElement.class.getName());
 
-    // processes the element
-    private void process(final boolean isDouble
-			 ) throws ProcessorException, IOException {
-	log.fine("Processing floating-point element,");
-	final int count = extractIntegerAttribute(element,
+  // processes the element
+  private void process(final boolean isDouble
+		       ) throws ProcessorException, IOException {
+    log.fine("Processing floating-point element,");
+    final int count = extractIntegerAttribute(element,
 					      "repeat",
 					      0,
 					      null,
 					      1,
 					      processor.getScriptProcessor());
-	for (int iter = 0; iter < count; iter++) {
-	    for (Node content: children(element)) {
-		if (content instanceof Text) {
-		    final String trimmedText = ((Text)content)
-			.getTextContent().trim();
-		    if (trimmedText.isEmpty()) {
-			continue;
-		    }
-		    for (String split: new ScriptLine(trimmedText)) {
-			log.finer("Processing segment: " + split);
-			final BigInteger value;
-			if (ScriptProcessor.isScript(split)) {
-			    if (isDouble) {
-				value = BigInteger.valueOf(
-				    Double.doubleToLongBits(
-				    processor.getScriptProcessor()
-				    .evalAsDouble(split)));
-			    } else {
-				value = BigInteger.valueOf(
-				    Float.floatToIntBits(
-				    processor.getScriptProcessor()
-				    .evalAsFloat(split)));
-			    }
-			} else {
-			    try {
-				if (isDouble) {
-				    value = BigInteger.valueOf(
-				        Double.doubleToLongBits(
-					Util.stringToDouble(split)));
-				} else {
-				    value = BigInteger.valueOf(
-				        Float.floatToIntBits(
-					Util.stringToFloat(split)));
-				}
-			    } catch (final NumberFormatException |
-				     NullPointerException exception) {
-				throw new ProcessorException(
-				    "Illegal number format (2): " + split);
-			    }
-			}
-			write(value);
-		    }
-		} else if (content instanceof Element) {
-		    final Element innerElement = (Element)content;
-		    switch (innerElement.getTagName()) {
-			case "flush":
-			    new FlushElement(processor, innerElement);
-			    break;
-			case "script":
-			    new ScriptElement(processor, innerElement);
-			    break;
-			default:
-			    VariableElement.create(processor,
-						   innerElement,
-						   false);
-			    break;
-		    }
+    for (int iter = 0; iter < count; iter++) {
+      for (Node content: children(element)) {
+	if (content instanceof Text) {
+	  final String trimmedText = ((Text)content)
+	    .getTextContent().trim();
+	  if (trimmedText.isEmpty()) {
+	    continue;
+	  }
+	  for (String split: new ScriptLine(trimmedText)) {
+	    log.finer("Processing segment: " + split);
+	    final BigInteger value;
+	    if (ScriptProcessor.isScript(split)) {
+	      if (isDouble) {
+		value = BigInteger.valueOf(
+		  Double.doubleToLongBits(processor.getScriptProcessor()
+					  .evalAsDouble(split)));
+	      } else {
+		value = BigInteger.valueOf(
+	          Float.floatToIntBits(processor.getScriptProcessor()
+				       .evalAsFloat(split)));
+	      }
+	    } else {
+	      try {
+		if (isDouble) {
+		  value = BigInteger.valueOf(
+		    Double.doubleToLongBits(Util.stringToDouble(split)));
+		} else {
+		  value = BigInteger.valueOf(
+		    Float.floatToIntBits(Util.stringToFloat(split)));
 		}
+	      } catch (final NumberFormatException |
+		       NullPointerException exception) {
+		throw new ProcessorException("Illegal number format (2): " +
+					     split);
+	      }
 	    }
+	    write(value);
+	  }
+	} else if (content instanceof Element) {
+	  final Element innerElement = (Element)content;
+	  switch (innerElement.getTagName()) {
+	    case "flush":
+	      new FlushElement(processor, innerElement);
+	      break;
+	    case "script":
+	      new ScriptElement(processor, innerElement);
+	      break;
+	    default:
+	      VariableElement.create(processor,
+				     innerElement,
+				     false);
+	      break;
+	  }
 	}
-	log.fine("Floating-point element processed");
+      }
     }
+    log.fine("Floating-point element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "FloatElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "FloatElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @param     isDouble           <code>true</code> for &lt;double&gt;,
-     *                               <code>false</code> for &lt;float&gt;
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public FloatElement(final InputTreeProcessor processor,
-			final Element element,
-			final boolean isDouble
-			) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("Floating-point element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @param     isDouble           <code>true</code> for &lt;double&gt;,
+   *                               <code>false</code> for &lt;float&gt;
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public FloatElement(final InputTreeProcessor processor,
+		      final Element element,
+		      final boolean isDouble
+		      ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("Floating-point element creation started");
 
-	process(isDouble);
+    process(isDouble);
 	
-	log.fine("Floating-point element set up");
-    }
+    log.fine("Floating-point element set up");
+  }
 }

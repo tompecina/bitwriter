@@ -34,49 +34,49 @@ import java.util.logging.Logger;
  */
 public class DigestElement extends VariableElement {
 
-    // static logger
-    private static final Logger log =
-	Logger.getLogger(DigestElement.class.getName());
+  // static logger
+  private static final Logger log =
+    Logger.getLogger(DigestElement.class.getName());
 
-    // processes the element
-    private void process() throws ProcessorException, IOException {
-	log.fine("Processing <digest> element");
+  // processes the element
+  private void process() throws ProcessorException, IOException {
+    log.fine("Processing <digest> element");
 
-	final Variable variable = getOrCreateVariable(element);
-	variable.reset();
-	setVariableType(variable, element, "stream-out");
-	final String model = element.getAttribute("model");
-	if (model.trim().isEmpty()) {
-	    throw new ProcessorException("Digest model must be specified");
-	}
-	variable.setCalculator(new Digest(model));
-	
-	log.fine("<digest> element processed");
+    final Variable variable = getOrCreateVariable(element);
+    variable.reset();
+    setVariableType(variable, element, "stream-out");
+    final String model = element.getAttribute("model");
+    if (model.trim().isEmpty()) {
+      throw new ProcessorException("Digest model must be specified");
     }
+    variable.setCalculator(new Digest(model));
+	
+    log.fine("<digest> element processed");
+  }
     
-    // for description see Object
-    @Override
-    public String toString() {
-	return "DigestElement";
-    }
+  // for description see Object
+  @Override
+  public String toString() {
+    return "DigestElement";
+  }
 
-    /**
-     * Main constructor.
-     *
-     * @param     processor          the input tree processor object
-     * @param     element            the <code>Element</code> object in
-     *                               the XML file
-     * @exception ProcessorException on error in parameters
-     * @exception IOException        on I/O error
-     */
-    public DigestElement(final InputTreeProcessor processor,
-			 final Element element
-			 ) throws ProcessorException, IOException {
-	super(processor, element);
-	log.fine("<digest> element creation started");
+  /**
+   * Main constructor.
+   *
+   * @param     processor          the input tree processor object
+   * @param     element            the <code>Element</code> object in
+   *                               the XML file
+   * @exception ProcessorException on error in parameters
+   * @exception IOException        on I/O error
+   */
+  public DigestElement(final InputTreeProcessor processor,
+		       final Element element
+		       ) throws ProcessorException, IOException {
+    super(processor, element);
+    log.fine("<digest> element creation started");
 
-	process();
+    process();
 	
-	log.fine("<digest> element set up");
-    }
+    log.fine("<digest> element set up");
+  }
 }
