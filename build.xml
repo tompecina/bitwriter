@@ -10,7 +10,7 @@
   <property name="author"
 	    value="Tomáš Pecina"/>
   <property name="version"
-	    value="1.0.3"/>
+	    value="1.0.4"/>
   <property name="license"
 	    value="GNU General Public License Version 3"/>
   <property name="prefix"
@@ -51,6 +51,8 @@
 	    value="${build.src.dir}/doc"/>
   <property name="temp.dir"
 	    value="temp"/>
+  <property name="jar.dir"
+	    value="${user.home}/bin/lib"/>
   <property name="javac.source.version"
 	    value="1.8"/>
   <property name="javac.target.version"
@@ -161,6 +163,11 @@
 		   value="${version}"/>
       </manifest>
     </jar>
+    <mkdir dir="${jar.dir}"/>
+    <copy todir="${jar.dir}">
+      <fileset dir="${build.lib.dir}"
+	       includes="${package}.jar"/>
+    </copy>
   </target>
   
   <!-- run -->
