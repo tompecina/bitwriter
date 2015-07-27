@@ -1,8 +1,10 @@
 BITWRITER
 
-Upcoming
+
+1.0.3  2015-07-27  Maintenance release
 ------------------------------------------------------------------------------
 * Support for non-UTF-8 input files and strings added.
+* Minor fixes and improvements.
 
 
 1.0.2  2015-07-26  Maintenance release
