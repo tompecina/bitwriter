@@ -165,8 +165,8 @@ The listing contains the following fields for each model:
   	    hexadecimal string
 	    
   RefIn:    reflect-in parameter, "F" stands for "false, "T" for true; if set,
-            bits are processed by the CRC shift register in reverse order, ie,
-            LSB (bit 0) is read first and MSB (bit 7) last
+            bits are processed by the CRC shift register in reverse order,
+            i.e., LSB (bit 0) is read first and MSB (bit 7) last
 
   XorIn:    the xor-in value, which is put into the CRC register before
             reading the first bit/byte
@@ -194,7 +194,7 @@ element, for instance, -s '<stream><hex>55aa0033ccff</hex></stream>'.  If both
 input string(s) and file(s) are specified, the strings are processed first, in
 the order of appearance, then the files, one after another as they appear on
 the command line.  The content of each string and file is processed as a
-separate unit, ie, the concatenation takes place on the binary output level.
+separate unit, i.e., the concatenation takes place on the binary output level.
 If the XML prolog is specified, the encoding (charset) is set to the default
 used by the operating system.
 
@@ -218,7 +218,7 @@ downloaded from my personal website (http://www.pecina.cz/xsd/bin-1.0.xsd).
 
 All attributes, with the single exception of "version" in the <file> element,
 can be provided either by a literal string, such as "stream-out", "false" or
-"0xff", or a script invocation, enclosed in double braces, eg, "{{ i++ }}".
+"0xff", or a script invocation, enclosed in double braces, e.g., "{{ i++ }}".
 
 
 Bitwriter understands the following literal data:
@@ -229,14 +229,14 @@ representation of any length.  Hexadecimal numbers must be preceded by 0x or
 internally represented as Java's BigInteger objects so there is no limit as to
 their size.
 
-Boolean values: The format of XML Schema type xs:boolean is accepted, ie,
+Boolean values: The format of XML Schema type xs:boolean is accepted, i.e.,
 "true"/"false" or "1"/"0".
 
 String constants: These must be given verbatim, case-sensitive, without
 quotation marks or internal whitespace characters; quotes are used only when
-the string is the output of a script, eg, {{ 'little' }}; without the quotes,
-the script engine would output the value of the variable named "little" rather
-than the string "little".
+the string is the output of a script, e.g., {{ 'little' }}; without the
+quotes, the script engine would output the value of the variable named
+"little" rather than the string "little".
 
 Numeric sequences: The format of numeric sequences depends on the
 element/context and will be described separately for each element in which
@@ -258,14 +258,14 @@ recognized as valid input for this version of Bitwriter.
 
 Content:
 
-Any elements allowed on the outer level, ie, <stream>, <loop>, <script> and
+Any elements allowed on the outer level, i.e., <stream>, <loop>, <script> and
 any variable-related elements except <put>.
 
 
 <stream>
 
 <stream> is the key element of the vocabulary, describing the transformations
-applied to the input data (ie, the data model).  It can only appear on the
+applied to the input data (i.e., the data model).  It can only appear on the
 outer level, either directly as a child of <file> or within a (possibly
 nested) <loop>.
 
@@ -279,7 +279,7 @@ are written immediately to the input streams.  All elements except <file>,
 Attributes:
 
 "repeat" -- Optional, non-negative integer, default "1".  Number of times the
-stream is repeated.  The repetition occurs on the semantic level, ie, the
+stream is repeated.  The repetition occurs on the semantic level, i.e., the
 interpretation is exactly as if the <stream> element with identical contents
 was repeated rather than the binary output it generates.
 
@@ -309,16 +309,16 @@ endianness mode, determining the manner in which the output stream is formed
 from the aggreagate output.
 
 "reflect-in" -- Optional, Boolean, default "false".  It determines the order
-in which bits enter the bit stream.  If "true", the bit order is reversed, ie,
-LSB comes in the first, MSB the last.
+in which bits enter the bit stream.  If "true", the bit order is reversed,
+i.e., LSB comes in the first, MSB the last.
 
 "reflect-out" -- Optional, Boolean, default "false".  It determines the order
-in which bits leave the bit stream.  If "true", bit order is reversed, ie, LSB
-comes out the first, MSB the last.
+in which bits leave the bit stream.  If "true", bit order is reversed, i.e.,
+LSB comes out the first, MSB the last.
 
 "discard" -- Optional, Boolean, default "false".  If true, the data from the
 stream is not written to the output, but everything else occurs as if it did,
-eg, variables are updated and processed, scripts are evaluated, etc.  In
+e.g., variables are updated and processed, scripts are evaluated, etc.  In
 general, this is not a good method for temporarily "turning off" a stream.  If
 you need this effect, use repeat="0" or comment the stream element out.
 
@@ -331,7 +331,7 @@ Unlike streams, loops can be nested.
 
 Content:
 
-All elements allowed on the outer level, ie, outside a stream, namely
+All elements allowed on the outer level, i.e., outside a stream, namely
 <stream>, <loop>, <script> and any variable-related elements except <put>.
 
 Attributes:
@@ -352,7 +352,7 @@ interpreted, input aggregation can be used.
 Content:
 
 Literal data, including scripts, <flush> and <script>.  Script are interpreted
-just like in a <stream>, ie, no radix conversion is performed.
+just like in a <stream>, i.e., no radix conversion is performed.
 
 Attributes:
 
@@ -465,7 +465,7 @@ sequence is repeated.
 
 Character stream.  The data is extracted from the text in the content of the
 element, according to the rules specified by the "wrap" and "charset"
-attributes.  Special characters can be expressed using XML entities, eg,
+attributes.  Special characters can be expressed using XML entities, e.g.,
 "&#7;".
 
 Content:
@@ -536,7 +536,7 @@ None.
 <set>
 
 Sets the value of the variable.  If the variable does not exist, it is created
-and reset (ie, set to "0").
+and reset (i.e., set to "0").
 
 Content:
 
@@ -553,14 +553,15 @@ If specified as a script, it is evaluated immediately.  The script is executed
 as the first action during the write, preceding any other activity, in
 particular before the value is processed and written downstream.  This means
 that in the course of a regular write cycle, the triggers are activated in the
-downstream direction, ie, "on-input-stream" first and "on-output-stream" last.
+downstream direction, i.e., "on-input-stream" first and "on-output-stream"
+last.
 
 "on-stream-in" -- Optional, integer.  A value to which the variable is set on
 a any write to input stream.  Typically a script, evaluation is deferred until
 the actual write and triggering of the event.  In addition to normal XML
 variables, the binding includes the variable "val", set to the BigInteger data
 just written.  If the attibute is omitted, the previous value is preserved; to
-delete the string, an empty string, ie, "", must be spefically indicated as
+delete the string, an empty string, i.e., "", must be spefically indicated as
 the attribute value.
 
 "on-aggregate-stream-in" -- Optional, integer.  The same as "on-stream-in",
@@ -596,9 +597,9 @@ Attributes:
 
 <release>
 
-The variable is released, ie, all its scripts are reset and it is set to
+The variable is released, i.e., all its scripts are reset and it is set to
 normal mode.  The value in preserved.  The variable must exist, or an error is
-reported.  This is practical for situations when a calculator, eg, a CRC, is
+reported.  This is practical for situations when a calculator, e.g., a CRC, is
 not written to the stream immediately after the data it protects.  After the
 data block the variable is released, so it stops updating, and any postamble
 data can be written.
@@ -746,7 +747,7 @@ coefficient is omitted (this is the most common notation); "full" -- all terms
 are included without any change; "reversed" -- the highest-degree term is
 omitted and the remaining coefficients are reversed; "koopman" -- Koopman's
 notation, in which the lowest-degree coefficient is omitted and the polynomial
-is divided by x, ie, its representation is shifted one bit to the right.
+is divided by x, i.e., its representation is shifted one bit to the right.
 Example: the polynomial x ^ 8 + x ^ 2 + x + 1 will be expressed as follows:
 normal 0x7, full 0x107, reversed 0xe0, Koopman's 0x83.
 
@@ -767,7 +768,7 @@ register.
 
 "reflect-out" -- Optional, Boolean, default "false".  It determines the order
 in which the bits of the register are output.  If "true", the bit order is
-reversed, ie, the LSB of the register is presented as the MSB.
+reversed, i.e., the LSB of the register is presented as the MSB.
 
 "xor-out" -- Optional, integer, default "0".  The register is exclusive-or'ed
 with this value before it is assigned to the variable.
@@ -855,7 +856,7 @@ part, is included.
 "repeat" -- Optional, non-negative integer, default "1".  Number of times the
 file segment is included.  Please note that the inclusion is repeated by
 reopening the input file, so that if the contents of the file change between
-repetitions, different data will be included.  This can be useful, eg, for
+repetitions, different data will be included.  This can be useful, e.g., for
 including data from a user-spplied PRNG or from an Internet socket.
 
 
@@ -923,7 +924,8 @@ written to it.
 This stream has a fixed width depending on the computer architecture, which is
 normally "8".  Its role in the engine is to prepares data for being written to
 the output file.  The stream's main function is to de-aggregate the output
-data, ie, to split it into bytes according to the required output endianness.
+data, i.e., to split it into bytes according to the required output
+endianness.
 
 
 6.6. Controlled output stream
@@ -1020,16 +1022,17 @@ to which Java resources can be accessed by a running script.  When a script is
 launched, its bindings have the following preset values:
 
 - All Bitwriter variables, including calculators, are set, using the same
-  identifiers as in XML, eg, if the XML file initialized the variable "total",
-  it will be directly accessible from within the script as the JavaScript
-  variable "total".  The value of the variable is a BitInteger object, and it
-  is initialized as such, but the scripting language will convert the value to
-  a number whenever needed.  This automatism is a very useful feature: it
-  means that in most cases, the user does not have to bother about the
-  internal representation of the variables and he/she can use them directly in
-  arithmetic operations and function calls.  One only needs to access the
-  variables as BigInteger's when they are wider than what ECMA script's
-  universal numeric types can handle (which is something like 53 bits).
+  identifiers as in XML, e.g., if the XML file initialized the variable
+  "total", it will be directly accessible from within the script as the
+  JavaScript variable "total".  The value of the variable is a BitInteger
+  object, and it is initialized as such, but the scripting language will
+  convert the value to a number whenever needed.  This automatism is a very
+  useful feature: it means that in most cases, the user does not have to
+  bother about the internal representation of the variables and he/she can use
+  them directly in arithmetic operations and function calls.  One only needs
+  to access the variables as BigInteger's when they are wider than what ECMA
+  script's universal numeric types can handle (which is something like 53
+  bits).
 
 - If the script execution has been triggered by a write to a stream, the
   Nashhorn variable "val" is set to the value being written, as a BigInteger

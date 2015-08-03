@@ -59,6 +59,8 @@
 	    value="1.8"/>
   <property name="tests"
 	    value="Test*"/>
+  <property name="args"
+	    value=""/>
 
   <!-- help -->
   <target name="help"
