@@ -23,10 +23,6 @@ package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.regex.MatchResult;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptEngine;
 import javax.script.Bindings;
