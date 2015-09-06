@@ -215,6 +215,7 @@
     <echo message="Preparing the test directory structure"/>
     <mkdir dir="${build.test.classes.dir}"/>
     <mkdir dir="${build.test.src.filtered.dir}"/>
+    <mkdir dir="${test.resources.dir}/${prefix}/${package}"/>
     <copy todir="${build.test.src.filtered.dir}">
       <fileset dir="${test.src.dir}"
 	       includes="**"/>
