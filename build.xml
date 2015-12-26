@@ -125,6 +125,7 @@
 	   source="${javac.source.version}"
 	   target="${javac.target.version}">
       <compilerarg value="-Xlint:deprecation"/>
+      <compilerarg value="-Xlint:unchecked"/>
       <compilerarg value="-Xdiags:verbose"/>
     </javac>
     <copy todir="${build.classes.dir}/${prefix}/${package}">

@@ -3,7 +3,7 @@
 
   <xs:annotation>
     <xs:documentation>
-      XML Schema pro BIN, version 1.0
+      XML Schema for BIN, version 1.0
       URL: http://www.pecina.cz/xsd/bin-1.0.xsd
       Author: Tomáš Pecina, tomas@pecina.cz
       License: GNU General Public License
