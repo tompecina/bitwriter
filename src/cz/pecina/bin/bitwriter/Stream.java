@@ -39,8 +39,6 @@ public interface Stream extends AutoCloseable {
 
   /**
    * Sets the default values for the stream.
-   *
-   * @exception IOException on I/O error
    */
   public void setDefaults();
 

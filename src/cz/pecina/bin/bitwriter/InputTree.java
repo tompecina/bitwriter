@@ -43,6 +43,8 @@ public class InputTree {
     
   /**
    * Gets the root element of the parsed tree.
+   *
+   * @return the root element
    */
   public Element getRootElement() {
     log.finer("Getting root element");

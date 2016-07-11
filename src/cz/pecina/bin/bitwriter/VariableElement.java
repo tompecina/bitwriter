@@ -129,6 +129,7 @@ public abstract class VariableElement extends ParsedElement {
    * @param     outerLevel         <code>true</code> if on the outer
    *                               level, <code>false</code>
    *                               if in a stream
+   * @return                       new element
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */

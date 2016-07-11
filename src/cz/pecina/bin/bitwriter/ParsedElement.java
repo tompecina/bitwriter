@@ -353,6 +353,7 @@ public abstract class ParsedElement {
    * @param     element            element to be processoed
    * @param     attributeName      name of the attribute
    * @param     options            array of allowed strings
+   * @param     defaultValue       default value if the attribute is absent
    * @param     scriptProcessor    instance of the script processor
    *                               to be used, or <code>null</code>
    *                               if scripting is not allowed

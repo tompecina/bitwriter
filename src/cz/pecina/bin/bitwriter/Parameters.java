@@ -241,8 +241,9 @@ public class Parameters {
   /**
    * Parse the command line.
    *
-   * @param args command-line arguments
-   * @return     line parsed command line
+   * @param     args                command-line arguments
+   * @return                        line parsed command line
+   * @exception ParametersException on error in parameters
    */
   public CommandLine parse(final String args[]) throws ParametersException {
     log.fine("Command line parsing started");

@@ -47,7 +47,8 @@ public class OutAggregateStream implements Stream {
   /**
    * Sets output aggregate width.
    *
-   * @param widthOutAggregate output aggregate width
+   * @param     widthOutAggregate  output aggregate width
+   * @exception ProcessorException on error in parameters
    */
   public void setWidthOutAggregate(final int widthOutAggregate
 				   ) throws ProcessorException {

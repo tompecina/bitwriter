@@ -153,7 +153,7 @@ public class ScriptProcessor {
    * Evaluatess script and converts result to <code>int</code>.
    *
    * @param     expression         expression to be evaluated
-   * @return                       returned <cpde>int</code>
+   * @return                       returned <code>int</code>
    * @exception ProcessorException on error during evalation
    */
   public int evalAsInt(final String expression
@@ -181,7 +181,7 @@ public class ScriptProcessor {
    * Evaluate script and convert result to <code>long</code>.
    *
    * @param     expression         expression to be evaluated
-   * @return                       returned <cpde>long</code>
+   * @return                       returned <code>long</code>
    * @exception ProcessorException on error during evalation
    */
   public long evalAsLong(final String expression
@@ -209,7 +209,7 @@ public class ScriptProcessor {
    * Evaluatess script and converts result to <code>BigInteger</code>.
    *
    * @param     expression         expression to be evaluated
-   * @return                       returned <cpde>BigInteger</code>
+   * @return                       returned <code>BigInteger</code>
    * @exception ProcessorException on error during evalation
    */
   public BigInteger evalAsBigInteger(final String expression
@@ -237,7 +237,7 @@ public class ScriptProcessor {
    * Evaluates script and converts result to <code>float</code>.
    *
    * @param     expression         expression to be evaluated
-   * @return                       returned <cpde>float</code>
+   * @return                       returned <code>float</code>
    * @exception ProcessorException on error during evalation
    */
   public float evalAsFloat(final String expression
@@ -268,7 +268,7 @@ public class ScriptProcessor {
    * Evaluates script and converts result to <code>double</code>.
    *
    * @param     expression         expression to be evaluated
-   * @return                       returned <cpde>double</code>
+   * @return                       returned <code>double</code>
    * @exception ProcessorException on error during evalation
    */
   public double evalAsDouble(final String expression
