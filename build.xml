@@ -12,7 +12,7 @@
   <property name="version"
 	    value="1.0.6"/>
   <property name="license"
-	    value="GNU General Public License Version 3"/>
+	    value="GNU General Public License Version 3+"/>
   <property name="prefix"
 	    value="cz/pecina/bin"/>
   <property name="src.dir"
