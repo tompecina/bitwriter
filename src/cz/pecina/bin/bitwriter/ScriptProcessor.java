@@ -165,7 +165,7 @@ public class ScriptProcessor {
 	if (value instanceof Double) {
 	  value = Math.round((Double)value);
 	}
-	result = new Integer(value.toString());
+	result = Integer.valueof(value.toString());
       } catch (final NumberFormatException |
 	       NullPointerException exception) {
 	throw new ProcessorException(
@@ -193,7 +193,7 @@ public class ScriptProcessor {
 	if (value instanceof Double) {
 	  value = Math.round((Double)value);
 	}
-	result = new Long(value.toString());
+	result = Long.valueOf(value.toString());
       } catch (final NumberFormatException |
 	       NullPointerException exception) {
 	throw new ProcessorException(
@@ -251,7 +251,7 @@ public class ScriptProcessor {
 	} else if (value instanceof Float) {
 	  result = (Float)value;
 	} else {
-	  result = new Float(value.toString());
+	  result = Float.valueOf(value.toString());
 	}
       } catch (final NumberFormatException |
 	       NullPointerException exception) {
@@ -282,7 +282,7 @@ public class ScriptProcessor {
 	} else if (value instanceof Float) {
 	  result = ((Float)value).doubleValue();
 	} else {
-	  result = new Double(value.toString());
+	  result = Double.valueOf(value.toString());
 	}
       } catch (final NumberFormatException |
 	       NullPointerException exception) {
