@@ -6,14 +6,15 @@ language:
 sudo:
   - false
 
+jvm:
+  - "oraclejdk8"
+  - "openjdk8"
+
 addons:
   apt:
     packages:
       - "oracle-java8-installer"
-
-jvm:
-  - "oraclejdk8"
-  - "openjdk8"
+      - "ant-optional"
 
 script:
   - "ant test"
