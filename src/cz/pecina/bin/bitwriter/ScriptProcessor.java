@@ -165,7 +165,7 @@ public class ScriptProcessor {
 	if (value instanceof Double) {
 	  value = Math.round((Double)value);
 	}
-	result = Integer.valueof(value.toString());
+	result = Integer.valueOf(value.toString());
       } catch (final NumberFormatException |
 	       NullPointerException exception) {
 	throw new ProcessorException(
