@@ -18,5 +18,6 @@ addons:
 script:
   - |
     export JAVAC_SOURCE_VER=$(javac -version 2>&1 | cut -f 2 -d ' ')
-    export JAVAC_TARGET_VER=${JAVAC_SOURCE_VER%%_*}
+    tempver=${JAVAC_SOURCE_VER%%_*}
+    export JAVAC_TARGET_VER=${tempver%.*}
     ant test
