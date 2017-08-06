@@ -4,22 +4,27 @@ language: "java"
 
 sudo: false
 
-jdk:
-  - "oraclejdk8"
-  - "openjdk8"
-  - "oraclejdk9"
+matrix:
+  include:
+    - jdk: "oraclejdk8"
+      env: "JAVAC_SOURCE_VER=1.8 JAVAC_TARGET_VER=1.8"
+      addons:
+        apt:
+          packages:
+            - "oracle-java8-installer"
+    - jdk: "openjdk8"
+      env: "JAVAC_SOURCE_VER=1.8 JAVAC_TARGET_VER=1.8"
+      addons:
+        apt:
+          packages:
+            - "oracle-java8-installer"
+    - jdk: "oraclejdk9"
+      env: "JAVAC_SOURCE_VER=9 JAVAC_TARGET_VER=9"
 
 addons:
   apt:
     packages:
-      - "oracle-java8-installer"
       - "ant-optional"
 
 script:
-  - |
-    tempver=$(javac -version 2>&1 | cut -f 2 -d ' ')
-    echo $tempver
-    export JAVAC_SOURCE_VER=${tempver%.*}
-    echo $JAVAC_SOURCE_VER
-    export JAVAC_TARGET_VER=$JAVAC_SOURCE_VER
-    ant test
+  - "ant test"
