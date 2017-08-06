@@ -12,19 +12,20 @@ matrix:
         apt:
           packages:
             - "oracle-java8-installer"
+            - "ant-optional"
     - jdk: "openjdk8"
       env: "JAVAC_SOURCE_VER=1.8 JAVAC_TARGET_VER=1.8"
       addons:
         apt:
           packages:
             - "oracle-java8-installer"
+            - "ant-optional"
     - jdk: "oraclejdk9"
       env: "JAVAC_SOURCE_VER=9 JAVAC_TARGET_VER=9"
-
-addons:
-  apt:
-    packages:
-      - "ant-optional"
+      addons:
+        apt:
+          packages:
+            - "ant-optional"
 
 script:
   - "ant test"
