@@ -19,5 +19,6 @@ script:
   - |
     export JAVAC_SOURCE_VER=$(javac -version 2>&1 | sed -e 's/^javac \([0-9]\+\.[0-9]\+\).*$/\1/')
     export JAVAC_TARGET_VER=$JAVAC_SOURCE_VER
-
-  - "ant test"
+    echo $JAVAC_SOURCE_VER
+    echo $JAVAC_TARGET_VER
+    ant test
