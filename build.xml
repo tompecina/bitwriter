@@ -54,9 +54,9 @@
   <property name="jar.dir"
 	    value="${user.home}/bin/lib"/>
   <property name="javac.source.version"
-	    value="${ant.build.javac.source}"/>
+	    value="1.9"/>
   <property name="javac.target.version"
-	    value="${ant.build.javac.target}"/>
+	    value="1.9"/>
   <property name="tests"
 	    value="Test*"/>
   <property name="args"
