@@ -6,7 +6,7 @@ language:
 sudo:
   - false
 
-jvm:
+jdk:
   - "oraclejdk8"
   - "openjdk8"
 
