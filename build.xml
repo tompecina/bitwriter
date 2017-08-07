@@ -53,10 +53,13 @@
 	    value="temp"/>
   <property name="jar.dir"
 	    value="${user.home}/bin/lib"/>
-  <property name="javac.source.version"
-	    value="9"/>
-  <property name="javac.target.version"
-	    value="9"/>
+  <property nameenvironment="env"/>
+  <condition property="javac.source.version" value="${env.JAVAC_SOURCE_VER}" else="1.8">
+    <isset property="env.JAVAC_SOURCE_VER" />
+  </condition>
+  <condition property="javac.target.version" value="${env.JAVAC_TARGET_VER}" else="1.8">
+    <isset property="env.JAVAC_TARGET_VER" />
+  </condition>
   <property name="tests"
 	    value="Test*"/>
   <property name="args"
