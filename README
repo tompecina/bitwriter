@@ -304,9 +304,9 @@ input stream.  Possible values are "big" and "little".  If "big", the data is
 copied without any transformation, if "little", the order of elements (not
 necessarily bytes) is reversed.
 
-"endianness-out" -- Optional, Boolean, default "little".  The output
-endianness mode, determining the manner in which the output stream is formed
-from the aggreagate output.
+"endianness-out" -- Optional, values like for "endianness-in", default
+ "little".  The output endianness mode, determining the manner in which the
+ output stream is formed from the aggreagate output.
 
 "reflect-in" -- Optional, Boolean, default "false".  It determines the order
 in which bits enter the bit stream.  If "true", the bit order is reversed,
@@ -381,7 +381,7 @@ Octal data.  The content tokens are interpreted as octal data.
 
 Content:
 
-Decimal numbers, including scripts, <flush> and <script>.
+Octal numbers, including scripts, <flush> and <script>.
 
 Attributes:
 
@@ -557,7 +557,7 @@ downstream direction, i.e., "on-input-stream" first and "on-output-stream"
 last.
 
 "on-stream-in" -- Optional, integer.  A value to which the variable is set on
-a any write to input stream.  Typically a script, evaluation is deferred until
+any write to input stream.  Typically a script, evaluation is deferred until
 the actual write and triggering of the event.  In addition to normal XML
 variables, the binding includes the variable "val", set to the BigInteger data
 just written.  If the attibute is omitted, the previous value is preserved; to
@@ -635,7 +635,7 @@ variable must exist.
 "value" -- Optional, integer value to be written instead of the variable.
 Either "name" or "value" must be specified.
 
-"type" -- Optinal, default "stream-in".  Destination stream for the data.
+"type" -- Optional, default "stream-in".  Destination stream for the data.
 Possible values are: "stream-in", "aggregate-stream-in", "bitstream",
 "aggregate-stream-out", "stream-out", "output-stream".
 
