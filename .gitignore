@@ -18,4 +18,5 @@ hs_err_pid*
 # Temporary files
 /build
 /build-src
+/target
 *.log

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<file xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.pecina.cz/xsd/bin-1.0.xsd" version="1.0">
+  <stream>
+    <include location="src/test/resources/cz/pecina/bin/bitwriter/test1.txt" repeat="2" length="900" offset="5"/>
+  </stream>
+</file>
