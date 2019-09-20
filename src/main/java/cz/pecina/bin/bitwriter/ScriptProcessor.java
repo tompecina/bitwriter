@@ -94,7 +94,7 @@ public class ScriptProcessor {
   }
 
   /**
-   * Evaluatess script, without conversion of the returned object.
+   * Evaluates script, without conversion of the returned object.
    *
    * @param     expression         expression to be evaluated
    * @return                       returned object
@@ -141,7 +141,7 @@ public class ScriptProcessor {
   }
 
   /**
-   * Evaluatess script and converts result to <code>int</code>.
+   * Evaluates script and converts result to <code>int</code>.
    *
    * @param     expression         expression to be evaluated
    * @return                       returned <code>int</code>
@@ -166,7 +166,7 @@ public class ScriptProcessor {
   }
 
   /**
-   * Evaluate script and convert result to <code>long</code>.
+   * Evaluates script and converts result to <code>long</code>.
    *
    * @param     expression         expression to be evaluated
    * @return                       returned <code>long</code>
@@ -191,7 +191,7 @@ public class ScriptProcessor {
   }
 
   /**
-   * Evaluatess script and converts result to <code>BigInteger</code>.
+   * Evaluates script and converts result to <code>BigInteger</code>.
    *
    * @param     expression         expression to be evaluated
    * @return                       returned <code>BigInteger</code>
@@ -279,11 +279,7 @@ public class ScriptProcessor {
    * @exception ProcessorException on error during evalation
    */
   public String evalAsString(final String expression) throws ProcessorException {
-    if (isScript(expression)) {
-      return eval(extractScript(expression)).toString();
-    } else {
-      return expression.trim();
-    }
+    return isScript(expression) ? eval(extractScript(expression)).toString() : expression.trim();
   }
 
   // for description see Object

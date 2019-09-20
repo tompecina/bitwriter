@@ -151,12 +151,12 @@ public class TestUtil extends TestCase {
 		 expected,
 		 actual);
   }
-    
+
   private void testStringToBigInteger(final String string,
 				      final int expected) {
     testStringToBigInteger(string, BigInteger.valueOf(expected));
   }
-    
+
   private void testStringToBigIntegerFail(final String string) {
     try {
       Util.stringToBigInteger(string);
@@ -165,7 +165,7 @@ public class TestUtil extends TestCase {
     }
     fail("stringToBigInteger() did not fail on: " + string);
   }
-    
+
   private static final String h =
     "e521f452e1aadc15e025d20c15d2f0a1e2f10e5c2d10e52f0a1d2f5e1f065a4";
   private static final String d =
@@ -241,7 +241,7 @@ public class TestUtil extends TestCase {
 		 expected,
 		 actual);
   }
-    
+
   private void testStringToIntFail(final String string) {
     try {
       Util.stringToInt(string);
@@ -250,7 +250,7 @@ public class TestUtil extends TestCase {
     }
     fail("stringToInt() did not fail on: " + string);
   }
-    
+
   public void testStringToInt() {
     testStringToInt("0x0", 0);
     testStringToInt("0x000000000", 0);
@@ -312,7 +312,7 @@ public class TestUtil extends TestCase {
     assertEquals("stringToLong() error, string: " + string +
 		 ", yielded result: " + actual, expected, actual);
   }
-    
+
   private void testStringToLongFail(final String string) {
     try {
       Util.stringToLong(string);
@@ -321,7 +321,7 @@ public class TestUtil extends TestCase {
     }
     fail("stringToLong() did not fail on: " + string);
   }
-    
+
   public void testStringToLong() {
     testStringToLong("0x0", 0);
     testStringToLong("0x000000000", 0);
@@ -383,7 +383,7 @@ public class TestUtil extends TestCase {
     assertEquals("stringToFloat() error, string: " + string +
 		 ", yielded result: " + actual, expected, actual, 1e-6);
   }
-    
+
   private void testStringToFloatFail(final String string) {
     try {
       Util.stringToFloat(string);
@@ -392,7 +392,7 @@ public class TestUtil extends TestCase {
     }
     fail("stringToFloat() did not fail on: " + string);
   }
-    
+
   public void testStringToFloat() {
     testStringToFloat("0", 0);
     testStringToFloat("0.0", 0);
@@ -442,7 +442,7 @@ public class TestUtil extends TestCase {
     assertEquals("stringToDouble() error, string: " + string +
 		 ", yielded result: " + actual, expected, actual, 1e-6);
   }
-    
+
   private void testStringToDoubleFail(final String string) {
     try {
       Util.stringToDouble(string);
@@ -451,7 +451,7 @@ public class TestUtil extends TestCase {
     }
     fail("stringToDouble() did not fail on: " + string);
   }
-    
+
   public void testStringToDouble() {
     testStringToDouble("0", 0);
     testStringToDouble("0.0", 0);
@@ -501,7 +501,7 @@ public class TestUtil extends TestCase {
     assertEquals("stringToBoolean() error, string: " + string +
 		 ", yielded result: " + actual, expected, actual);
   }
-    
+
   private void testStringToBooleanFail(final String string) {
     try {
       Util.stringToBoolean(string);
@@ -510,7 +510,7 @@ public class TestUtil extends TestCase {
     }
     fail("stringToBoolean() did not fail on: " + string);
   }
-    
+
   public void testStringToBoolean() {
     testStringToBoolean(" true", true);
     testStringToBoolean("1  ", true);
