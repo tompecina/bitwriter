@@ -6,20 +6,8 @@ language: "java"
 
 sudo: "false"
 
-matrix:
-  include:
-    - jdk: "oraclejdk8"
-      env: "JAVAC_SOURCE_VER=1.8 JAVAC_TARGET_VER=1.8"
-    - jdk: "openjdk8"
-      env: "JAVAC_SOURCE_VER=1.8 JAVAC_TARGET_VER=1.8"
-    - jdk: "oraclejdk9"
-      env: "JAVAC_SOURCE_VER=9 JAVAC_TARGET_VER=9"
-
-addons:
-  apt:
-    packages:
-      - "oracle-java8-installer"
-      - "ant-optional"
-
-script:
-  - "ant test"
+jdk:
+  - "openjdk9"
+  - "openjdk-ea"
+  - "oraclejdk9"
+  - "oraclejdk-ea"
