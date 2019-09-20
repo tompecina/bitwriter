@@ -1,6 +1,6 @@
 /* Constants.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,13 +17,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
-import javax.xml.XMLConstants;
 import java.nio.charset.Charset;
+import javax.xml.XMLConstants;
 
 /**
  * Constants.
@@ -36,8 +38,8 @@ public final class Constants {
   /**
    * <code>BigInteger</code> constant <code>0xff</code>.
    */
-  public static BigInteger FF = BigInteger.valueOf(0xff);
-    
+  public static final BigInteger FF = BigInteger.valueOf(0xff);
+
   /**
    * Exit code: Success.
    */
@@ -81,25 +83,20 @@ public final class Constants {
   /**
    * Default charset.
    */
-  public static final String DEFAULT_CHARSET =
-    Charset.defaultCharset().name();
+  public static final String DEFAULT_CHARSET = Charset.defaultCharset().name();
 
   /**
    * XML preamble.
    */
-  public static final String XML_PREAMBLE = String.format(
-    "<?xml version=\"1.0\" encoding=\"" + DEFAULT_CHARSET + "\"?>%n" +
-    "<file xmlns:xsi=\"%3$s\" xsi:noNamespaceSchemaLocation=" +
-    "\"%1$sbin-%2$s.xsd\" version=\"%2$s\">%n",
-    SCHEMA_PREFIX,
-    FILE_XML_FILE_VERSION,
-    XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
+  public static final String XML_PREAMBLE = String.format("<?xml version=\"1.0\" encoding=\"" + DEFAULT_CHARSET
+      + "\"?>%n<file xmlns:xsi=\"%3$s\" xsi:noNamespaceSchemaLocation=\"%1$sbin-%2$s.xsd\" version=\"%2$s\">%n",
+      SCHEMA_PREFIX, FILE_XML_FILE_VERSION, XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
 
   /**
    * XML postamble.
    */
   public static final String XML_POSTAMBLE = String.format("%n</file>%n");
-    
+
   /**
    * Script delimiter.
    */
@@ -121,5 +118,5 @@ public final class Constants {
   public static final String ESCAPED_SCRIPT_SUFFIX = "\\}\\}";
 
   // default constructor disabled
-  private Constants() {};
+  private Constants() { }
 }

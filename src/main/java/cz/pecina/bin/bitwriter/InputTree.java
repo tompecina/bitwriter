@@ -1,6 +1,6 @@
 /* InputTree.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,14 +17,16 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
 import java.io.InputStream;
+import java.util.logging.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import java.util.logging.Logger;
 
 /**
  * Input XML tree parser.
@@ -35,12 +37,11 @@ import java.util.logging.Logger;
 public class InputTree {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(InputTree.class.getName());
+  private static final Logger log = Logger.getLogger(InputTree.class.getName());
 
   // fields
   protected Element rootElement;
-    
+
   /**
    * Gets the root element of the parsed tree.
    *
@@ -64,23 +65,16 @@ public class InputTree {
    *                               to be parsed
    * @exception ProcessorException on parsing error
    */
-  public InputTree(final InputStream inputStream
-		   ) throws ProcessorException {
+  public InputTree(final InputStream inputStream) throws ProcessorException {
     log.fine("Parsing input data");
 
-    final Document doc = XmlParser.parse(
-      inputStream,
-      "bin-" + Constants.FILE_XML_FILE_VERSION + ".xsd",
-      true);
+    final Document doc = XmlParser.parse(inputStream, "bin-" + Constants.FILE_XML_FILE_VERSION + ".xsd", true);
     rootElement = doc.getDocumentElement();
     if (!rootElement.getTagName().equals("file")) {
-      throw new ProcessorException(
-        "Invalid input file, no <file> tag");
+      throw new ProcessorException("Invalid input file, no <file> tag");
     }
-    if (!Constants.FILE_XML_FILE_VERSION.equals(
-        rootElement.getAttribute("version"))) {
-      throw new ProcessorException(
-        "Invalid input file, version mismatch");
+    if (!Constants.FILE_XML_FILE_VERSION.equals(rootElement.getAttribute("version"))) {
+      throw new ProcessorException("Invalid input file, version mismatch");
     }
     log.fine("Parsing completed");
   }

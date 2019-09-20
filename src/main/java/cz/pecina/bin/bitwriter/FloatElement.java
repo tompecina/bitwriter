@@ -1,6 +1,6 @@
 /* FloatElement.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,16 +17,18 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
+import java.math.BigInteger;
 import java.util.logging.Logger;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.Text;
 
 /**
  * Object representing a floating-point element, ie, &lt;float&gt;
@@ -38,78 +40,60 @@ import java.util.logging.Logger;
 public class FloatElement extends ParsedElement {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(FloatElement.class.getName());
+  private static final Logger log = Logger.getLogger(FloatElement.class.getName());
 
   // processes the element
-  private void process(final boolean isDouble
-		       ) throws ProcessorException, IOException {
+  private void process(final boolean isDouble) throws ProcessorException, IOException {
     log.fine("Processing floating-point element,");
-    final int count = extractIntegerAttribute(element,
-					      "repeat",
-					      0,
-					      null,
-					      1,
-					      processor.getScriptProcessor());
+    final int count = extractIntegerAttribute(element, "repeat", 0, null, 1, processor.getScriptProcessor());
     for (int iter = 0; iter < count; iter++) {
-      for (Node content: children(element)) {
-	if (content instanceof Text) {
-	  final String trimmedText = ((Text)content)
-	    .getTextContent().trim();
-	  if (trimmedText.isEmpty()) {
-	    continue;
-	  }
-	  for (String split: new ScriptLine(trimmedText)) {
-	    log.finer("Processing segment: " + split);
-	    final BigInteger value;
-	    if (ScriptProcessor.isScript(split)) {
-	      if (isDouble) {
-		value = BigInteger.valueOf(
-		  Double.doubleToLongBits(processor.getScriptProcessor()
-					  .evalAsDouble(split)));
-	      } else {
-		value = BigInteger.valueOf(
-	          Float.floatToIntBits(processor.getScriptProcessor()
-				       .evalAsFloat(split)));
-	      }
-	    } else {
-	      try {
-		if (isDouble) {
-		  value = BigInteger.valueOf(
-		    Double.doubleToLongBits(Util.stringToDouble(split)));
-		} else {
-		  value = BigInteger.valueOf(
-		    Float.floatToIntBits(Util.stringToFloat(split)));
-		}
-	      } catch (final NumberFormatException |
-		       NullPointerException exception) {
-		throw new ProcessorException("Illegal number format (2): " +
-					     split);
-	      }
-	    }
-	    write(value);
-	  }
-	} else if (content instanceof Element) {
-	  final Element innerElement = (Element)content;
-	  switch (innerElement.getTagName()) {
-	    case "flush":
-	      new FlushElement(processor, innerElement);
-	      break;
-	    case "script":
-	      new ScriptElement(processor, innerElement);
-	      break;
-	    default:
-	      VariableElement.create(processor,
-				     innerElement,
-				     false);
-	      break;
-	  }
-	}
+      for (Node content : children(element)) {
+        if (content instanceof Text) {
+          final String trimmedText = ((Text) content).getTextContent().trim();
+          if (trimmedText.isEmpty()) {
+            continue;
+          }
+          for (String split : new ScriptLine(trimmedText)) {
+            log.finer("Processing segment: " + split);
+            final BigInteger value;
+            if (ScriptProcessor.isScript(split)) {
+              if (isDouble) {
+                value = BigInteger.valueOf(Double.doubleToLongBits(processor.getScriptProcessor().evalAsDouble(split)));
+              } else {
+                value = BigInteger.valueOf(Float.floatToIntBits(processor.getScriptProcessor().evalAsFloat(split)));
+              }
+            } else {
+              try {
+                if (isDouble) {
+                  value = BigInteger.valueOf(Double.doubleToLongBits(Util.stringToDouble(split)));
+                } else {
+                  value = BigInteger.valueOf(Float.floatToIntBits(Util.stringToFloat(split)));
+                }
+              } catch (final NumberFormatException | NullPointerException exception) {
+                throw new ProcessorException("Illegal number format (2): " + split);
+              }
+            }
+            write(value);
+          }
+        } else if (content instanceof Element) {
+          final Element innerElement = (Element) content;
+          switch (innerElement.getTagName()) {
+            case "flush":
+              new FlushElement(processor, innerElement);
+              break;
+            case "script":
+              new ScriptElement(processor, innerElement);
+              break;
+            default:
+              VariableElement.create(processor, innerElement, false);
+              break;
+          }
+        }
       }
     }
     log.fine("Floating-point element processed");
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -127,15 +111,13 @@ public class FloatElement extends ParsedElement {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public FloatElement(final InputTreeProcessor processor,
-		      final Element element,
-		      final boolean isDouble
-		      ) throws ProcessorException, IOException {
+  public FloatElement(final InputTreeProcessor processor, final Element element, final boolean isDouble)
+      throws ProcessorException, IOException {
     super(processor, element);
     log.fine("Floating-point element creation started");
 
     process(isDouble);
-	
+
     log.fine("Floating-point element set up");
   }
 }

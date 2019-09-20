@@ -1,6 +1,6 @@
 /* InAggregateStream.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,12 +17,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.logging.Logger;
 
 /**
@@ -34,8 +36,7 @@ import java.util.logging.Logger;
 public class InAggregateStream implements Stream {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(InAggregateStream.class.getName());
+  private static final Logger log = Logger.getLogger(InAggregateStream.class.getName());
 
   // fields
   protected InputTreeProcessor processor;
@@ -65,7 +66,7 @@ public class InAggregateStream implements Stream {
     log.finer("Getting widthInAggregate: " + widthInAggregate);
     return widthInAggregate;
   }
-    
+
   /**
    * Sets input reflection.
    *
@@ -76,7 +77,7 @@ public class InAggregateStream implements Stream {
     this.reflectIn = reflectIn;
     reset();
   }
-    
+
   /**
    * Gets input reflection.
    *
@@ -101,14 +102,13 @@ public class InAggregateStream implements Stream {
   @Override
   public void reset() {
     log.fine("Resetting InAggregateStream");
-  };
-    
+  }
+
   // for description see Stream
   @Override
-  public void write(BigInteger value) throws IOException {
-    log.finest("Writing BigInteger to InAggregateStream: " +
-	       Util.bigIntegerToString(value));
-    value = value.and(mask);
+  public void write(final BigInteger arg) throws IOException {
+    log.finest("Writing BigInteger to InAggregateStream: " + Util.bigIntegerToString(arg));
+    final BigInteger value = arg.and(mask);
     try {
       processor.trigger(Variable.Type.AGGREGATE_STREAM_IN, value);
     } catch (final ProcessorException exception) {
@@ -116,14 +116,11 @@ public class InAggregateStream implements Stream {
     }
     final int offset = (reflectIn ? 0 : (widthInAggregate - 1));
     final int step = (reflectIn ? 1 : -1);
-    for (int i = offset;
-	 (reflectIn ? (i < widthInAggregate) : (i >= 0));
-	 i += step) {
-      bitStream.write(
-        value.testBit(i) ? BigInteger.ONE : BigInteger.ZERO);
+    for (int i = offset; (reflectIn ? (i < widthInAggregate) : (i >= 0)); i += step) {
+      bitStream.write(value.testBit(i) ? BigInteger.ONE : BigInteger.ZERO);
     }
   }
-    
+
   // for description see Stream
   @Override
   public void flush() throws IOException {
@@ -137,7 +134,7 @@ public class InAggregateStream implements Stream {
     log.fine("Closing InAgregateStream");
     bitStream.close();
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -150,14 +147,13 @@ public class InAggregateStream implements Stream {
    * @param processor input tree processor object
    * @param bitStream downstream bit stream
    */
-  public InAggregateStream(final InputTreeProcessor processor,
-			   final BitStream bitStream) {
+  public InAggregateStream(final InputTreeProcessor processor, final BitStream bitStream) {
     log.fine("InAggregateStream creation started");
 
     this.processor = processor;
     this.bitStream = bitStream;
     setDefaults();
-	
+
     log.fine("InAggregateStream creation completed");
   }
 }

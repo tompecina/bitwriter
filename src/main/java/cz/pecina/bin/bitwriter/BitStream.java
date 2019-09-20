@@ -1,6 +1,6 @@
 /* BitStream.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,12 +17,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.logging.Logger;
 
 /**
@@ -33,8 +35,7 @@ import java.util.logging.Logger;
  */
 public class BitStream implements Stream {
   // static logger
-  private static final Logger log =
-    Logger.getLogger(BitStream.class.getName());
+  private static final Logger log = Logger.getLogger(BitStream.class.getName());
 
   // fields
   protected InputTreeProcessor processor;
@@ -44,8 +45,8 @@ public class BitStream implements Stream {
   protected int counter;
   protected int offset;
   protected int step;
-  protected static final BigInteger mask = BigInteger.ONE;
-  
+  protected static final BigInteger MASK = BigInteger.ONE;
+
   /**
    * Sets output reflection.
    *
@@ -56,7 +57,7 @@ public class BitStream implements Stream {
     this.reflectOut = reflectOut;
     reset();
   }
-    
+
   /**
    * Gets output reflection.
    *
@@ -66,7 +67,7 @@ public class BitStream implements Stream {
     log.finer("Getting input reflection: " + reflectOut);
     return reflectOut;
   }
-    
+
   // for description see Stream
   @Override
   public void setDefaults() {
@@ -74,7 +75,7 @@ public class BitStream implements Stream {
     reflectOut = false;
     reset();
   }
-  
+
   // for description see Stream
   @Override
   public void reset() {
@@ -92,10 +93,9 @@ public class BitStream implements Stream {
 
   // for description see Stream
   @Override
-  public void write(BigInteger value) throws IOException {
-    log.finest("Writing BigInteger to BitStream: " +
-	       Util.bigIntegerToString(value));
-    value = value.and(mask);
+  public void write(final BigInteger arg) throws IOException {
+    log.finest("Writing BigInteger to BitStream: " + Util.bigIntegerToString(arg));
+    final BigInteger value = arg.and(MASK);
     try {
       processor.trigger(Variable.Type.BITSTREAM, value);
     } catch (final ProcessorException exception) {
@@ -112,28 +112,28 @@ public class BitStream implements Stream {
       reset();
     }
   }
-    
+
   // for description see Stream
   @Override
   public void flush() throws IOException {
     log.finer("Flushing BitStream");
     if (counter != outAggregateStream.getWidthOutAggregate()) {
       if (!reflectOut) {
-	buffer = buffer.shiftRight(counter);
+        buffer = buffer.shiftRight(counter);
       }
       outAggregateStream.write(buffer);
       reset();
     }
     outAggregateStream.flush();
   }
-  
+
   // for description see Stream
   @Override
   public void close() throws IOException {
     log.fine("Closing BitStream");
     outAggregateStream.close();
-  }	
-  
+  }
+
   // for description see Object
   @Override
   public String toString() {
@@ -146,14 +146,13 @@ public class BitStream implements Stream {
    * @param processor          input tree processor object
    * @param outAggregateStream downstream output aggregate stream
    */
-  public BitStream(final InputTreeProcessor processor,
-		   final OutAggregateStream outAggregateStream) {
+  public BitStream(final InputTreeProcessor processor, final OutAggregateStream outAggregateStream) {
     log.fine("BitStream creation started");
-    
+
     this.processor = processor;
     this.outAggregateStream = outAggregateStream;
     setDefaults();
-    
+
     log.fine("BitStream creation completed");
   }
 }

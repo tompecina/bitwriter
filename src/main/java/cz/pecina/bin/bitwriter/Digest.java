@@ -1,6 +1,6 @@
 /* Digest.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,6 +17,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
@@ -35,8 +37,7 @@ import java.util.logging.Logger;
 public class Digest extends Calculator {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(Digest.class.getName());
+  private static final Logger log = Logger.getLogger(Digest.class.getName());
 
   // fields
   protected MessageDigest digest;
@@ -46,14 +47,13 @@ public class Digest extends Calculator {
   public BigInteger getRegister() {
     byte[] buffer;
     try {
-      buffer = ((MessageDigest)(digest.clone())).digest();
+      buffer = ((MessageDigest) (digest.clone())).digest();
     } catch (final CloneNotSupportedException exception) {
       buffer = new byte[1];
     }
     BigInteger r = BigInteger.ZERO;
     for (int i = 0; i < buffer.length; i++) {
-      r = r.shiftLeft(8).or(BigInteger
-			    .valueOf(buffer[i] & 0xff));
+      r = r.shiftLeft(8).or(BigInteger.valueOf(buffer[i] & 0xff));
     }
     log.finer("Getting register: " + Util.bigIntegerToString(r));
     return r;
@@ -63,14 +63,14 @@ public class Digest extends Calculator {
   @Override
   public void updateBit(final int b) {
     log.finest("Updating digest with bit: " + (b & 1));
-    digest.update((byte)(b & 1));
+    digest.update((byte) (b & 1));
   }
 
   // for description see Calculator
   @Override
   public void updateBit(final boolean b) {
     log.finest("Updating Digest with bit: " + b);
-    digest.update((byte)(b ? 1 : 0));
+    digest.update((byte) (b ? 1 : 0));
   }
 
   // for description see Calculator
@@ -84,14 +84,14 @@ public class Digest extends Calculator {
   @Override
   public void update(final int b) {
     log.finest("Updating Digest with: " + b);
-    digest.update((byte)b);
+    digest.update((byte) b);
   }
 
   // for description see Calculator
   @Override
   public void update(final BigInteger b) {
     log.finest("Updating Digest with: " + Util.bigIntegerToString(b));
-    digest.update((byte)(b.and(Constants.FF).intValue()));
+    digest.update((byte) (b.and(Constants.FF).intValue()));
   }
 
   // for description see Object
@@ -108,7 +108,7 @@ public class Digest extends Calculator {
    */
   public Digest(final String model) throws ProcessorException {
     log.fine("Creation of new Digest started");
-	
+
     try {
       digest = MessageDigest.getInstance(model);
     } catch (final NoSuchAlgorithmException exception) {
@@ -117,10 +117,9 @@ public class Digest extends Calculator {
     try {
       digest.clone();
     } catch (final CloneNotSupportedException exception) {
-      throw new ProcessorException("Algorithm '" + model +
-				   "' cannot be used, no support for cloning");
+      throw new ProcessorException("Algorithm '" + model + "' cannot be used, no support for cloning");
     }
-	
+
     log.fine("Creation of new Digest completed");
   }
 }

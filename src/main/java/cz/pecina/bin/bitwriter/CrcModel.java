@@ -1,6 +1,6 @@
 /* CrcModel.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,13 +17,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -35,8 +37,7 @@ import java.util.logging.Logger;
 public class CrcModel {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(CrcModel.class.getName());
+  private static final Logger log = Logger.getLogger(CrcModel.class.getName());
 
   // fields
   protected String id;
@@ -58,12 +59,11 @@ public class CrcModel {
   public void setId(final String id) throws ProcessorException {
     log.finer("Setting ID to: " + id);
     if ((id == null) || id.isEmpty()) {
-      throw new ProcessorException(
-        "Null or empty string not allowed for CRC model ID");
+      throw new ProcessorException("Null or empty string not allowed for CRC model ID");
     }
     this.id = id;
   }
-    
+
   /**
    * Gets the model ID.
    *
@@ -73,7 +73,7 @@ public class CrcModel {
     log.finer("Getting ID: " + id);
     return id;
   }
-    
+
   /**
    * Adds a new name (alias) of the model.
    *
@@ -83,12 +83,11 @@ public class CrcModel {
   public void addName(final String name) throws ProcessorException {
     log.finer("Adding name: " + name);
     if ((name == null) || name.isEmpty()) {
-      throw new ProcessorException(
-        "Null or empty string not allowed for CRC model name");
+      throw new ProcessorException("Null or empty string not allowed for CRC model name");
     }
     names.add(name);
   }
-    
+
   /**
    * Gets the list of model names (aliases).
    *
@@ -98,7 +97,7 @@ public class CrcModel {
     log.finest("Getting names: " + names);
     return names;
   }
-    
+
   /**
    * Sets the (optional) model description.
    *
@@ -106,16 +105,14 @@ public class CrcModel {
    * @exception ProcessorException if invalid <code>description</code>
    *                               supplied
    */
-  public void setDescription(final String description
-			     ) throws ProcessorException {
+  public void setDescription(final String description) throws ProcessorException {
     log.finer("Setting description to: " + description);
     if ((description == null) || description.isEmpty()) {
-      throw new ProcessorException(
-        "Null or empty string not allowed for CRC model description");
+      throw new ProcessorException("Null or empty string not allowed for CRC model description");
     }
     this.description = description;
   }
-    
+
   /**
    * Gets the (optional) model description.
    *
@@ -125,36 +122,33 @@ public class CrcModel {
     log.finest("Getting description: " + description);
     return description;
   }
-    
+
   /**
    * Sets the generator polynomial of the model.
    *
    * @param     polynomial         the generator polynomial of the model
    * @exception ProcessorException if <code>null</code> polynomial supplied
    */
-  public void setPolynomial(final Polynomial polynomial
-			    ) throws ProcessorException {
-    log.finer("Setting polynomial object, polynomial: " +
-	      Util.bigIntegerToString(polynomial.getPolynomial()) +
-	      ", width: " + polynomial.getWidth());
+  public void setPolynomial(final Polynomial polynomial) throws ProcessorException {
+    log.finer("Setting polynomial object, polynomial: " + Util.bigIntegerToString(polynomial.getPolynomial())
+        + ", width: " + polynomial.getWidth());
     if (polynomial == null) {
       throw new ProcessorException("Null not allowed for CRC polynomial");
     }
     this.polynomial = polynomial;
   }
-    
+
   /**
    * Gets the generator polynomial of the model.
    *
    * @return the generator polynomial of the model
    */
   public Polynomial getPolynomial() {
-    log.finest("Getting polynomial object, polynomial: " +
-	       Util.bigIntegerToString(polynomial.getPolynomial()) +
-	       ", width: " + polynomial.getWidth());
+    log.finest("Getting polynomial object, polynomial: " + Util.bigIntegerToString(polynomial.getPolynomial())
+        + ", width: " + polynomial.getWidth());
     return polynomial;
   }
-    
+
   /**
    * Sets the input reflection of the model.
    *
@@ -164,7 +158,7 @@ public class CrcModel {
     log.finer("Setting reflectIn to: " + reflectIn);
     this.reflectIn = reflectIn;
   }
-    
+
   /**
    * Gets the input reflection of the model.
    *
@@ -174,7 +168,7 @@ public class CrcModel {
     log.finest("Getting reflectIn: " + reflectIn);
     return reflectIn;
   }
-    
+
   /**
    * Sets the inital mask of the model.
    *
@@ -188,7 +182,7 @@ public class CrcModel {
     }
     this.xorIn = xorIn;
   }
-    
+
   /**
    * Gets the inital mask of the model.
    *
@@ -198,7 +192,7 @@ public class CrcModel {
     log.finest("Getting xorIn: " + Util.bigIntegerToString(xorIn));
     return xorIn;
   }
-    
+
   /**
    * Sets the output reflection of the model.
    *
@@ -208,7 +202,7 @@ public class CrcModel {
     log.finer("Setting reflectOut to: " + reflectOut);
     this.reflectOut = reflectOut;
   }
-    
+
   /**
    * Gets the output reflection of the model.
    *
@@ -218,7 +212,7 @@ public class CrcModel {
     log.finest("Getting reflectOut: " + reflectOut);
     return reflectOut;
   }
-    
+
   /**
    * Sets the final mask of the model.
    *
@@ -242,11 +236,11 @@ public class CrcModel {
     log.finest("Getting xorOut: " + Util.bigIntegerToString(xorOut));
     return xorOut;
   }
-    
+
   /**
    * Sets the (optional) check value of the model.
    *
-   * The check value is the CRC calculated on "123456789" in ASCII
+   * <p>The check value is the CRC calculated on "123456789" in ASCII
    * (i.e., {0x30, 0x31,... 0x39}).
    *
    * @param     check              the (optional) check value of the model
@@ -255,8 +249,7 @@ public class CrcModel {
   public void setCheck(final BigInteger check) throws ProcessorException {
     log.finer("Setting check to: " + Util.bigIntegerToString(check));
     if (check == null) {
-      throw new ProcessorException(
-				   "Null not allowed for CRC check value");
+      throw new ProcessorException("Null not allowed for CRC check value");
     }
     this.check = check;
   }
@@ -264,7 +257,7 @@ public class CrcModel {
   /**
    * Checks for the presence of the check value.
    *
-   * The check value is the CRC calculated on "123456789" in ASCII
+   * <p>The check value is the CRC calculated on "123456789" in ASCII
    * (i.e., {0x30, 0x31,... 0x39}).
    *
    * @return <code>true</code> if the check value is available
@@ -273,11 +266,11 @@ public class CrcModel {
     log.finer("Checking for presence of check: " + (check != null));
     return (check != null);
   }
-    
+
   /**
    * Gets of the check value.
    *
-   * The check value is the CRC calculated on "123456789" in ASCII
+   * <p>The check value is the CRC calculated on "123456789" in ASCII
    * (i.e., {0x30, 0x31,... 0x39}).
    *
    * @return the check value
@@ -286,7 +279,7 @@ public class CrcModel {
     log.finer("Getting check: " + Util.bigIntegerToString(check));
     return check;
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -303,21 +296,12 @@ public class CrcModel {
    * @param     xorOut             final mask
    * @exception ProcessorException on error in parameters
    */
-  public CrcModel(final Polynomial polynomial,
-		  final boolean reflectIn,
-		  final BigInteger xorIn,
-		  final boolean reflectOut,
-		  final BigInteger xorOut
-		  ) throws ProcessorException {
+  public CrcModel(final Polynomial polynomial, final boolean reflectIn, final BigInteger xorIn, final boolean reflectOut,
+      final BigInteger xorOut) throws ProcessorException {
     log.fine(String.format(
-      "CRC model called, with width: %d, polynomial: %s" +
-      ", reflectIn: %s, xorIn: %s, reflectOut: %s, xorOut: %s",
-      polynomial.getWidth(),
-      Util.bigIntegerToString(polynomial.getPolynomial()),
-      reflectIn,
-      Util.bigIntegerToString(xorIn),
-      reflectOut,
-      Util.bigIntegerToString(xorOut)));
+        "CRC model called, with width: %d, polynomial: %s reflectIn: %s, xorIn: %s, reflectOut: %s, xorOut: %s",
+        polynomial.getWidth(), Util.bigIntegerToString(polynomial.getPolynomial()), reflectIn,
+        Util.bigIntegerToString(xorIn), reflectOut, Util.bigIntegerToString(xorOut)));
 
     setPolynomial(polynomial);
     setReflectIn(reflectIn);

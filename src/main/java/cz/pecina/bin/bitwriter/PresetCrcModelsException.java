@@ -1,6 +1,6 @@
 /* PresetCrcModelsException.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,6 +17,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
@@ -32,8 +34,7 @@ import java.util.logging.Logger;
 public class PresetCrcModelsException extends Exception {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(PresetCrcModelsException.class.getName());
+  private static final Logger log = Logger.getLogger(PresetCrcModelsException.class.getName());
 
   // for description see Object
   @Override

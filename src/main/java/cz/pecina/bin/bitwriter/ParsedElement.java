@@ -1,6 +1,6 @@
 /* ParsedElement.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,18 +17,20 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.ArrayList;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Element;
-import java.util.logging.Logger;
 
 /**
  * Abstract class representing all XML elements.
@@ -39,15 +41,14 @@ import java.util.logging.Logger;
 public abstract class ParsedElement {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(ParsedElement.class.getName());
+  private static final Logger log = Logger.getLogger(ParsedElement.class.getName());
 
   /**
    * String array of all variable types.
    */
-  public static final String[] VARIABLE_TYPES = {
-    "stream-in", "aggregate-stream-in", "bitstream",
-    "aggregate-stream-out", "stream-out", "output-stream"};
+  public static final String[] VARIABLE_TYPES =
+      {"stream-in", "aggregate-stream-in", "bitstream", "aggregate-stream-out", "stream-out", "output-stream"};
+
   /**
    * String array of all party models.
    */
@@ -56,8 +57,7 @@ public abstract class ParsedElement {
   /**
    * String array of all polynomial notations.
    */
-  public static final String[] POLYNOMIAL_NOTATIONS = {
-    "normal", "full", "reversed", "koopman"};
+  public static final String[] POLYNOMIAL_NOTATIONS = {"normal", "full", "reversed", "koopman"};
 
   /**
    * String array of all endianness types.
@@ -79,12 +79,12 @@ public abstract class ParsedElement {
     final NodeList nodes = element.getChildNodes();
     for (int i = 0; i < nodes.getLength(); i++) {
       if (nodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-	list.add((Element)(nodes.item(i)));
+        list.add((Element) (nodes.item(i)));
       }
     }
     return list;
   }
-    
+
   /**
    * Get children <code>Node</code>s as a list.
    *
@@ -116,28 +116,17 @@ public abstract class ParsedElement {
    * @exception ProcessorException if the string does not represent a valid
    *                               integer value or on error in the script
    */
-  public static Integer extractIntegerAttribute(
-    final Element element,
-    final String attributeName,
-    final Integer minValue,
-    final Integer maxValue,
-    final Integer defaultValue,
-    final ScriptProcessor scriptProcessor
-    ) throws ProcessorException {
+  public static Integer extractIntegerAttribute(final Element element, final String attributeName,
+      final Integer minValue, final Integer maxValue, final Integer defaultValue, final ScriptProcessor scriptProcessor)
+      throws ProcessorException {
     if (!element.hasAttribute(attributeName)) {
       return defaultValue;
     }
     int r = 0;
     final String s = element.getAttribute(attributeName);
-    if (scriptProcessor != null) {
-      r = scriptProcessor.evalAsInt(s);
-    } else {
-      r = Util.stringToInt(s);
-    }
-    if (((minValue != null) && (r < minValue)) ||
-	((maxValue != null) && (r > maxValue))) {
-      throw new ProcessorException(
-        "Attribute '" + attributeName + "' out of range");
+    r = (scriptProcessor != null) ? scriptProcessor.evalAsInt(s) : Util.stringToInt(s);
+    if (((minValue != null) && (r < minValue)) || ((maxValue != null) && (r > maxValue))) {
+      throw new ProcessorException("Attribute '" + attributeName + "' out of range");
     }
     return r;
   }
@@ -158,28 +147,16 @@ public abstract class ParsedElement {
    * @exception ProcessorException if the string does not represent a valid
    *                               long value or on error in the script
    */
-  public static Long extractLongAttribute(
-    final Element element,
-    final String attributeName,
-    final Long minValue,
-    final Long maxValue,
-    final Long defaultValue,
-    final ScriptProcessor scriptProcessor
-    ) throws ProcessorException {
+  public static Long extractLongAttribute(final Element element, final String attributeName, final Long minValue,
+      final Long maxValue, final Long defaultValue, final ScriptProcessor scriptProcessor) throws ProcessorException {
     if (!element.hasAttribute(attributeName)) {
       return defaultValue;
     }
     long r = 0;
     final String s = element.getAttribute(attributeName);
-    if (scriptProcessor != null) {
-      r = scriptProcessor.evalAsLong(s);
-    } else {
-      r = Util.stringToLong(s);
-    }
-    if (((minValue != null) && (r < minValue)) ||
-	((maxValue != null) && (r > maxValue))) {
-      throw new ProcessorException(
-        "Attribute '" + attributeName + "' out of range");
+    r = (scriptProcessor != null) ? scriptProcessor.evalAsLong(s) :  Util.stringToLong(s);
+    if (((minValue != null) && (r < minValue)) || ((maxValue != null) && (r > maxValue))) {
+      throw new ProcessorException("Attribute '" + attributeName + "' out of range");
     }
     return r;
   }
@@ -202,32 +179,20 @@ public abstract class ParsedElement {
    * @exception ProcessorException if the string does not represent a valid
    *                               BigInteger value or on error in the script
    */
-  public static BigInteger extractBigIntegerAttribute(
-    final Element element,
-    final String attributeName,
-    final BigInteger minValue,
-    final BigInteger maxValue,
-    final BigInteger defaultValue,
-    final ScriptProcessor scriptProcessor
-    ) throws ProcessorException {
+  public static BigInteger extractBigIntegerAttribute(final Element element, final String attributeName,
+      final BigInteger minValue, final BigInteger maxValue, final BigInteger defaultValue,
+      final ScriptProcessor scriptProcessor) throws ProcessorException {
     log.finest(String.format(
-      "extractBigIntegerAttribute called, for element: %s," +
-      " attribute: %s, minValue: %s, maxValue: %s, defaultValue: %s",
-      element, attributeName, minValue, maxValue, defaultValue));
+        "extractBigIntegerAttribute called, for element: %s, attribute: %s, minValue: %s, maxValue: %s, defaultValue: %s",
+        element, attributeName, minValue, maxValue, defaultValue));
     if (!element.hasAttribute(attributeName)) {
       return defaultValue;
     }
     BigInteger r;
     final String s = element.getAttribute(attributeName);
-    if (scriptProcessor != null) {
-      r = scriptProcessor.evalAsBigInteger(s);
-    } else {
-      r = Util.stringToBigInteger(s);
-    }
-    if (((minValue != null) && (r.compareTo(minValue) < 0)) ||
-	((maxValue != null) && (r.compareTo(maxValue) > 0))) {
-      throw new ProcessorException(
-        "Attribute '" + attributeName + "' out of range");
+    r = (scriptProcessor != null) ? scriptProcessor.evalAsBigInteger(s) : Util.stringToBigInteger(s);
+    if (((minValue != null) && (r.compareTo(minValue) < 0)) || ((maxValue != null) && (r.compareTo(maxValue) > 0))) {
+      throw new ProcessorException("Attribute '" + attributeName + "' out of range");
     }
     log.finest("extractBigIntegerAttribute returns: " + r);
     return r;
@@ -247,12 +212,8 @@ public abstract class ParsedElement {
    * @exception ProcessorException if the string does not represent a valid
    *                               integer value or on error in the script
    */
-  public static Boolean extractBooleanAttribute(
-    final Element element,
-    final String attributeName,
-    final Boolean defaultValue,
-    final ScriptProcessor scriptProcessor
-    ) throws ProcessorException {
+  public static Boolean extractBooleanAttribute(final Element element, final String attributeName,
+      final Boolean defaultValue, final ScriptProcessor scriptProcessor) throws ProcessorException {
     if (!element.hasAttribute(attributeName)) {
       return defaultValue;
     }
@@ -264,12 +225,11 @@ public abstract class ParsedElement {
     try {
       r = Util.stringToBoolean(s);
     } catch (final ProcessorException exception) {
-      throw new ProcessorException(
-        "Error in attribute '" + attributeName + "'");
+      throw new ProcessorException("Error in attribute '" + attributeName + "'");
     }
     return r;
   }
-    
+
   /**
    * Extracts Boolean value from an attribute, evaluating scripts.
    * These must be properly marked.
@@ -288,14 +248,9 @@ public abstract class ParsedElement {
    *                               <code>trueString</code> or on error
    *                               in the script
    */
-  public static Boolean extractBooleanAttribute(
-    final Element element,
-    final String attributeName,
-    final String falseString,
-    final String trueString,
-    final Boolean defaultValue,
-    final ScriptProcessor scriptProcessor
-    ) throws ProcessorException {
+  public static Boolean extractBooleanAttribute(final Element element, final String attributeName,
+      final String falseString, final String trueString, final Boolean defaultValue, final ScriptProcessor scriptProcessor)
+      throws ProcessorException {
     if (!element.hasAttribute(attributeName)) {
       return defaultValue;
     }
@@ -309,12 +264,11 @@ public abstract class ParsedElement {
     } else if (s.equals(trueString)) {
       r = true;
     } else {
-      throw new ProcessorException("Error in attribute '" +
-				   attributeName + "'");
+      throw new ProcessorException("Error in attribute '" + attributeName + "'");
     }
     return r;
   }
-    
+
   /**
    * Extracts String value from an attribute according to options,
    *  evaluating scripts. These must be properly marked.
@@ -329,23 +283,18 @@ public abstract class ParsedElement {
    * @return                       string value of the attribute
    * @exception ProcessorException on error in the script
    */
-  public static String extractStringAttribute(
-    final Element element,
-    final String attributeName,
-    final String defaultValue,
-    final ScriptProcessor scriptProcessor
-    ) throws ProcessorException {
+  public static String extractStringAttribute(final Element element, final String attributeName,
+      final String defaultValue, final ScriptProcessor scriptProcessor) throws ProcessorException {
     if (!element.hasAttribute(attributeName)) {
       return defaultValue;
     }
     String r = element.getAttribute(attributeName);
     if (scriptProcessor != null) {
-      r = scriptProcessor.evalAsString(
-          element.getAttribute(attributeName).trim());
+      r = scriptProcessor.evalAsString(element.getAttribute(attributeName).trim());
     }
     return r;
   }
-    
+
   /**
    * Extracts String value from an attribute according to a list of options,
    * evaluating scripts. These must be properly marked.
@@ -362,13 +311,8 @@ public abstract class ParsedElement {
    *                               <code>options</code> or on error
    *                               in the script
    */
-  public static String extractStringArrayAttribute(
-    final Element element,
-    final String attributeName,
-    final String[] options,
-    final String defaultValue,
-    final ScriptProcessor scriptProcessor
-    ) throws ProcessorException {
+  public static String extractStringArrayAttribute(final Element element, final String attributeName,
+      final String[] options, final String defaultValue, final ScriptProcessor scriptProcessor) throws ProcessorException {
     if (!element.hasAttribute(attributeName)) {
       return defaultValue;
     }
@@ -376,15 +320,13 @@ public abstract class ParsedElement {
     if (scriptProcessor != null) {
       r = scriptProcessor.evalAsString(r.trim());
     }
-    for (String option: options) {
+    for (String option : options) {
       if (r.equals(option)) {
-	return r;
+        return r;
       }
     }
-    throw new ProcessorException(
-      "Error in input file, attribute value, element '" +
-      element.getTagName() + "', attribute '" +
-      attributeName + "', value '" + r + "'");
+    throw new ProcessorException("Error in input file, attribute value, element '" + element.getTagName()
+        + "', attribute '" + attributeName + "', value '" + r + "'");
   }
 
   /**
@@ -411,14 +353,12 @@ public abstract class ParsedElement {
    *                               the XML file
    * @exception ProcessorException on error in parameters
    */
-  public ParsedElement(final InputTreeProcessor processor,
-		       final Element element
-		       ) throws ProcessorException {
+  public ParsedElement(final InputTreeProcessor processor, final Element element) throws ProcessorException {
     log.fine("Parsed element creation started");
 
     this.processor = processor;
     this.element = element;
-	
+
     log.fine("Parsed element set up");
   }
 }

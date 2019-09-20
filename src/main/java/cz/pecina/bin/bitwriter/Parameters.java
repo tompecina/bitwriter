@@ -1,6 +1,6 @@
 /* Parameters.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,20 +17,22 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.ParseException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.logging.Logger;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 /**
  * Parse command line and extract parameters.
@@ -41,57 +43,65 @@ import java.util.logging.Logger;
 public class Parameters {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(Parameters.class.getName());
+  private static final Logger log = Logger.getLogger(Parameters.class.getName());
 
   // options
   private static final Options options = new Options();
+
   static {
     log.fine("Building options");
+
     options.addOption(
-      Option.builder("?")
-      .longOpt("help")
-      .desc("show usage information")
-      .build());
+        Option.builder("?")
+        .longOpt("help")
+        .desc("show usage information")
+        .build());
+
     options.addOption(
-      Option.builder("V")
-      .longOpt("version")
-      .desc("show version")
-      .build());
+        Option.builder("V")
+        .longOpt("version")
+        .desc("show version")
+        .build());
+
     options.addOption(
-      Option.builder("c")
-      .longOpt("crc-file")
-      .hasArg()
-      .argName("FILE")
-      .desc("XML file describing predefined CRC models")
-      .build());
+        Option.builder("c")
+        .longOpt("crc-file")
+        .hasArg()
+        .argName("FILE")
+        .desc("XML file describing predefined CRC models")
+        .build());
+
     options.addOption(
-      Option.builder("l")
-      .longOpt("list-crc-models")
-      .desc("list all avaiable CRC models")
-      .build());
+        Option.builder("l")
+        .longOpt("list-crc-models")
+        .desc("list all avaiable CRC models")
+        .build());
+
     options.addOption(
-      Option.builder("s")
-      .longOpt("string")
-      .hasArgs()
-      .argName("STRING")
-      .desc("input from literal STRING")
-      .build());
+        Option.builder("s")
+        .longOpt("string")
+        .hasArgs()
+        .argName("STRING")
+        .desc("input from literal STRING")
+        .build());
+
     options.addOption(
-      Option.builder("x")
-      .longOpt("hex-mode")
-      .desc("produce hex output")
-      .build());
+        Option.builder("x")
+        .longOpt("hex-mode")
+        .desc("produce hex output")
+        .build());
+
     options.addOption(
-      Option.builder("o")
-      .longOpt("output-file")
-      .hasArg()
-      .argName("FILE")
-      .desc("output file (STDOUT if none provided)")
-      .build());
+        Option.builder("o")
+        .longOpt("output-file")
+        .hasArg()
+        .argName("FILE")
+        .desc("output file (STDOUT if none provided)")
+        .build());
+
     log.fine("Options set up");
   }
-    
+
   /**
    * Prints usage information.
    *
@@ -101,15 +111,9 @@ public class Parameters {
     log.fine("Printing usage information");
     final HelpFormatter helpFormatter = new HelpFormatter();
     PrintWriter printWriter = new PrintWriter(stream);
-    helpFormatter.printHelp(
-      printWriter,
-      helpFormatter.getWidth(),
-      "bitwriter [options] [--] [input-file]...",
-      null,
-      options,
-      helpFormatter.getLeftPadding(),
-      helpFormatter.getDescPadding(),
-      "(C) 2015 Tomáš Pecina <tomas@pecina.cz>, license: GNU/GPL");
+    helpFormatter.printHelp(printWriter, helpFormatter.getWidth(), "bitwriter [options] [--] [input-file]...", null,
+        options, helpFormatter.getLeftPadding(), helpFormatter.getDescPadding(),
+        "(C) 2015 Tomáš Pecina <tomas@pecina.cz>, license: GNU/GPL");
     printWriter.close();
   }
 
@@ -132,7 +136,7 @@ public class Parameters {
     log.finer("Getting outputFileNameFlag: " + outputFileNameFlag);
     return outputFileNameFlag;
   }
-    
+
   /**
    * Gets the output file name.
    *
@@ -142,7 +146,7 @@ public class Parameters {
     log.finer("Getting outputFileName: " + outputFileName);
     return outputFileName;
   }
-    
+
   /**
    * Gets the CRC models file option.
    *
@@ -152,7 +156,7 @@ public class Parameters {
     log.finer("Getting crcFileNameFlag: " + crcFileNameFlag);
     return crcFileNameFlag;
   }
-    
+
   /**
    * Gets the name of the CRC models file.
    *
@@ -162,7 +166,7 @@ public class Parameters {
     log.finer("Getting crcFileName: " + crcFileName);
     return crcFileName;
   }
-    
+
   /**
    * Gets the list CRC models option.
    *
@@ -172,7 +176,7 @@ public class Parameters {
     log.finer("Getting listCrcFlag: " + listCrcFlag);
     return listCrcFlag;
   }
-    
+
   /**
    * Gets the array of literal input strings.
    *
@@ -182,7 +186,7 @@ public class Parameters {
     log.finer("Getting literalStrings: " + literalStrings);
     return literalStrings;
   }
-    
+
   /**
    * Sets the hexadecimal mode.
    *
@@ -192,7 +196,7 @@ public class Parameters {
     log.fine("Setting hexMode to: " + hexMode);
     this.hexMode = hexMode;
   }
-    
+
   /**
    * Returns <code>true</code> if hexadecimal mode is active.
    *
@@ -202,7 +206,7 @@ public class Parameters {
     log.finer("Getting hexMode: " + hexMode);
     return hexMode;
   }
-    
+
   /**
    * Gets file names.
    *
@@ -212,7 +216,7 @@ public class Parameters {
     log.finer("Getting fileNames: " + fileNames);
     return fileNames;
   }
-    
+
   /**
    * Gets the number of file names.
    *
@@ -226,7 +230,7 @@ public class Parameters {
     log.finer("Getting number of fileNames: " + n);
     return n;
   }
-    
+
   /**
    * Gets a file name.
    *
@@ -237,7 +241,7 @@ public class Parameters {
     log.finer("Getting fileName[" + n + "]: " + fileNames[n]);
     return fileNames[n];
   }
-    
+
   /**
    * Parse the command line.
    *
@@ -245,7 +249,7 @@ public class Parameters {
    * @return                        line parsed command line
    * @exception ParametersException on error in parameters
    */
-  public CommandLine parse(final String args[]) throws ParametersException {
+  public CommandLine parse(final String[] args) throws ParametersException {
     log.fine("Command line parsing started");
 
     final CommandLineParser parser = new DefaultParser();
@@ -253,9 +257,7 @@ public class Parameters {
     try {
       line = parser.parse(options, args);
     } catch (final ParseException exception) {
-      throw new ParametersException(
-        "Failed to parse the command line, exception: " +
-	exception.getMessage());
+      throw new ParametersException("Failed to parse the command line, exception: " + exception.getMessage());
     }
 
     fileNames = line.getArgs();

@@ -1,6 +1,6 @@
 /* Calculator.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,6 +17,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
@@ -34,12 +36,11 @@ import java.util.logging.Logger;
 public abstract class Calculator {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(Calculator.class.getName());
+  private static final Logger log = Logger.getLogger(Calculator.class.getName());
 
   // fields
   protected BigInteger register = BigInteger.ZERO;
-    
+
   /**
    * Sets the register.
    *
@@ -65,35 +66,35 @@ public abstract class Calculator {
    *
    * @param b the input value
    */
-  public abstract void updateBit(final int b);
+  public abstract void updateBit(int b);
 
   /**
    * Updates the register from a one-bit source.
    *
    * @param b the input value
    */
-  public abstract void updateBit(final boolean b);
+  public abstract void updateBit(boolean b);
 
   /**
    * Updates the register.
    *
    * @param d the array of input values
    */
-  public abstract void update(final byte[] d);
+  public abstract void update(byte[] d);
 
   /**
    * Updates the register.
    *
    * @param b the input value
    */
-  public abstract void update(final int b);
+  public abstract void update(int b);
 
   /**
    * Updates the register.
    *
    * @param b the input value
    */
-  public abstract void update(final BigInteger b);
+  public abstract void update(BigInteger b);
 
   // for description see Object
   @Override

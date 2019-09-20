@@ -1,6 +1,6 @@
 /* InputTreeProcessor.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,19 +17,21 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.IOException;
-import org.w3c.dom.Element;
+import java.math.BigInteger;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Logger;
+import org.w3c.dom.Element;
 
 /**
  * Central object transforming input into output.
@@ -40,8 +42,7 @@ import java.util.logging.Logger;
 public class InputTreeProcessor implements AutoCloseable {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(InputTreeProcessor.class.getName());
+  private static final Logger log = Logger.getLogger(InputTreeProcessor.class.getName());
 
   // fields
   protected Parameters parameters;
@@ -55,9 +56,9 @@ public class InputTreeProcessor implements AutoCloseable {
   protected OutAggregateStream outAggregateStream;
   protected OutStream outStream;
   protected ControlledOutputStream controlledOutputStream;
-  protected final Map<String,Variable> variables = new TreeMap<>();
+  protected final Map<String, Variable> variables = new TreeMap<>();
   protected Connector connector;
-    
+
   /**
    * Gets the parameters object.
    *
@@ -174,7 +175,7 @@ public class InputTreeProcessor implements AutoCloseable {
    *
    * @return the variables map
    */
-  public Map<String,Variable> getVariables() {
+  public Map<String, Variable> getVariables() {
     log.finer("Getting the variables");
     return variables;
   }
@@ -187,58 +188,52 @@ public class InputTreeProcessor implements AutoCloseable {
    * @param     value              the value written to the stream
    * @exception ProcessorException on expression evaluation error
    */
-  public void trigger(final Variable.Type type,
-		      final BigInteger value
-		      ) throws ProcessorException {
-    log.finer("Value written to " + type + ": " +
-	      Util.bigIntegerToString(value) +
-	      " (" + value.getClass() + ")");
+  public void trigger(final Variable.Type type, final BigInteger value) throws ProcessorException {
+    log.finer("Value written to " + type + ": " + Util.bigIntegerToString(value) + " (" + value.getClass() + ")");
     scriptProcessor.putValue(value);
-    for (Variable variable: variables.values()) {
+    for (Variable variable : variables.values()) {
       final Calculator calculator = variable.getCalculator();
       if ((calculator != null) && (variable.getType() == type)) {
-	log.finest("Updating calculator for: " + variable.getName());
-	if (type == Variable.Type.BITSTREAM) {
-	  calculator.updateBit(value.testBit(0));
-	} else {
-	  calculator.update(value);
-	}
-	variable.setValue(calculator.getRegister());
-	log.finest("Variable updated from calculator, new value: " +
-		   Util.bigIntegerToString(variable.getValue()));
+        log.finest("Updating calculator for: " + variable.getName());
+        if (type == Variable.Type.BITSTREAM) {
+          calculator.updateBit(value.testBit(0));
+        } else {
+          calculator.update(value);
+        }
+        variable.setValue(calculator.getRegister());
+        log.finest("Variable updated from calculator, new value: " + Util.bigIntegerToString(variable.getValue()));
       }
       String expression;
       switch (type) {
-	case STREAM_IN:
-	  expression = variable.getOnStreamIn();
-	  break;
-	case AGGREGATE_STREAM_IN:
-	  expression = variable.getOnAggregateStreamIn();
-	  break;
-	case BITSTREAM:
-	  expression = variable.getOnBitStream();
-	  break;
-	case AGGREGATE_STREAM_OUT:
-	  expression = variable.getOnAggregateStreamOut();
-	  break;
-	case STREAM_OUT:
-	  expression = variable.getOnStreamOut();
-	  break;
-	case OUTPUT_STREAM:
-	default:
-	  expression = variable.getOnOutputStream();
-	  break;
+        case STREAM_IN:
+          expression = variable.getOnStreamIn();
+          break;
+        case AGGREGATE_STREAM_IN:
+          expression = variable.getOnAggregateStreamIn();
+          break;
+        case BITSTREAM:
+          expression = variable.getOnBitStream();
+          break;
+        case AGGREGATE_STREAM_OUT:
+          expression = variable.getOnAggregateStreamOut();
+          break;
+        case STREAM_OUT:
+          expression = variable.getOnStreamOut();
+          break;
+        case OUTPUT_STREAM:
+        default:
+          expression = variable.getOnOutputStream();
+          break;
       }
       if (expression != null) {
-	final String trimmedExpression = expression.trim();
-	if (!trimmedExpression.isEmpty()) {
-	  variable.setValue(
-	    scriptProcessor.evalAsBigInteger(trimmedExpression));
-	}
+        final String trimmedExpression = expression.trim();
+        if (!trimmedExpression.isEmpty()) {
+          variable.setValue(scriptProcessor.evalAsBigInteger(trimmedExpression));
+        }
       }
     }
   }
- 
+
   // for description see AutoCloseable
   @Override
   public void close() throws IOException {
@@ -255,11 +250,8 @@ public class InputTreeProcessor implements AutoCloseable {
    * @exception ProcessorException on processing error
    * @exception IOException        on I/O error
    */
-  public void process(final Parameters parameters,
-		      final InputStream inputStream,
-		      final PresetCrcModels presetCrcModels,
-		      final PrintStream stderr
-		      ) throws ProcessorException, IOException {
+  public void process(final Parameters parameters, final InputStream inputStream, final PresetCrcModels presetCrcModels,
+      final PrintStream stderr) throws ProcessorException, IOException {
     log.fine("Parsing input tree");
 
     this.parameters = parameters;
@@ -269,7 +261,7 @@ public class InputTreeProcessor implements AutoCloseable {
     controlledOutputStream.setHexMode(parameters.isHexMode());
 
     scriptProcessor = new ScriptProcessor(this);
-	
+
     final InputTree inputTree = new InputTree(inputStream);
     final Element rootElement = inputTree.getRootElement();
 
@@ -280,7 +272,7 @@ public class InputTreeProcessor implements AutoCloseable {
 
     log.fine("Processing completed");
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -294,8 +286,7 @@ public class InputTreeProcessor implements AutoCloseable {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public InputTreeProcessor(final OutputStream outputStream
-			    ) throws ProcessorException, IOException {
+  public InputTreeProcessor(final OutputStream outputStream) throws ProcessorException, IOException {
     log.fine("Input tree processor creation started");
 
     controlledOutputStream = new ControlledOutputStream(this, outputStream);
@@ -305,7 +296,7 @@ public class InputTreeProcessor implements AutoCloseable {
     inAggregateStream = new InAggregateStream(this, bitStream);
     inStream = new InStream(this, inAggregateStream);
     connector = new Connector(this);
-	
+
     log.fine("Input tree processor set up");
   }
 }

@@ -1,6 +1,6 @@
 /* SeqElement.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,13 +17,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
 import java.io.IOException;
-import org.w3c.dom.Element;
 import java.util.logging.Logger;
+import org.w3c.dom.Element;
 
 /**
  * Object representing a &lt;stream&gt; element.
@@ -35,8 +37,7 @@ import java.util.logging.Logger;
 public class StreamElement extends SeqElement {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(StreamElement.class.getName());
+  private static final Logger log = Logger.getLogger(StreamElement.class.getName());
 
   // for description see Object
   @Override
@@ -53,9 +54,7 @@ public class StreamElement extends SeqElement {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public StreamElement(final InputTreeProcessor processor,
-		       final Element element
-		       ) throws ProcessorException, IOException {
+  public StreamElement(final InputTreeProcessor processor, final Element element) throws ProcessorException, IOException {
     super(processor, element);
     log.fine("<stream> element set up");
   }

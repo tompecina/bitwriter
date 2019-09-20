@@ -1,6 +1,6 @@
 /* Crc.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,6 +17,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
@@ -64,10 +66,8 @@ public class Crc extends Calculator {
   @Override
   public void updateBit(final int b) {
     log.finest("Updating CRC with: " + b);
-    if (register.testBit(model.getPolynomial().getWidth() - 1) ==
-	(b == 0)) {
-      register = register.shiftLeft(1).xor(model.getPolynomial()
-        .getPolynomial()).and(mask);
+    if (register.testBit(model.getPolynomial().getWidth() - 1) == (b == 0)) {
+      register = register.shiftLeft(1).xor(model.getPolynomial().getPolynomial()).and(mask);
     } else {
       register = register.shiftLeft(1).and(mask);
     }
@@ -85,23 +85,17 @@ public class Crc extends Calculator {
   public void update(final byte[] d) {
     log.finer("Updating CRC with an array of length: " + d.length);
     if (model.getReflectIn()) {
-      register = Util.reflect(register,
-	model.getPolynomial().getWidth() + shift);
-      for (byte b: d) {
-	final int i = (register.shiftRight(shift).intValue() ^ b) & 0xff;
-	register = register.shiftRight(8).xor(table[i])
-	  .and(mask.shiftLeft(shift));
+      register = Util.reflect(register, model.getPolynomial().getWidth() + shift);
+      for (byte b : d) {
+        final int i = (register.shiftRight(shift).intValue() ^ b) & 0xff;
+        register = register.shiftRight(8).xor(table[i]).and(mask.shiftLeft(shift));
       }
-      register = Util.reflect(register,
-			      model.getPolynomial().getWidth() +
-			      shift).and(mask);
+      register = Util.reflect(register, model.getPolynomial().getWidth() + shift).and(mask);
     } else {
       register = register.shiftLeft(shift);
-      for (byte b: d) {
-	final int i = (register.shiftRight(model.getPolynomial()
-	  .getWidth() + shift - 8).intValue() ^ b) & 0xff;
-	register = register.shiftLeft(8 - shift).xor(table[i])
-	  .and(mask.shiftLeft(shift));
+      for (byte b : d) {
+        final int i = (register.shiftRight(model.getPolynomial().getWidth() + shift - 8).intValue() ^ b) & 0xff;
+        register = register.shiftLeft(8 - shift).xor(table[i]).and(mask.shiftLeft(shift));
       }
       register = register.shiftRight(shift);
     }
@@ -112,19 +106,14 @@ public class Crc extends Calculator {
   public void update(final int b) {
     log.finest("Updating CRC with: " + b);
     if (model.getReflectIn()) {
-      register = Util.reflect(register, model.getPolynomial()
-			      .getWidth() + shift);
+      register = Util.reflect(register, model.getPolynomial().getWidth() + shift);
       final int i = (register.shiftRight(shift).intValue() ^ b) & 0xff;
-      register = register.shiftRight(8).xor(table[i])
-	.and(mask.shiftLeft(shift));
-      register = Util.reflect(register, model.getPolynomial()
-			      .getWidth() + shift).and(mask);
+      register = register.shiftRight(8).xor(table[i]).and(mask.shiftLeft(shift));
+      register = Util.reflect(register, model.getPolynomial().getWidth() + shift).and(mask);
     } else {
       register = register.shiftLeft(shift);
-      final int i = (register.shiftRight(model.getPolynomial()
-        .getWidth() + shift - 8).intValue() ^ b) & 0xff;
-      register = register.shiftLeft(8 - shift).xor(table[i])
-	.and(mask.shiftLeft(shift));
+      final int i = (register.shiftRight(model.getPolynomial().getWidth() + shift - 8).intValue() ^ b) & 0xff;
+      register = register.shiftLeft(8 - shift).xor(table[i]).and(mask.shiftLeft(shift));
       register = register.shiftRight(shift);
     }
   }
@@ -148,11 +137,8 @@ public class Crc extends Calculator {
    * @param model model to be used for the calculator
    */
   public Crc(final CrcModel model) {
-    log.fine("CRC object creation started, with polynomial: " +
-	     Util.bigIntegerToString(model.getPolynomial()
-	     .getPolynomial()) +
-	     ", width: " +
-	     model.getPolynomial().getWidth());
+    log.fine("CRC object creation started, with polynomial: "
+        + Util.bigIntegerToString(model.getPolynomial().getPolynomial()) + ", width: " + model.getPolynomial().getWidth());
     this.model = model;
     mask = Util.makeMask(model.getPolynomial().getWidth());
     shift = 0;
@@ -166,20 +152,18 @@ public class Crc extends Calculator {
     for (int i = 0; i < 0x100; i++) {
       BigInteger n = BigInteger.valueOf(i);
       if (model.getReflectIn()) {
-	n = Util.reflect(n, 8);
+        n = Util.reflect(n, 8);
       }
       n = n.shiftLeft(model.getPolynomial().getWidth() + shift - 8);
       for (int j = 0; j < 8; j++) {
-	if (n.testBit(model.getPolynomial().getWidth() + shift - 1)) {
-	  n = n.shiftLeft(1).xor(p);
-	} else {
-	  n = n.shiftLeft(1);
-	}
+        if (n.testBit(model.getPolynomial().getWidth() + shift - 1)) {
+          n = n.shiftLeft(1).xor(p);
+        } else {
+          n = n.shiftLeft(1);
+        }
       }
       if (model.getReflectIn()) {
-	n = Util.reflect(n.shiftRight(shift),
-			 model.getPolynomial().getWidth())
-	  .shiftLeft(shift);
+        n = Util.reflect(n.shiftRight(shift), model.getPolynomial().getWidth()).shiftLeft(shift);
       }
       table[i] = n.and(m);
     }

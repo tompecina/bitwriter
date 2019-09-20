@@ -1,6 +1,6 @@
 /* Polynomial.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,6 +17,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
@@ -33,14 +35,13 @@ import java.util.logging.Logger;
 public class Polynomial {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(Polynomial.class.getName());
+  private static final Logger log = Logger.getLogger(Polynomial.class.getName());
 
   /**
    * Polynomial notations.
    */
-  public enum Notation {NORMAL, FULL, REVERSED, KOOPMAN};
-    
+  public enum Notation { NORMAL, FULL, REVERSED, KOOPMAN }
+
   // fields
   protected int width;
   protected BigInteger polynomial;
@@ -60,25 +61,25 @@ public class Polynomial {
    *
    * @param  notation the notation
    * @return          the polynomial, in the desired notation,
-   *                  or <code>null</code> if conversion is impossible 
+   *                  or <code>null</code> if conversion is impossible
    */
   public BigInteger getPolynomial(final Notation notation) {
-    log.finest("Getting polynomial: " +
-	       Util.bigIntegerToString(polynomial) +
-	       ", in notation: " + notation);
+    log.finest("Getting polynomial: " + Util.bigIntegerToString(polynomial) + ", in notation: " + notation);
     BigInteger r;
     switch (notation) {
       case NORMAL:
-	r = polynomial;
+        r = polynomial;
+        break;
       case FULL:
-	r = polynomial.setBit(width);
+        r = polynomial.setBit(width);
+        break;
       case REVERSED:
-	r = Util.reflect(polynomial, width);
+        r = Util.reflect(polynomial, width);
+        break;
       case KOOPMAN:
       default:
-	r = (polynomial.testBit(0) ?
-	     null :
-	     polynomial.setBit(width).shiftRight(1));
+        r = (polynomial.testBit(0) ? null : polynomial.setBit(width).shiftRight(1));
+        break;
     }
     log.finest("Result: " + Util.bigIntegerToString(r));
     return r;
@@ -90,11 +91,10 @@ public class Polynomial {
    * @return the polynomial in the normal notation
    */
   public BigInteger getPolynomial() {
-    log.finest("Getting polynomial: " +
-	       Util.bigIntegerToString(polynomial));
+    log.finest("Getting polynomial: " + Util.bigIntegerToString(polynomial));
     return polynomial;
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -109,65 +109,54 @@ public class Polynomial {
    * @param     width      the bit-width of the polynomial
    * @exception PolynomialException on error in parameters
    */
-  public Polynomial(final BigInteger polynomial,
-		    final Notation notation,
-		    final int width
-		    ) throws PolynomialException {
-    log.fine("Polynomial object creation started, with polynomial: " +
-	     Util.bigIntegerToString(polynomial) +
-	     ", notation: " + notation + ", width: " + width);
+  public Polynomial(final BigInteger polynomial, final Notation notation, final int width) throws PolynomialException {
+    log.fine("Polynomial object creation started, with polynomial: " + Util.bigIntegerToString(polynomial)
+        + ", notation: " + notation + ", width: " + width);
     if (polynomial.signum() <= 0) {
-      throw new PolynomialException(
-        "Non-positive polynomial not allowed");
+      throw new PolynomialException("Non-positive polynomial not allowed");
     }
     if (width < 0) {
-      throw new PolynomialException(
-        "Negative polynomial width not allowed");
+      throw new PolynomialException("Negative polynomial width not allowed");
     }
     switch (notation) {
       case NORMAL:
-	if (width == 0) {
-	  throw new PolynomialException(
-	    "Polynomial width must be specified for this notation");
-	}
-	this.polynomial = polynomial;
-	this.width = width;
-	if (polynomial.bitLength() > width) {
-	  throw new PolynomialException(
-	    "Illegal polynomial/width combination");
-	}
-	break;
+        if (width == 0) {
+          throw new PolynomialException("Polynomial width must be specified for this notation");
+        }
+        this.polynomial = polynomial;
+        this.width = width;
+        if (polynomial.bitLength() > width) {
+          throw new PolynomialException("Illegal polynomial/width combination");
+        }
+        break;
       case FULL:
-	this.width = polynomial.bitLength();
-	this.polynomial = polynomial.clearBit(this.width--);
-	if ((width != 0) && (width != this.width)) {
-	  throw new PolynomialException("Polynomial/width mismatch");
-	}
-	break;
+        this.width = polynomial.bitLength();
+        this.polynomial = polynomial.clearBit(this.width--);
+        if ((width != 0) && (width != this.width)) {
+          throw new PolynomialException("Polynomial/width mismatch");
+        }
+        break;
       case REVERSED:
-	if (width == 0) {
-	  throw new PolynomialException(
-	    "Polynomial width must be specified for this notation");
-	}
-	if (polynomial.bitLength() > width) {
-	  throw new PolynomialException(
-	    "Illegal polynomial/width combination");
-	}
-	this.polynomial = Util.reflect(polynomial, width);
-	this.width = width;
-	break;
+        if (width == 0) {
+          throw new PolynomialException("Polynomial width must be specified for this notation");
+        }
+        if (polynomial.bitLength() > width) {
+          throw new PolynomialException("Illegal polynomial/width combination");
+        }
+        this.polynomial = Util.reflect(polynomial, width);
+        this.width = width;
+        break;
       case KOOPMAN:
-	this.width = polynomial.bitLength();
-	if ((width != 0) && (width != this.width)) {
-	  throw new PolynomialException("Polynomial/width mismatch");
-	}
-	this.polynomial = polynomial.shiftLeft(1)
-	  .clearBit(this.width).setBit(0);
-	break;
+      default:
+        this.width = polynomial.bitLength();
+        if ((width != 0) && (width != this.width)) {
+          throw new PolynomialException("Polynomial/width mismatch");
+        }
+        this.polynomial = polynomial.shiftLeft(1).clearBit(this.width).setBit(0);
+        break;
     }
-    log.fine("Polynomial object created, polynomial: "  +
-	     Util.bigIntegerToString(this.polynomial) +
-	     ", width: " + this.width);
+    log.fine("Polynomial object created, polynomial: "  + Util.bigIntegerToString(this.polynomial) + ", width: "
+        + this.width);
   }
 
   /**
@@ -177,9 +166,7 @@ public class Polynomial {
    * @param     notation   the notation
    * @exception PolynomialException on error in parameters
    */
-  public Polynomial(final BigInteger polynomial,
-		    final Notation notation
-		    ) throws PolynomialException {
+  public Polynomial(final BigInteger polynomial, final Notation notation) throws PolynomialException {
     this(polynomial, notation, 0);
   }
 }

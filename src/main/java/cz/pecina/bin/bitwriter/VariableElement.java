@@ -1,6 +1,6 @@
 /* VariableElement.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,13 +17,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
 import java.io.IOException;
-import org.w3c.dom.Element;
 import java.util.logging.Logger;
+import org.w3c.dom.Element;
 
 /**
  * Abstract superclass of all variable-related elements.
@@ -34,8 +36,7 @@ import java.util.logging.Logger;
 public abstract class VariableElement extends ParsedElement {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(VariableElement.class.getName());
+  private static final Logger log = Logger.getLogger(VariableElement.class.getName());
 
   /**
    * Gets the variable name contained in the element's "name" attribute.
@@ -44,13 +45,9 @@ public abstract class VariableElement extends ParsedElement {
    * @return                       name of the variable
    * @exception ProcessorException on error in parameters
    */
-  protected String getVariableName(final Element element
-				   ) throws ProcessorException {
+  protected String getVariableName(final Element element) throws ProcessorException {
     log.finer("Getting variable name from element");
-    final String name = extractStringAttribute(element,
-					       "name",
-					       null,
-					       processor.getScriptProcessor());
+    final String name = extractStringAttribute(element, "name", null, processor.getScriptProcessor());
     Variable.checkVariableName(name);
     log.finer("Name: " + name);
     return name;
@@ -64,8 +61,7 @@ public abstract class VariableElement extends ParsedElement {
    * @return                       the variable
    * @exception ProcessorException on error in parameters
    */
-  protected Variable getOrCreateVariable(final Element element
-					 ) throws ProcessorException {
+  protected Variable getOrCreateVariable(final Element element) throws ProcessorException {
     log.finer("Getting or creating variable from element");
     final String name = getVariableName(element);
     Variable variable = processor.getVariables().get(name);
@@ -75,7 +71,7 @@ public abstract class VariableElement extends ParsedElement {
     }
     return variable;
   }
-    
+
   /**
    * Gets the variable according to the name contained in the element's
    * "name" attribute.
@@ -85,8 +81,7 @@ public abstract class VariableElement extends ParsedElement {
    *                               if the variable does not exist
    * @exception ProcessorException on error in parameters
    */
-  protected Variable getVariable(final Element element
-				 ) throws ProcessorException {
+  protected Variable getVariable(final Element element) throws ProcessorException {
     log.finer("Getting variable from element");
     return processor.getVariables().get(getVariableName(element));
   }
@@ -100,20 +95,13 @@ public abstract class VariableElement extends ParsedElement {
    * @param     defaultType        the default type of the variable
    * @exception ProcessorException on error in parameters
    */
-  protected void setVariableType(final Variable variable,
-				 final Element element,
-				 final String defaultType
-				 ) throws ProcessorException {
+  protected void setVariableType(final Variable variable, final Element element, final String defaultType)
+      throws ProcessorException {
     log.finer("Setting type to variable '" + variable.getName() + "'");
-    variable.setType(Variable.Type.valueOf(
-      Util.hyphensToUnderscores(extractStringArrayAttribute(
-        element,
-	"type",
-	VARIABLE_TYPES,
-	defaultType,
-	processor.getScriptProcessor()).toUpperCase())));
+    variable.setType(Variable.Type.valueOf(Util.hyphensToUnderscores(extractStringArrayAttribute(
+        element, "type", VARIABLE_TYPES, defaultType, processor.getScriptProcessor()).toUpperCase())));
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -133,43 +121,37 @@ public abstract class VariableElement extends ParsedElement {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public static VariableElement create(final InputTreeProcessor processor,
-				       final Element element,
-				       final boolean outerLevel
-				       ) throws ProcessorException,
-						IOException {
+  public static VariableElement create(final InputTreeProcessor processor, final Element element, final boolean outerLevel)
+      throws ProcessorException, IOException {
     log.fine("Variable element creation started");
     switch (element.getTagName()) {
       case "set":
-	return new SetElement(processor, element);
+        return new SetElement(processor, element);
       case "parity":
-	return new ParityElement(processor, element);
+        return new ParityElement(processor, element);
       case "sum":
-	return new SumElement(processor, element);
+        return new SumElement(processor, element);
       case "crc":
-	return new CrcElement(processor, element);
+        return new CrcElement(processor, element);
       case "digest":
-	return new DigestElement(processor, element);
+        return new DigestElement(processor, element);
       case "show":
-	return new ShowElement(processor, element);
+        return new ShowElement(processor, element);
       case "reset":
-	return new ResetElement(processor, element);
+        return new ResetElement(processor, element);
       case "release":
-	return new ReleaseElement(processor, element);
+        return new ReleaseElement(processor, element);
       case "put":
-	if (outerLevel) {
-	  throw new ProcessorException(
-	    "<put> element not allowed on the outer level");
-	} else {
-	  return new PutElement(processor, element);
-	}
+        if (outerLevel) {
+          throw new ProcessorException("<put> element not allowed on the outer level");
+        } else {
+          return new PutElement(processor, element);
+        }
       default:
-	throw new ProcessorException(
-          "Error in input file, illegal element <" +
-	  element.getTagName() + ">");
+        throw new ProcessorException("Error in input file, illegal element <" + element.getTagName() + ">");
     }
   }
-    
+
   /**
    * Main constructor.
    *
@@ -179,9 +161,7 @@ public abstract class VariableElement extends ParsedElement {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public VariableElement(final InputTreeProcessor processor,
-			 final Element element
-			 ) throws ProcessorException, IOException {
+  public VariableElement(final InputTreeProcessor processor, final Element element) throws ProcessorException, IOException {
     super(processor, element);
     log.fine("Variable element creation started");
 

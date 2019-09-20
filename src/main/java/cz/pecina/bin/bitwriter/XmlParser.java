@@ -1,6 +1,6 @@
 /* XmlParser.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,24 +17,26 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import javax.xml.XMLConstants;
-import java.io.InputStream;
 import java.io.IOException;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.SAXException;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.transform.stream.StreamSource;
+import java.io.InputStream;
+import java.util.logging.Logger;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.SchemaFactory;
 import org.w3c.dom.Document;
-import java.util.logging.Logger;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * Validating XML parser.
@@ -45,27 +47,26 @@ import java.util.logging.Logger;
 public final class XmlParser {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(XmlParser.class.getName());
+  private static final Logger log = Logger.getLogger(XmlParser.class.getName());
 
   // validation error handler
   private static class Handler implements ErrorHandler {
+
     @Override
-    public void warning(final SAXParseException exception
-			) throws SAXException {
+    public void warning(final SAXParseException exception) throws SAXException {
     }
+
     @Override
-    public void error(final SAXParseException exception
-		      ) throws SAXException {
+    public void error(final SAXParseException exception) throws SAXException {
       throw exception;
     }
+
     @Override
-    public void fatalError(final SAXParseException exception
-			   ) throws SAXException {
+    public void fatalError(final SAXParseException exception) throws SAXException {
       throw exception;
     }
   }
-    
+
   /**
    * Parses XML data.
    *
@@ -78,45 +79,36 @@ public final class XmlParser {
    * @return                       the parsed XML tree
    * @exception ProcessorException on parsing error
    */
-  public static Document parse(final InputStream inputStream,
-			       final String schema,
-			       final boolean validate
-			       ) throws ProcessorException {
+  public static Document parse(final InputStream inputStream, final String schema, final boolean validate)
+      throws ProcessorException {
     log.fine("Parsing input data");
 
     if (inputStream == null) {
       throw new ProcessorException("Null data cannot be parsed");
     }
     try {
-      final DocumentBuilderFactory builderFactory = DocumentBuilderFactory
-	.newInstance();
+      final DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
       builderFactory.setNamespaceAware(true);
       builderFactory.setCoalescing(true);
       builderFactory.setIgnoringComments(true);
       builderFactory.setIgnoringElementContentWhitespace(true);
       if (validate) {
-	builderFactory.setSchema(SchemaFactory.newInstance(
-	XMLConstants.W3C_XML_SCHEMA_NS_URI)
-	.newSchema(new StreamSource(XmlParser.class
-	.getResourceAsStream(schema))));
+        builderFactory.setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema(
+            new StreamSource(XmlParser.class.getResourceAsStream(schema))));
       }
       final DocumentBuilder builder = builderFactory.newDocumentBuilder();
       builder.setErrorHandler(new Handler());
       final Document doc = builder.parse(inputStream);
       log.fine("Parsing completed");
       return doc;
-    } catch (final FactoryConfigurationError |
-	     ParserConfigurationException |
-	     SAXException |
-	     IllegalArgumentException exception) {
-      throw new ProcessorException("Invalid input file (1), exception: " +
-				   exception.getMessage());
+    } catch (final FactoryConfigurationError | ParserConfigurationException | SAXException
+          | IllegalArgumentException exception) {
+      throw new ProcessorException("Invalid input file (1), exception: " + exception.getMessage());
     } catch (final IOException exception) {
-      throw new ProcessorException("Invalid input file (2), exception: " +
-				   exception.getMessage());
+      throw new ProcessorException("Invalid input file (2), exception: " + exception.getMessage());
     }
   }
 
   // default constructor disabled
-  private XmlParser() {};
+  private XmlParser() { }
 }

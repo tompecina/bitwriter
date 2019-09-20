@@ -1,6 +1,6 @@
 /* CheckSum.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,6 +17,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
@@ -33,8 +35,7 @@ import java.util.logging.Logger;
 public class CheckSum extends Calculator {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(CheckSum.class.getName());
+  private static final Logger log = Logger.getLogger(CheckSum.class.getName());
 
   // fields
   protected CheckSumModel model;
@@ -70,7 +71,7 @@ public class CheckSum extends Calculator {
   @Override
   public void update(final byte[] d) {
     log.finest("Updating CheckSum with an array of length: " + d.length);
-    for (byte b: d) {
+    for (byte b : d) {
       update(BigInteger.valueOf(b));
     }
   }
@@ -102,7 +103,7 @@ public class CheckSum extends Calculator {
    */
   public CheckSum(final CheckSumModel model) {
     log.fine("Creation of new CheckSum started");
-	
+
     this.model = model;
     mask = Util.makeMask(model.getWidth());
     register = model.getXorIn().and(mask);

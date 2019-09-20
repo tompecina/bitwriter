@@ -1,6 +1,6 @@
 /* OutStream.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,12 +17,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.logging.Logger;
 
 /**
@@ -34,14 +36,13 @@ import java.util.logging.Logger;
 public class OutStream implements Stream {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(OutStream.class.getName());
+  private static final Logger log = Logger.getLogger(OutStream.class.getName());
 
   // fields
   protected InputTreeProcessor processor;
   protected ControlledOutputStream controlledOutputStream;
   protected int widthOut;
-  protected static final BigInteger mask = Constants.FF;
+  protected static final BigInteger MASK = Constants.FF;
 
   /**
    * Sets output width.
@@ -52,8 +53,7 @@ public class OutStream implements Stream {
   public void setWidthOut(final int widthOut) throws ProcessorException {
     log.finer("Setting widthOut to: " + widthOut);
     if (widthOut != 8) {
-      throw new ProcessorException(
-        "Output width must be 8 bits on this architecture");
+      throw new ProcessorException("Output width must be 8 bits on this architecture");
     }
     this.widthOut = widthOut;
     reset();
@@ -68,7 +68,7 @@ public class OutStream implements Stream {
     log.finer("Getting widthOut: " + widthOut);
     return widthOut;
   }
-    
+
   // for description see Stream
   @Override
   public void setDefaults() {
@@ -81,13 +81,13 @@ public class OutStream implements Stream {
   @Override
   public void reset() {
     log.fine("Resetting OutStream");
-  };
-    
+  }
+
   // for description see Stream
   @Override
-  public void write(BigInteger value) throws IOException {
-    log.finest("Writing to OutStream: " + Util.bigIntegerToString(value));
-    value = value.and(mask);
+  public void write(final BigInteger arg) throws IOException {
+    log.finest("Writing to OutStream: " + Util.bigIntegerToString(arg));
+    final BigInteger value = arg.and(MASK);
     try {
       processor.trigger(Variable.Type.STREAM_OUT, value);
     } catch (final ProcessorException exception) {
@@ -95,13 +95,13 @@ public class OutStream implements Stream {
     }
     controlledOutputStream.write(value);
   }
-    
+
   // for description see Stream
   @Override
   public void flush() throws IOException {
     log.finer("Flushing OutStream");
     controlledOutputStream.flush();
-  }	
+  }
 
   // for description see Stream
   @Override
@@ -109,7 +109,7 @@ public class OutStream implements Stream {
     log.fine("Closing OutStream");
     controlledOutputStream.close();
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -122,14 +122,13 @@ public class OutStream implements Stream {
    * @param processor              input tree processor object
    * @param controlledOutputStream downstream controlled output stream
    */
-  public OutStream(final InputTreeProcessor processor,
-		   final ControlledOutputStream controlledOutputStream) {
+  public OutStream(final InputTreeProcessor processor, final ControlledOutputStream controlledOutputStream) {
     log.fine("OutStream creation started");
 
     this.processor = processor;
     this.controlledOutputStream = controlledOutputStream;
     setDefaults();
-	
+
     log.fine("OutStream creation completed");
   }
 }

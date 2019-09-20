@@ -124,9 +124,9 @@ public class TestUtil extends TestCase {
     fail("Empty input stream reading error");
   }
 
-  public void testTF() {
-    assertEquals("TF() error", "T", Util.TF(true));
-    assertEquals("TF() error", "F", Util.TF(false));
+  public void testTf() {
+    assertEquals("tf() error", "T", Util.tf(true));
+    assertEquals("tf() error", "F", Util.tf(false));
   }
 
   public void testHyphensToUnderscores() {

@@ -1,6 +1,6 @@
 /* FlushElement.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,13 +17,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
 import java.io.IOException;
-import org.w3c.dom.Element;
 import java.util.logging.Logger;
+import org.w3c.dom.Element;
 
 /**
  * Object representing a &lt;flush&gt; element.
@@ -34,8 +36,7 @@ import java.util.logging.Logger;
 public class FlushElement extends ParsedElement {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(FlushElement.class.getName());
+  private static final Logger log = Logger.getLogger(FlushElement.class.getName());
 
   // processes the element
   private void process() throws ProcessorException, IOException {
@@ -45,7 +46,7 @@ public class FlushElement extends ParsedElement {
 
     log.fine("Flush <element> processed");
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -61,14 +62,12 @@ public class FlushElement extends ParsedElement {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public FlushElement(final InputTreeProcessor processor,
-		      final Element element
-		      ) throws ProcessorException, IOException {
+  public FlushElement(final InputTreeProcessor processor, final Element element) throws ProcessorException, IOException {
     super(processor, element);
     log.fine("<flush> element creation started");
 
     process();
-	
+
     log.fine("<flush> element set up");
   }
 }

@@ -1,6 +1,6 @@
 /* Variable.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,14 +17,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
 import java.math.BigInteger;
-import java.util.regex.Pattern;
-import java.io.IOException;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * Object representing a variable.
@@ -36,14 +37,12 @@ import java.util.logging.Logger;
 public class Variable {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(Variable.class.getName());
+  private static final Logger log = Logger.getLogger(Variable.class.getName());
 
   /**
    * Variable type.
    */
-  public enum Type {STREAM_IN, AGGREGATE_STREAM_IN, BITSTREAM,
-		    AGGREGATE_STREAM_OUT, STREAM_OUT, OUTPUT_STREAM};
+  public enum Type { STREAM_IN, AGGREGATE_STREAM_IN, BITSTREAM, AGGREGATE_STREAM_OUT, STREAM_OUT, OUTPUT_STREAM }
 
   // fields
   protected String name;
@@ -54,9 +53,9 @@ public class Variable {
   protected String onBitStream;
   protected String onAggregateStreamOut;
   protected String onStreamOut;
-  protected String onOutputStream;    
+  protected String onOutputStream;
   protected Type type;
-    
+
   /**
    * Sets the {@link Calculator}.
    *
@@ -67,7 +66,7 @@ public class Variable {
     log.finer("Setting the calculator on '" + name + "'");
     this.calculator = calculator;
   }
-    
+
   /**
    * Gets the {@link Calculator}.
    *
@@ -77,7 +76,7 @@ public class Variable {
     log.finer("Getting the calculator on '" + name + "'");
     return calculator;
   }
-    
+
   /**
    * Gets the name of the variable.
    *
@@ -87,7 +86,7 @@ public class Variable {
     log.finest("Getting the name of '" + name + "'");
     return name;
   }
-    
+
   /**
    * Sets the type of the variable.
    *
@@ -97,7 +96,7 @@ public class Variable {
     log.finer("Setting variable '" + name + "' to type: " + type);
     this.type = type;
   }
-    
+
   /**
    * Gets the type of the variable.
    *
@@ -107,29 +106,27 @@ public class Variable {
     log.finest("Getting type of variable '" + name + "': " + type);
     return type;
   }
-    
+
   /**
    * Sets the value of the variable.
    *
    * @param value the new value of the variable
    */
   public void setValue(final BigInteger value) {
-    log.finer("Setting variable '" + name + "' to: " +
-	      Util.bigIntegerToString(value));
+    log.finer("Setting variable '" + name + "' to: " + Util.bigIntegerToString(value));
     this.value = value;
   }
-    
+
   /**
    * Gets the value of the variable.
    *
    * @return the value of the variable
    */
   public BigInteger getValue() {
-    log.finest("Getting value of variable '" + name + "': " +
-	       Util.bigIntegerToString(value));
+    log.finest("Getting value of variable '" + name + "': " + Util.bigIntegerToString(value));
     return value;
   }
-    
+
   /**
    * Sets the callback script triggered by a write to the input stream.
    *
@@ -150,17 +147,16 @@ public class Variable {
     log.finest("Getting onStreamIn on '" + name + "': " + onStreamIn);
     return onStreamIn;
   }
-    
+
   /**
    * Sets the callback script triggered by a write to the input
    * aggregate stream.
    *
    * @param onAggregateStreamIn the callback script triggered by a write
-   * to the input aggregate stream
+   *     to the input aggregate stream
    */
   public void setOnAggregateStreamIn(final String onAggregateStreamIn) {
-    log.finer("Setting onAggregateStreamIn on '" + name + "' to: " +
-	      onAggregateStreamIn);
+    log.finer("Setting onAggregateStreamIn on '" + name + "' to: " + onAggregateStreamIn);
     this.onAggregateStreamIn = onAggregateStreamIn;
   }
 
@@ -172,11 +168,10 @@ public class Variable {
    *         aggregate stream
    */
   public String getOnAggregateStreamIn() {
-    log.finest("Getting onAggregateStreamIn on '" + name + "': " +
-	       onAggregateStreamIn);
+    log.finest("Getting onAggregateStreamIn on '" + name + "': " + onAggregateStreamIn);
     return onAggregateStreamIn;
   }
-    
+
   /**
    * Sets the callback script triggered by a write to the bit stream.
    *
@@ -197,7 +192,7 @@ public class Variable {
     log.finest("Getting onBitStream on '" + name + "': " + onBitStream);
     return onBitStream;
   }
-    
+
   /**
    * Sets the callback script triggered by a write to the output
    * aggregate stream.
@@ -206,8 +201,7 @@ public class Variable {
    *                             to the output aggregate stream
    */
   public void setOnAggregateStreamOut(final String onAggregateStreamOut) {
-    log.finer("Setting onAggregateStreamOut on '" + name +
-	      "' to: " + onAggregateStreamOut);
+    log.finer("Setting onAggregateStreamOut on '" + name + "' to: " + onAggregateStreamOut);
     this.onAggregateStreamOut = onAggregateStreamOut;
   }
 
@@ -219,11 +213,10 @@ public class Variable {
    *         aggregate stream
    */
   public String getOnAggregateStreamOut() {
-    log.finest("Getting onAggregateStreamOut on '" + name +
-	       "': " + onAggregateStreamOut);
+    log.finest("Getting onAggregateStreamOut on '" + name + "': " + onAggregateStreamOut);
     return onAggregateStreamOut;
   }
-    
+
   /**
    * Sets the callback script triggered by a write to the output stream.
    *
@@ -244,7 +237,7 @@ public class Variable {
     log.finest("Getting onStreamOut on '" + name + "': " + onStreamOut);
     return onStreamOut;
   }
-    
+
   /**
    * Sets the callback script triggered by a write to the (controlled)
    * output stream.
@@ -253,8 +246,7 @@ public class Variable {
    *                       the (controlled) output stream
    */
   public void setOnOutputStream(final String onOutputStream) {
-    log.finer("Setting onOutputStream on '" + name +
-	      "' to: " + onOutputStream);
+    log.finer("Setting onOutputStream on '" + name + "' to: " + onOutputStream);
     this.onOutputStream = onOutputStream;
   }
 
@@ -276,8 +268,7 @@ public class Variable {
    * @param     name               the name of the variable
    * @exception ProcessorException on illegal variable name
    */
-  public static void checkVariableName(final String name
-				       ) throws ProcessorException {
+  public static void checkVariableName(final String name) throws ProcessorException {
     if (name == null) {
       throw new ProcessorException("Variable name missing");
     }
@@ -288,7 +279,7 @@ public class Variable {
       throw new ProcessorException("Illegal character in variable name");
     }
   }
-    
+
   /**
    * Resets the variable.
    */
@@ -322,7 +313,7 @@ public class Variable {
     checkVariableName(name);
     this.name = name;
     reset();
-	
+
     log.fine("Variable creation completed");
   }
 }

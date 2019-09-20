@@ -1,6 +1,6 @@
 /* CheckSumModel.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,6 +17,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
@@ -33,8 +35,7 @@ import java.util.logging.Logger;
 public class CheckSumModel {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(CheckSumModel.class.getName());
+  private static final Logger log = Logger.getLogger(CheckSumModel.class.getName());
 
   // fields
   protected int width;
@@ -54,7 +55,7 @@ public class CheckSumModel {
     }
     this.width = width;
   }
-    
+
   /**
    * Gets the bit-width of the checksum.
    *
@@ -64,7 +65,7 @@ public class CheckSumModel {
     log.finer("Getting width: " + width);
     return width;
   }
-    
+
   /**
    * Sets the initial mask of the checksum.
    *
@@ -74,12 +75,11 @@ public class CheckSumModel {
   public void setXorIn(final BigInteger xorIn) throws ProcessorException {
     log.finer("Setting xorIn to: " + Util.bigIntegerToString(xorIn));
     if (xorIn == null) {
-      throw new ProcessorException(
-	"Illegal checksum parameters, xorIn == null");
+      throw new ProcessorException("Illegal checksum parameters, xorIn == null");
     }
     this.xorIn = xorIn;
   }
-    
+
   /**
    * Gets the initial mask of the checksum.
    *
@@ -99,8 +99,7 @@ public class CheckSumModel {
   public void setXorOut(final BigInteger xorOut) throws ProcessorException {
     log.finer("Setting xorOut to: " + Util.bigIntegerToString(xorOut));
     if (xorOut == null) {
-      throw new ProcessorException(
-	"Illegal checksum parameters, xorOut == null");
+      throw new ProcessorException("Illegal checksum parameters, xorOut == null");
     }
     this.xorOut = xorOut;
   }
@@ -114,7 +113,7 @@ public class CheckSumModel {
     log.finer("Getting xorOut: " + Util.bigIntegerToString(xorOut));
     return xorOut;
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -129,10 +128,7 @@ public class CheckSumModel {
    * @param     xorOut             final mask
    * @exception ProcessorException on error in parameters
    */
-  public CheckSumModel(final int width,
-		       final BigInteger xorIn,
-		       final BigInteger xorOut
-		       ) throws ProcessorException {
+  public CheckSumModel(final int width, final BigInteger xorIn, final BigInteger xorOut) throws ProcessorException {
     log.fine("Creation of new CheckSumModel started");
 
     setWidth(width);

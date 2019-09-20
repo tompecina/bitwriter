@@ -1,6 +1,6 @@
 /* Stream.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,12 +17,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
+import java.math.BigInteger;
 
 /**
  * Stream interface.
@@ -35,18 +37,17 @@ public interface Stream extends AutoCloseable {
   /**
    * Endianness values.
    */
-  public enum Endianness {BIG, LITTLE};
+  enum Endianness { BIG, LITTLE }
 
   /**
    * Sets the default values for the stream.
    */
-  public void setDefaults();
+  void setDefaults();
 
   /**
    * Resets the stream.
    */
-  public void reset();
-    
+  void reset();
 
   /**
    * Write a <code>BigInteger</code> value to the stream,
@@ -55,19 +56,19 @@ public interface Stream extends AutoCloseable {
    * @param     value       data to be written
    * @exception IOException on I/O error
    */
-  public void write(final BigInteger value) throws IOException;
+  void write(BigInteger value) throws IOException;
 
   /**
    * Flushes the stream.
    *
    * @exception IOException on I/O error
    */
-  public void flush() throws IOException;
-    
+  void flush() throws IOException;
+
   /**
    * Closes the stream.
    *
    * @exception IOException on I/O error
    */
-  public void close() throws IOException;
+  void close() throws IOException;
 }

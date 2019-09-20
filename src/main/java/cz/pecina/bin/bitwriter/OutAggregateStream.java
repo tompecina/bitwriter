@@ -1,6 +1,6 @@
 /* OutAggregateStream.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,12 +17,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.logging.Logger;
 
 /**
@@ -34,8 +36,7 @@ import java.util.logging.Logger;
 public class OutAggregateStream implements Stream {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(OutAggregateStream.class.getName());
+  private static final Logger log = Logger.getLogger(OutAggregateStream.class.getName());
 
   // fields
   protected InputTreeProcessor processor;
@@ -50,8 +51,7 @@ public class OutAggregateStream implements Stream {
    * @param     widthOutAggregate  output aggregate width
    * @exception ProcessorException on error in parameters
    */
-  public void setWidthOutAggregate(final int widthOutAggregate
-				   ) throws ProcessorException {
+  public void setWidthOutAggregate(final int widthOutAggregate) throws ProcessorException {
     log.finer("Setting widthOutAggregate to: " + widthOutAggregate);
     if (widthOutAggregate < 1) {
       throw new ProcessorException("Illegal output width");
@@ -73,7 +73,7 @@ public class OutAggregateStream implements Stream {
     log.finer("Getting widthOutAggregate: " + widthOutAggregate);
     return widthOutAggregate;
   }
-    
+
   /**
    * Sets output endianness.
    *
@@ -84,7 +84,7 @@ public class OutAggregateStream implements Stream {
     this.endiannessOut = endiannessOut;
     reset();
   }
-    
+
   /**
    * Gets output endianness.
    *
@@ -93,7 +93,7 @@ public class OutAggregateStream implements Stream {
   public Endianness getEndiannessOut() {
     return endiannessOut;
   }
-    
+
   // for description see Stream
   @Override
   public void setDefaults() {
@@ -108,14 +108,13 @@ public class OutAggregateStream implements Stream {
   @Override
   public void reset() {
     log.fine("Resetting OutAggregateStream");
-  };
-    
+  }
+
   // for description see Stream
   @Override
-  public void write(BigInteger value) throws IOException {
-    log.finest("Writing BigInteger to OutStream: " +
-	       Util.bigIntegerToString(value));
-    value = value.and(mask);
+  public void write(final BigInteger arg) throws IOException {
+    log.finest("Writing BigInteger to OutStream: " + Util.bigIntegerToString(arg));
+    final BigInteger value = arg.and(mask);
     final int widthOut = outStream.getWidthOut();
     try {
       processor.trigger(Variable.Type.AGGREGATE_STREAM_OUT, value);
@@ -138,7 +137,7 @@ public class OutAggregateStream implements Stream {
       offset += step;
     }
   }
-    
+
   // for description see Stream
   @Override
   public void flush() throws IOException {
@@ -146,12 +145,13 @@ public class OutAggregateStream implements Stream {
     outStream.flush();
   }
 
+  // for description see Stream
   @Override
   public void close() throws IOException {
     log.fine("Closing OutAgregateStream");
     outStream.close();
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -164,14 +164,13 @@ public class OutAggregateStream implements Stream {
    * @param processor input tree processor object
    * @param outStream downstream output stream
    */
-  public OutAggregateStream(final InputTreeProcessor processor,
-			    final OutStream outStream) {
+  public OutAggregateStream(final InputTreeProcessor processor, final OutStream outStream) {
     log.fine("OutAggregateStream creation started");
 
     this.processor = processor;
     this.outStream = outStream;
     setDefaults();
-	
+
     log.fine("OutAggregateStream creation completed");
   }
 }

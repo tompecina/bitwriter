@@ -1,6 +1,6 @@
 /* RandomElement.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,19 +17,21 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
-import java.io.IOException;
-import org.w3c.dom.Element;
 import java.util.logging.Logger;
+import org.w3c.dom.Element;
 
 /**
  * Object representing an &lt;random&gt; element
- *  (non-cryptographic pseudo-random number generator)
+ *  (non-cryptographic pseudo-random number generator).
  *
  * @author Tomáš Pecina
  * @version 1.0.5
@@ -37,31 +39,15 @@ import java.util.logging.Logger;
 public class RandomElement extends ParsedElement {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(RandomElement.class.getName());
+  private static final Logger log = Logger.getLogger(RandomElement.class.getName());
 
   // processes the element
   private void process() throws ProcessorException, IOException {
     log.fine("Processing <random> element");
 
-    final int width = extractIntegerAttribute(element,
-					      "width",
-					      1,
-					      null,
-					      8,
-					      processor.getScriptProcessor());
-    final int length = extractIntegerAttribute(element,
-					       "length",
-					       0,
-					       null,
-					       1,
-					       processor.getScriptProcessor());
-    final long seed = extractLongAttribute(element,
-					   "seed",
-					   null,
-					   null,
-					   0L,
-					   processor.getScriptProcessor());
+    final int width = extractIntegerAttribute(element, "width", 1, null, 8, processor.getScriptProcessor());
+    final int length = extractIntegerAttribute(element, "length", 0, null, 1, processor.getScriptProcessor());
+    final long seed = extractLongAttribute(element, "seed", null, null, 0L, processor.getScriptProcessor());
     Random random;
     if (element.getAttribute("seed") != null) {
       random = new Random(seed);
@@ -73,14 +59,14 @@ public class RandomElement extends ParsedElement {
     for (int iter = 0; iter < length; iter++) {
       BigInteger r = BigInteger.ZERO;
       for (int i = 0; i < width; i += 8) {
-	random.nextBytes(buffer);
-	r = r.shiftLeft(8).or(BigInteger.valueOf(buffer[0] & 0xff));
+        random.nextBytes(buffer);
+        r = r.shiftLeft(8).or(BigInteger.valueOf(buffer[0] & 0xff));
       }
       write(r.and(mask));
     }
     log.fine("<random> element processed");
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -96,14 +82,12 @@ public class RandomElement extends ParsedElement {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public RandomElement(final InputTreeProcessor processor,
-		       final Element element
-		       ) throws ProcessorException, IOException {
+  public RandomElement(final InputTreeProcessor processor, final Element element) throws ProcessorException, IOException {
     super(processor, element);
     log.fine("<random> element creation started");
 
     process();
-	
+
     log.fine("<random> element set up");
   }
 }

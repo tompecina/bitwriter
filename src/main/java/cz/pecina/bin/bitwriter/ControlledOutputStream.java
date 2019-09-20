@@ -1,6 +1,6 @@
 /* ControoledOutputStream.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,21 +17,22 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
-import java.io.OutputStream;
-import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.math.BigInteger;
 import java.util.logging.Logger;
 
 /**
  * Controlled output stream.
- * 
- * This stream can be discarded and/or switched to hexadecimal mode,
- * useful for debugging.  
+ *
+ * <p>This stream can be discarded and/or switched to hexadecimal mode,
+ * useful for debugging.
  *
  * @author Tomáš Pecina
  * @version 1.0.5
@@ -39,13 +40,15 @@ import java.util.logging.Logger;
 public class ControlledOutputStream implements Stream {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(ControlledOutputStream.class.getName());
+  private static final Logger log = Logger.getLogger(ControlledOutputStream.class.getName());
 
   /**
    * Number of characters per line in the hexadecimal mode.
    */
-  protected int BYTES_PER_LINE = 16;
+  protected static final int BYTES_PER_LINE = 16;
+
+  // constants
+  protected static final BigInteger MASK = Constants.FF;
 
   // fields
   private InputTreeProcessor processor;
@@ -56,8 +59,7 @@ public class ControlledOutputStream implements Stream {
   private int streamNumber;
   private int streamLength;
   private int totalLength;
-  protected static final BigInteger mask = Constants.FF;
-    
+
   /**
    * Sets the discard mode switch.
    *
@@ -140,13 +142,13 @@ public class ControlledOutputStream implements Stream {
     streamLength = 0;
     streamNumber++;
   }
-    
+
   // for description see Object
   @Override
   public void setDefaults() {
     log.fine("Setting defaults on ControlledOutputStream");
     reset();
-  };
+  }
 
   /**
    * Write a newline to the controlled output stream.
@@ -162,14 +164,13 @@ public class ControlledOutputStream implements Stream {
   @Override
   public void reset() {
     log.fine("Resetting ControlledOutputStream");
-  };
-    
+  }
+
   // for description see Object
   @Override
-  public void write(BigInteger value) throws IOException {
-    log.finest("Writing to ControlledOutputStream: " +
-	       Util.bigIntegerToString(value));
-    value = value.and(mask);
+  public void write(final BigInteger arg) throws IOException {
+    log.finest("Writing to ControlledOutputStream: " + Util.bigIntegerToString(arg));
+    final BigInteger value = arg.and(MASK);
     try {
       processor.trigger(Variable.Type.OUTPUT_STREAM, value);
     } catch (final ProcessorException exception) {
@@ -177,16 +178,13 @@ public class ControlledOutputStream implements Stream {
     }
     if (!discard) {
       if (hexMode) {
-	outputStream.write(String.format(
-	  "%s%02x",
-	  (((hexCount % BYTES_PER_LINE) != 0) ? " " : ""),
-	  value.intValue()).getBytes());
-	if (((++hexCount) % BYTES_PER_LINE) == 0) {
-	  newLine();
-	}
-      }
-      else {
-	outputStream.write(value.intValue());
+        outputStream.write(String.format(
+            "%s%02x", (((hexCount % BYTES_PER_LINE) != 0) ? " " : ""), value.intValue()).getBytes());
+        if (((++hexCount) % BYTES_PER_LINE) == 0) {
+          newLine();
+        }
+      } else {
+        outputStream.write(value.intValue());
       }
       totalLength++;
     }
@@ -200,19 +198,18 @@ public class ControlledOutputStream implements Stream {
     if (!discard) {
       outputStream.flush();
     }
-  }	
+  }
 
   // for description see Object
   @Override
   public void close() throws IOException {
     log.fine("Closing ControlledOutputStream");
-    if (hexMode && (hexCount != 0) &&
-	((hexCount % BYTES_PER_LINE) != 0)) {
+    if (hexMode && (hexCount != 0) && ((hexCount % BYTES_PER_LINE) != 0)) {
       newLine();
     }
     outputStream.close();
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -225,13 +222,12 @@ public class ControlledOutputStream implements Stream {
    * @param processor    input tree processor object
    * @param outputStream downstream output stream
    */
-  public ControlledOutputStream(final InputTreeProcessor processor,
-				final OutputStream outputStream) {
+  public ControlledOutputStream(final InputTreeProcessor processor, final OutputStream outputStream) {
     log.fine("ControlledOutputStream creation started");
 
     this.processor = processor;
     this.outputStream = outputStream;
-	
+
     log.fine("ControlledOutputStream creation completed");
   }
 }

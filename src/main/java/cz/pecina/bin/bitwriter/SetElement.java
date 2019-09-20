@@ -1,6 +1,6 @@
 /* SetElement.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,14 +17,16 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
-import org.w3c.dom.Element;
+import java.math.BigInteger;
 import java.util.logging.Logger;
+import org.w3c.dom.Element;
 
 /**
  * Object representing a &lt;set&gt; element.
@@ -35,82 +37,69 @@ import java.util.logging.Logger;
 public class SetElement extends VariableElement {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(SetElement.class.getName());
+  private static final Logger log = Logger.getLogger(SetElement.class.getName());
 
   // processes the element
   private void process() throws ProcessorException, IOException {
     log.fine("Processing <set> element");
 
     final Variable variable = getOrCreateVariable(element);
-    final BigInteger value =
-      extractBigIntegerAttribute(element,
-				 "value",
-				 null,
-				 null,
-				 null,
-				 processor.getScriptProcessor());
+    final BigInteger value = extractBigIntegerAttribute(element, "value", null, null, null, processor.getScriptProcessor());
     if (value != null) {
       variable.setValue(value);
     }
     if (element.hasAttribute("on-stream-in")) {
-      final String onStreamIn =
-	element.getAttribute("on-stream-in");
+      final String onStreamIn = element.getAttribute("on-stream-in");
       if (onStreamIn.isEmpty()) {
-	variable.setOnStreamIn(null);
+        variable.setOnStreamIn(null);
       } else {
-	variable.setOnStreamIn(onStreamIn);
+        variable.setOnStreamIn(onStreamIn);
       }
     }
     if (element.hasAttribute("on-aggregate-stream-in")) {
-      final String onAggregateStreamIn =
-	element.getAttribute("on-aggregate-stream-in");
+      final String onAggregateStreamIn = element.getAttribute("on-aggregate-stream-in");
       if (onAggregateStreamIn.isEmpty()) {
-	variable.setOnAggregateStreamIn(null);
+        variable.setOnAggregateStreamIn(null);
       } else {
-	variable.setOnAggregateStreamIn(onAggregateStreamIn);
+        variable.setOnAggregateStreamIn(onAggregateStreamIn);
       }
     }
     if (element.hasAttribute("on-bitstream")) {
-      final String onBitStream =
-	element.getAttribute("on-bitstream");
+      final String onBitStream = element.getAttribute("on-bitstream");
       if (onBitStream.isEmpty()) {
-	variable.setOnBitStream(null);
+        variable.setOnBitStream(null);
       } else {
-	variable.setOnBitStream(onBitStream);
+        variable.setOnBitStream(onBitStream);
       }
     }
     if (element.hasAttribute("on-aggregate-stream-out")) {
-      final String onAggregateStreamOut =
-	element.getAttribute("on-aggregate-stream-out");
+      final String onAggregateStreamOut = element.getAttribute("on-aggregate-stream-out");
       if (onAggregateStreamOut.isEmpty()) {
-	variable.setOnAggregateStreamOut(null);
+        variable.setOnAggregateStreamOut(null);
       } else {
-	variable.setOnAggregateStreamOut(onAggregateStreamOut);
+        variable.setOnAggregateStreamOut(onAggregateStreamOut);
       }
     }
     if (element.hasAttribute("on-stream-out")) {
-      final String onStreamOut =
-	element.getAttribute("on-stream-out");
+      final String onStreamOut = element.getAttribute("on-stream-out");
       if (onStreamOut.isEmpty()) {
-	variable.setOnStreamOut(null);
+        variable.setOnStreamOut(null);
       } else {
-	variable.setOnStreamOut(onStreamOut);
+        variable.setOnStreamOut(onStreamOut);
       }
     }
     if (element.hasAttribute("on-output-stream")) {
-      final String onOutputStream =
-	element.getAttribute("on-output-stream");
+      final String onOutputStream = element.getAttribute("on-output-stream");
       if (onOutputStream.isEmpty()) {
-	variable.setOnOutputStream(null);
+        variable.setOnOutputStream(null);
       } else {
-	variable.setOnOutputStream(onOutputStream);
+        variable.setOnOutputStream(onOutputStream);
       }
     }
-	
+
     log.fine("<set> element processed");
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -126,14 +115,12 @@ public class SetElement extends VariableElement {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public SetElement(final InputTreeProcessor processor,
-		    final Element element
-		    ) throws ProcessorException, IOException {
+  public SetElement(final InputTreeProcessor processor, final Element element) throws ProcessorException, IOException {
     super(processor, element);
     log.fine("<set> element creation started");
 
     process();
-	
+
     log.fine("<set> element set up");
   }
 }

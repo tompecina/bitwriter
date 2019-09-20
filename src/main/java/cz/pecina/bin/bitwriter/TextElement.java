@@ -1,6 +1,6 @@
 /* TextElement.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,19 +17,21 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
+import java.math.BigInteger;
 import java.util.logging.Logger;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.Text;
 
 /**
- * Object representing a &lt;text&gt; element
+ * Object representing a &lt;text&gt; element.
  *
  * @author Tomáš Pecina
  * @version 1.0.5
@@ -37,68 +39,50 @@ import java.util.logging.Logger;
 public class TextElement extends ParsedElement {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(TextElement.class.getName());
+  private static final Logger log = Logger.getLogger(TextElement.class.getName());
 
   // processes the element
   private void process() throws ProcessorException, IOException {
     log.fine("Processing <text> element");
 
-    final int count = extractIntegerAttribute(
-      element,
-      "repeat",
-      0,
-      null,
-      1,
-      processor.getScriptProcessor());
-    final boolean trim = extractBooleanAttribute(
-      element,
-      "trim",
-      true,
-      processor.getScriptProcessor());
-    final String charset = extractStringAttribute(
-      element,
-      "charset",
-      Constants.DEFAULT_CHARSET,
-      processor.getScriptProcessor());
+    final int count = extractIntegerAttribute(element, "repeat", 0, null, 1, processor.getScriptProcessor());
+    final boolean trim = extractBooleanAttribute(element, "trim", true, processor.getScriptProcessor());
+    final String charset =
+        extractStringAttribute(element, "charset", Constants.DEFAULT_CHARSET, processor.getScriptProcessor());
     for (int iter = 0; iter < count; iter++) {
-      for (Node content: children(element)) {
-	if (content instanceof Text) {
-	  String text;
-	  if (trim) {
-	    text = ((Text)content).getTextContent().trim();
-	  } else {
-	    text = ((Text)content).getTextContent();
-	  }
-	  if (charset.equals("raw")) {
-	    for (int i = 0; i < text.length(); i++) {
-	      write(BigInteger.valueOf(text.codePointAt(i)));
-	    }
-	  } else {
-	    final byte[] bytes = text.getBytes(charset);
-	    for (byte b: bytes) {
-	      write(BigInteger.valueOf(b & 0xff));
-	    }
-	  }
-	} else if (content instanceof Element) {
-	  final Element innerElement = (Element)content;
-	  switch (innerElement.getTagName()) {
-	    case "flush":
-	      new FlushElement(processor, innerElement);
-	      break;
-	    case "script":
-	      new ScriptElement(processor, innerElement);
-	      break;
-	    default:
-	      VariableElement.create(processor, innerElement, false);
-	      break;
-	  }
-	}
+      for (Node content : children(element)) {
+        if (content instanceof Text) {
+          String text;
+          text = trim ? ((Text) content).getTextContent().trim() : ((Text) content).getTextContent();
+          if (charset.equals("raw")) {
+            for (int i = 0; i < text.length(); i++) {
+              write(BigInteger.valueOf(text.codePointAt(i)));
+            }
+          } else {
+            final byte[] bytes = text.getBytes(charset);
+            for (byte b : bytes) {
+              write(BigInteger.valueOf(b & 0xff));
+            }
+          }
+        } else if (content instanceof Element) {
+          final Element innerElement = (Element) content;
+          switch (innerElement.getTagName()) {
+            case "flush":
+              new FlushElement(processor, innerElement);
+              break;
+            case "script":
+              new ScriptElement(processor, innerElement);
+              break;
+            default:
+              VariableElement.create(processor, innerElement, false);
+              break;
+          }
+        }
       }
     }
     log.fine("<text> element processed");
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
@@ -114,14 +98,12 @@ public class TextElement extends ParsedElement {
    * @exception ProcessorException on error in parameters
    * @exception IOException        on I/O error
    */
-  public TextElement(final InputTreeProcessor processor,
-		     final Element element
-		     ) throws ProcessorException, IOException {
+  public TextElement(final InputTreeProcessor processor, final Element element) throws ProcessorException, IOException {
     super(processor, element);
     log.fine("<text> element creation started");
 
     process();
-	
+
     log.fine("<text> element set up");
   }
 }

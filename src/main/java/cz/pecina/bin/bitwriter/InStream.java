@@ -1,6 +1,6 @@
 /* InStream.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,12 +17,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.logging.Logger;
 
 /**
@@ -34,8 +36,7 @@ import java.util.logging.Logger;
 public class InStream implements Stream {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(InStream.class.getName());
+  private static final Logger log = Logger.getLogger(InStream.class.getName());
 
   // fields
   protected InputTreeProcessor processor;
@@ -76,7 +77,7 @@ public class InStream implements Stream {
     log.finer("Getting widthIn: " + widthIn);
     return widthIn;
   }
-    
+
   /**
    * Sets input endianness.
    *
@@ -87,7 +88,7 @@ public class InStream implements Stream {
     this.endiannessIn = endiannessIn;
     reset();
   }
-    
+
   /**
    * Gets input endianness.
    *
@@ -122,24 +123,19 @@ public class InStream implements Stream {
       step = widthIn;
     }
   }
-    
+
   // for description see Stream
   @Override
-  public void write(BigInteger value) throws IOException {
-    log.finest("Writing BigInteger to InStream: " +
-	       Util.bigIntegerToString(value));
-    value = value.and(mask);
+  public void write(final BigInteger arg) throws IOException {
+    log.finest("Writing BigInteger to InStream: " + Util.bigIntegerToString(arg));
+    final BigInteger value = arg.and(mask);
     try {
       processor.trigger(Variable.Type.STREAM_IN, value);
     } catch (final ProcessorException exception) {
       throw new IOException(exception.getMessage());
     }
     for (int i = 0; i < widthIn; i++) {
-      if (value.testBit(i)) {
-	buffer = buffer.setBit(offset + i);
-      } else {
-	buffer = buffer.clearBit(offset + i);
-      }
+      buffer = value.testBit(i) ? buffer.setBit(offset + i) : buffer.clearBit(offset + i);
     }
     offset += step;
     if ((--counter) == 0) {
@@ -154,20 +150,20 @@ public class InStream implements Stream {
     log.finer("Flushing InStream");
     if (counter != (inAggregateStream.getWidthInAggregate() / widthIn)) {
       if (endiannessIn == Endianness.BIG) {
-	buffer = buffer.shiftRight(counter * widthIn);
+        buffer = buffer.shiftRight(counter * widthIn);
       }
       inAggregateStream.write(buffer);
       reset();
     }
     inAggregateStream.flush();
-  }	
-    
+  }
+
   // for description see Stream
   @Override
   public void close() throws IOException {
     log.fine("Closing InStream");
     inAggregateStream.close();
-  }	
+  }
 
   // for description see Object
   @Override
@@ -181,14 +177,13 @@ public class InStream implements Stream {
    * @param processor         input tree processor object
    * @param inAggregateStream downstream input aggregate stream
    */
-  public InStream(final InputTreeProcessor processor,
-		  final InAggregateStream inAggregateStream) {
+  public InStream(final InputTreeProcessor processor, final InAggregateStream inAggregateStream) {
     log.fine("InStream creation started");
 
     this.processor = processor;
     this.inAggregateStream = inAggregateStream;
     setDefaults();
-	
+
     log.fine("InStream creation completed");
   }
 }

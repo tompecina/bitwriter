@@ -1,6 +1,6 @@
 /* Connector.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,12 +17,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
-import java.math.BigInteger;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.logging.Logger;
 
 /**
@@ -34,13 +36,11 @@ import java.util.logging.Logger;
 public class Connector {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(Connector.class.getName());
+  private static final Logger log = Logger.getLogger(Connector.class.getName());
 
   // fields
   protected InputTreeProcessor processor;
 
-    
   /**
    * Accessor of the input tree processor.
    *
@@ -52,30 +52,27 @@ public class Connector {
   }
 
   // sanitizes (conditions) data written by script to streams
-  private BigInteger sanitize(final Object value
-			      ) throws ProcessorException {
+  private BigInteger sanitize(final Object value) throws ProcessorException {
     if (value == null) {
-      throw new ProcessorException( "null cannot be converted to number");
+      throw new ProcessorException("null cannot be converted to number");
     }
     BigInteger r = null;
     if (value instanceof BigInteger) {
-      r = (BigInteger)value;
+      r = (BigInteger) value;
     } else {
       try {
-	if (value instanceof Double) {
-	  r = BigInteger.valueOf(Math.round((Double)value));
-	} else {
-	  r = new BigInteger(value.toString());
-	}
-      } catch (final NumberFormatException |
-	       NullPointerException exception) {
-	throw new ProcessorException(
-	  "Value '" + value + "' cannot be converted to number");
+        if (value instanceof Double) {
+          r = BigInteger.valueOf(Math.round((Double) value));
+        } else {
+          r = new BigInteger(value.toString());
+        }
+      } catch (final NumberFormatException | NullPointerException exception) {
+        throw new ProcessorException("Value '" + value + "' cannot be converted to number");
       }
     }
     return r;
   }
-    
+
   /**
    * Writes to the input stream.
    *
@@ -83,8 +80,7 @@ public class Connector {
    * @exception ProcessorException if invalid value supplied
    * @exception IOException        on I/O error
    */
-  public void writeInStream(final Object value
-			    ) throws ProcessorException, IOException {
+  public void writeInStream(final Object value) throws ProcessorException, IOException {
     processor.getInStream().write(sanitize(value));
   }
 
@@ -96,8 +92,7 @@ public class Connector {
    * @exception ProcessorException if invalid value supplied
    * @exception IOException        on I/O error
    */
-  public void write(final Object value
-		    ) throws ProcessorException, IOException {
+  public void write(final Object value) throws ProcessorException, IOException {
     processor.getInStream().write(sanitize(value));
   }
 
@@ -108,9 +103,7 @@ public class Connector {
    * @exception ProcessorException if invalid value supplied
    * @exception IOException        on I/O error
    */
-  public void writeInAggregateStream(final Object value
-				     ) throws ProcessorException,
-					      IOException {
+  public void writeInAggregateStream(final Object value) throws ProcessorException, IOException {
     processor.getInAggregateStream().write(sanitize(value));
   }
 
@@ -121,8 +114,7 @@ public class Connector {
    * @exception ProcessorException if invalid value supplied
    * @exception IOException        on I/O error
    */
-  public void writeBitStream(final Object value
-			     ) throws ProcessorException, IOException {
+  public void writeBitStream(final Object value) throws ProcessorException, IOException {
     processor.getBitStream().write(sanitize(value));
   }
 
@@ -133,9 +125,7 @@ public class Connector {
    * @exception ProcessorException if invalid value supplied
    * @exception IOException        on I/O error
    */
-  public void writeOutAggregateStream(final Object value
-				      ) throws ProcessorException,
-					       IOException {
+  public void writeOutAggregateStream(final Object value) throws ProcessorException, IOException {
     processor.getOutAggregateStream().write(sanitize(value));
   }
 
@@ -146,8 +136,7 @@ public class Connector {
    * @exception ProcessorException if invalid value supplied
    * @exception IOException        on I/O error
    */
-  public void writeOutStream(final Object value
-			     ) throws ProcessorException, IOException {
+  public void writeOutStream(final Object value) throws ProcessorException, IOException {
     processor.getOutStream().write(sanitize(value));
   }
 
@@ -158,9 +147,7 @@ public class Connector {
    * @exception ProcessorException if invalid value supplied
    * @exception IOException        on I/O error
    */
-  public void writeControlledOutputStream(final Object value
-					  ) throws ProcessorException,
-						   IOException {
+  public void writeControlledOutputStream(final Object value) throws ProcessorException, IOException {
     processor.getControlledOutputStream().write(sanitize(value));
   }
 
@@ -172,18 +159,23 @@ public class Connector {
   public void flush() throws IOException {
     processor.getInStream().flush();
   }
-    
+
   // for description see Object
   @Override
   public String toString() {
     return "Connector";
   }
 
+  /**
+   * Main constructor.
+   *
+   * @param processor the processor
+   */
   public Connector(final InputTreeProcessor processor) {
     log.fine("Connection creation started");
 
     this.processor = processor;
-	
+
     log.fine("Connector creation completed");
   }
 }

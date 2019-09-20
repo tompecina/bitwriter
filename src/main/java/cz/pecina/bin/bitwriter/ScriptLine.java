@@ -1,6 +1,6 @@
 /* ScriptLine.java
  *
- * Copyright (C) 2015-19, Tomáš Pecina <tomas@pecina.cz>
+ * Copyright (C) 2015-19, Tomas Pecina <tomas@pecina.cz>
  *
  * This file is part of cz.pecina.bin, a suite of binary-file
  * processing applications.
@@ -17,16 +17,18 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * The source code is available from <https://github.com/tompecina/bitwriter>.
  */
 
 package cz.pecina.bin.bitwriter;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.regex.MatchResult;
 import java.util.logging.Logger;
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parser for parsing of lines containing both script and non-script terms.
@@ -37,8 +39,7 @@ import java.util.logging.Logger;
 public class ScriptLine implements Iterable<String>, Iterator<String> {
 
   // static logger
-  private static final Logger log =
-    Logger.getLogger(ScriptLine.class.getName());
+  private static final Logger log = Logger.getLogger(ScriptLine.class.getName());
 
   // fields
   protected String line;
@@ -49,7 +50,7 @@ public class ScriptLine implements Iterable<String>, Iterator<String> {
   public Iterator<String> iterator() {
     return this;
   }
-    
+
   // for description see Iterator
   @Override
   public boolean hasNext() {
@@ -57,13 +58,9 @@ public class ScriptLine implements Iterable<String>, Iterator<String> {
   }
 
   private static final Pattern PATTERN_SCRIPT =
-    Pattern.compile("(?s)^(" +
-		    Constants.ESCAPED_SCRIPT_PREFIX + ".*?" +
-		    Constants.ESCAPED_SCRIPT_SUFFIX + ")\\s*(.*)$");
-  private static final Pattern PATTERN_NO_SCRIPT_TOKENIZE =
-    Pattern.compile("(?s)^(\\S+)\\s*(.*)$");
-  private static final Pattern PATTERN_NO_SCRIPT_NOT_TOKENIZE =
-    Pattern.compile("(?s)^(.)\\s*(.*)$");
+      Pattern.compile("(?s)^(" + Constants.ESCAPED_SCRIPT_PREFIX + ".*?" + Constants.ESCAPED_SCRIPT_SUFFIX + ")\\s*(.*)$");
+  private static final Pattern PATTERN_NO_SCRIPT_TOKENIZE = Pattern.compile("(?s)^(\\S+)\\s*(.*)$");
+  private static final Pattern PATTERN_NO_SCRIPT_NOT_TOKENIZE = Pattern.compile("(?s)^(.)\\s*(.*)$");
 
   // for description see Iterator
   @Override
@@ -71,16 +68,14 @@ public class ScriptLine implements Iterable<String>, Iterator<String> {
     log.finer("Next chunk requested, line: " + line);
     log.finest("Tokenize: " + tokenize);
     if (line.isEmpty()) {
-      throw new NoSuchElementException(
-        "Trying to access non-existent script line element");
+      throw new NoSuchElementException("Trying to access non-existent script line element");
     }
     Matcher matcher = PATTERN_SCRIPT.matcher(line);
     if (!matcher.matches()) {
       log.finest("Matching line without script prefix: " + line);
-      matcher = (tokenize ? PATTERN_NO_SCRIPT_TOKENIZE :
-		 PATTERN_NO_SCRIPT_NOT_TOKENIZE).matcher(line);
+      matcher = (tokenize ? PATTERN_NO_SCRIPT_TOKENIZE : PATTERN_NO_SCRIPT_NOT_TOKENIZE).matcher(line);
       if (!matcher.matches()) {
-	throw new NoSuchElementException("Error in script: " + line);
+        throw new NoSuchElementException("Error in script: " + line);
       }
     }
     final MatchResult matchResult = matcher.toMatchResult();
@@ -107,9 +102,7 @@ public class ScriptLine implements Iterable<String>, Iterator<String> {
    *                               split into scripts and single characters
    * @exception ProcessorException on error in parameters
    */
-  public ScriptLine(final String line,
-		    final boolean tokenize
-		    ) throws ProcessorException {
+  public ScriptLine(final String line, final boolean tokenize) throws ProcessorException {
     log.fine("Creating script line parser");
 
     if (line == null) {
