@@ -20,3 +20,6 @@ hs_err_pid*
 /build-src
 /target
 *.log
+
+/aux
+/.tags
